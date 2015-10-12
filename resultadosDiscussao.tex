@@ -1,7 +1,29 @@
 \chapter{Resultados e discussão}
 \label{cap:resultados}
 
-\section{O Programa permitirá novos estudos}
+\section{ONEMAX}
+
+	Definir objetivo do problema.
+	
+	Representação cromossomial: zeros e uns.
+	
+	Fitness: soma dos genes.
+	
+	Seleção: por roleta
+	
+	Crossover: ponto único
+	
+	Mutação: simples
+	
+	Gráfico do comportamento do fitness.
+	
+	Listar última geração, mostrando que o algoritmo chegou na solução.
+	
+\section{Robocode}
+
+	Resumir relatório final da disciplina de Inteligência Artificial.
+
+\section{O programa desenvolvido para o método}
 
 O framework é um resultado em si. Coloco aqui ou mantenho no Materiais e Métodos?
 
@@ -16,6 +38,7 @@ Com ele será possível:
 		\item Mudança nos critérios de parada
 	\end{enumerate}	
 \end{enumerate}
+
 
 \section{$f_i = e^{-\lambda(\nabla\rho_i)^2}$ não leva ao mínimo}
 
@@ -55,7 +78,7 @@ Com ele será possível:
 	
 	Ponte pra falar sobre o outro fitness que encontra o mínimo.
 	
-	\section{$f_i = e^{-\lambda(\rho_i - \rho_0)^2}$ leva ao mínimo, mas devemos saber aproximadamente onde ele está}
+	\section{$f_i = e^{-\lambda(\rho_i - \rho_0)^2}$ leva ao autovalor mínimo ($E_0$), mas devemos saber aproximadamente onde ele está}
 	
 	Justificar esse outro fitness com o artigo de 2006.
 	
@@ -71,37 +94,41 @@ Com ele será possível:
 	
 	
 	\begin{enumerate}
-		\item \textbf{O que acontece quando $\rho_0$ está um pouco acima do mínimo?}
+		\item \textbf{O que acontece quando $\rho_0$ está um pouco acima de $E_0$?}
 		
 				Para com $<\rho> \approx \rho_0$
 				
-				Não encontra o menor autovalor.
+				Não encontra o menor autovalor ($E_0$).
 				
-				Porém, verifica-se que o $\nabla \rho \approx 0$.
+				Porém, verifica-se que o $<\nabla \rho> \approx 0$.
 				
 				Então, estamos próximos ao menor autovalor.
+
 				
-		\item \textbf{O que acontece quando $\rho_0$ está um pouco abaixo do mínimo?}
+		\item \textbf{O que acontece quando $\rho_0$ está um pouco abaixo de $\lambda_0$}
 						
-				Encontra o mínimo.
+				Encontra uma aproximação para o autovalor mínimo ($\lambda_0$).
 				
 				$<fitness>$ é próximo a 1 pois $<\rho>$ é próximo de $\rho_0$.
+				
+				$<\nabla \rho> \approx 0$.
+				
 						
-		\item \textbf{O que acontece quando $\rho_0$ está muito acima do mínimo?}
+		\item \textbf{O que acontece quando $\rho_0$ está muito acima de $E_0$?}
 		
-				A escolha para o $\lambda$ se torna mais delicada. (preciso verificar)
+					Acredito que não encontrará uma aproximação para $E_0$, pois a região de busca está muito distante. (verificar)
 					
 				Para com $<\rho> \approx \rho_0$
 				
-				Não encontra o menor autovalor.
+				Verifica-se que o $\nabla \rho >> 0$. Portanto, estamos distantes do menor autovalor.
+						
+		\item \textbf{O que acontece quando $\rho_0$ está muito abaixo de $E_0$?}
 				
-				Verifica-se que o $\nabla \rho >> 0$.
+				Acredito que não encontrará uma aproximação para $E_0$, pois a região de busca está muito distante.
 				
-				Portanto, estamos distantes do menor autovalor.
-					
-		
-		\item \textbf{O que acontece quando $\rho_0$ está muito abaixo do mínimo?}
-		
+				Para com $<\rho> \approx \rho_0$
+				
+				Verifica-se que o $\nabla \rho >> 0$. Portanto, estamos distantes do menor autovalor.
 		
 	\end{enumerate}
 	
@@ -133,7 +160,7 @@ Com ele será possível:
 	
 	Com $\rho = [-200,200]$, gráfico da derivada.
 	
-	Gráfico comparando $f$ com $df/d\rho$. Verificar visualmente que $df/d\rho$ é muito menor.
+	Gráfico comparando $f$ com $df/d\rho$. Verificar visualmente que $df/d\rho$ é muito pequeno, próximo de zero. 
 	
 	Tabela com os valores mostrando que, próximo à $\rho_0$, uma mudança de $\Delta\rho = 0.1$ leva a uma variação de $\Delta f <= 0.000001$.
 	
@@ -141,7 +168,7 @@ Com ele será possível:
 	
 	Veja que para $\rho = [-0.3,+0.3]$ o fitness é igual a 1. Nessa região a o fitness falha na diferenciação dos indivíduos.
 	
-	Para fitness muito pequeno há o mesmo problema. Com isso, pode-se definir uma região do fitness onde a função é apropriada para o uso dos algoritmos genéticos. Figura \ref{fitness_boaRegiao}.
+	Para fitness muito pequeno há o mesmo problema. Com isso, pode-se definir uma região do fitness onde a função é apropriada para o uso dos algoritmos genéticos. Figura \ref{fig:fitness_boaRegiao}.
 	
 	Para Futuro, continuação do trabalho: há alguma maneira de lidar com os parâmetros de $f$ de modo a ficarmos sempre na região boa?
 	
@@ -257,8 +284,29 @@ Com ele será possível:
 		
 	\section{A mistura de $(\rho - \rho_0)^2$ com $\nabla\rho$ não leva a melhores resultados}
 	
-	Como em seção anterior verificamos que $f_i = e^{[-\lambda \nabla \rho]}$ é mais rápido do que $f_i = e^{[-\lambda (\nabla \rho)]}$
+	Como em seção anterior verificamos que $f_i = e^{[-\lambda \nabla \rho]}$ é mais rápido do que $f_i = e^{[-\lambda (\nabla \rho)]}$, e que o $\nabla\rho$ está diretamente associado aos autovalores, pensei na seguinte hipótese: inserir $\nabla \rho$ ao fitness com $(\rho - \rho_0)^2$ traria resultados mais rápidos.
 	
+	Justificativas para a hipótese: 
 	
+	\begin{enumerate}
+		\item Inserir $\nabla \rho$ no fitness puniria os $\rho$'s que, apesar de próximos de $\rho_0$, não fossem autovalor. Em outras palavras, o termo $\rho - \rho_0 \approx 0$, mas $\nabla \rho >> 0$ e, portanto, o fitness ficaria pequeno.
+		
+		\item Como o fitness, a princípio, estaria diferenciamento melhor os bons indivíduos, o algoritmo teria uma taxa de convergência maior.
+		
+	\end{enumerate}
 	
+		Executar $10$ para o primeiro fitness, e, utilizando as mesmas dez sementes, executar outros $10$ testes com ou outro fitness.
+		
+		Comparação dos resultados: gráficos do comportamento do fitness e tabela comparando a velocidade de convergência (em que geração o critério de parada foi atingido), tempo de execução e erro relativo ao menor autovalor ``exato'' (obtido no SciLab).
 	
+	\section{Resultados preliminares na GPU}
+	
+		\subsection{ONEMAX na GPU}
+	
+				ERAD: artigo $+$ poster
+				
+		\subsection{Método paralelizado (versão atual, com ganho de $1,4$}
+		
+				Falar um pouco.
+		
+				
