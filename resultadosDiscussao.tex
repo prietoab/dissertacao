@@ -1,8 +1,28 @@
 \chapter{Resultados e discussão}
 \label{cap:resultados}
 
+\begin{enumerate}
+	
+	\item Parágrafo de introdução do capítulo. Citar que, basicmente, o leitor encontrará no capítulo:
+		\begin{enumerate}
+			\item Resultados do ONEMAX, legitimando o uso do código para o programa mais complexo que foi utilizado no método dos indianos.
+			\item o estudo dos tipos de \textit{fitness}, operador responsável pelo elo entre o algoritmo e o problema \cite{Linden2008}, que, para o nosso caso, é encontrar autovalores. Ponte para o próximo: para cada tipo de \textit{fitness}, um resultado diferente.
+		\end{enumerate}
+
+	\item Os dois tipos de fitness dos indianos. Ideia central: dois tipos, resultados diferentes. Com $\nabla \rho$ chegamos a um autovalor qualquer, com $(\rho - \rho_0)^2$ podemos chegar ao mínimo, mas dá mais trabalho. Ponte para o próximo: proposta de dois novos fitness.
+	
+	\item Combinação de $\nabla \rho$ com $(\rho - \rho_0)^2$. Se cada forma leva a comportamentos diferentes, tentamos combinar os dois termos em um único fitness. Uma hipótese seria a melhoria da qualidade dos resultados. A hipótese não foi confirmada. Ponte para o próximo: a busca pela qualidade levou à verificação da importância do parâmetro $\lambda$.
+	
+	\item Além do que os indianos disseram, que $\lambda$ é escolhido para não estourar a função exponencial, ele tem influência na convergência do algoritmo e na precisão (ou resolução) do fitness. Se na primeira população, geração inicial, o fitness médio é alto, isso provoca convergência precoce, fazendo com que o resultado final seja ruim. Por outro lado, se no início o fitness médio é muito baixo, não há muita discriminação entre os indivíduos, o fitness não cresce e não chegamos a uma solução. A medida que o fitness se aproxima de 1, a discriminação entre os indivíduos fica difícil, levando ao problema da resolução. Ponte para o próximo: vários testes levaram ao desenvolvimento de uma equação empírica para $\lambda$, restrita às matrizes de Coope$-$Sabo \cite{Coope1977}.
+	
+	\item Fórmula empírica. 
+	
+\end{enumerate}
+
 \section{ONEMAX}
 
+	Problema 1: ONEMAX, considerado o ``\textit{Hello World}'' dos algoritmos genéticos.
+	
 	Definir objetivo do problema.
 	
 	Representação cromossomial: zeros e uns.
@@ -19,26 +39,6 @@
 	
 	Listar última geração, mostrando que o algoritmo chegou na solução.
 	
-\section{Robocode}
-
-	Resumir relatório final da disciplina de Inteligência Artificial.
-
-\section{O programa desenvolvido para o método}
-
-O framework é um resultado em si. Coloco aqui ou mantenho no Materiais e Métodos?
-
-Com ele será possível:
-
-\begin{enumerate}
-	\item Estudo do método 
-	\item Estudo de algoritmos genéticos
-	\item Novas aplicações como máximo de função
-	\begin{enumerate}
-		\item Mudança no fitness 
-		\item Mudança nos critérios de parada
-	\end{enumerate}	
-\end{enumerate}
-
 
 \section{$f_i = e^{-\lambda(\nabla\rho_i)^2}$ não leva ao mínimo}
 
@@ -146,6 +146,14 @@ Com ele será possível:
 	
 	Para uma dada função $fitness$, em torno de zero, por exemplo, dar um \textit{zoom} no pico.
 	
+	\begin{figure}[htbp]
+		\centering
+			\includegraphics{figs/varios-fit-mono-zoom.pdf}
+		\caption{Zoom próximo do pico}
+		\label{fig:varios-fit-mono-zoom}
+	\end{figure}
+	
+	
 	Gráficos com $\rho = [-5,5]$ e $\rho = [-0.1,+0.1]$.
 	
 	Verificar que no último gráfico o SciLab já apresenta dificuldades para diferenciar os pontos de $f$.
@@ -173,8 +181,7 @@ Com ele será possível:
 	Para Futuro, continuação do trabalho: há alguma maneira de lidar com os parâmetros de $f$ de modo a ficarmos sempre na região boa?
 	
 	Região boa: entre as duas linhas, quase linear.
-	
-	
+		
 	\begin{figure}[htbp]
 		\centering
 			\includegraphics[width=0.90\textwidth]{figs/resultados/fitness_boaRegiao.pdf}
@@ -246,6 +253,20 @@ Com ele será possível:
 	
 	Gráficos com rho entre 0 e 250 (exemplo pra N=10), mas com cortes em diferentes rhos.
 	
+	\begin{figure}[pt]
+	\centering
+		\includegraphics{figs/varios-fits-color.pdf}
+	\caption{Fitness em função do lambda $-$ colorido}
+	\label{fig:varios-fits-color}
+\end{figure}
+
+\begin{figure}[pb]
+	\centering
+		\includegraphics{figs/varios-fits-mono.pdf}
+	\caption{Fitness em função do lambda}
+	\label{fig:varios-fits-mono}
+\end{figure}
+
 	Explicar que uma boa escolha do $\lambda$ deve cobrir todos os autovalores. Citar as execuções anteriores (boas e ruins em função de cada $\lambda$).
 	
 	Gráfico com $\lambda$ fazendo o fitness cortar em um $\rho$ muito baixo. Discutir puxando as execuções anteriores.
