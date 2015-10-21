@@ -1,12 +1,4 @@
-%%*********************************************************
-%% Essa versão corresponde ao padrão CCPG 001/2015.
-%%
-%% Ela foi adaptada do trabalho anterior de várias pessoas,
-%% e mais detalhes podem ser encontrados abaixo.
-%% 
-%% Adriano Batista Prieto, 16 de outubro de 2015.
-%% adrianoprieto@yahoo.com.br
-%% *********************************************************
+% ------------------------------------------------------------------------
 %Modelos para a edição de dissertações e teses
 %
 %Modelo LaTeX segundo o formato especificado na Informação CCPG 002/2013.
@@ -41,18 +33,18 @@
 % ---- ELEMENTOS PRÉ-TEXTUAIS ----
 \pretextual
 
-%\pagenumbering{roman}
+\pagenumbering{roman}
 
-% 1. Capa
+% --- Capa ---
 \imprimircapa
 % ---
 
-% 2. Folha de Rosto. (o * indica que haverá a ficha catalográfica) ---
-\thispagestyle{empty}
+% --- Folha de rosto (o * indica que haverá a ficha catalográfica) ---
+\setcounter{page}{3}
 \imprimirfolhaderosto*
-% --
+% ---
 
-% 3. Ficha catalográfica ---
+% --- Inserir a ficha catalográfica ---
 
 % A biblioteca da FT lhe fornecerá um PDF
 % com a ficha catalográfica definitiva após a defesa do trabalho. Quando estiver
@@ -60,11 +52,10 @@
 % o conteúdo de implementação deste arquivo pelo comando abaixo:
 
 % --- Para a versão final, delete as linhas abaixo e insira a linha do \includepdf
-\thispagestyle{empty}
  \begin{fichacatalografica}
     \vspace*{\fill}
     \begin{center}
-        \textsc{Inclua aqui o pdf com a ficha catalográfica fornecida.}
+        \textsc{Inclua aqui o pdf com a ficha catalográfica fornecida pela BAE.}
     \end{center}
     \vspace*{\fill}
 % --- --- ---
@@ -73,17 +64,16 @@
 % ---
 
 
-% 4. Folha de aprovação ---
+% --- Inserir folha de aprovação ---
 
 % Após a aprovação do trabalho, substitua todo o conteúdo deste arquivo por uma
 % imagem da página assinada pela banca com o comando abaixo:
 
 % --- Na versão final, exclua essas linhas e insira o \includepdf
 \newpage
-\thispagestyle{empty}
 \vspace*{\fill}
 \begin{center}
-    \textsc{Inclua aqui a Folha de aprovação.}
+    \textsc{Inclua aqui a folha de assinaturas.}
 \end{center}
 \vspace*{\fill}
 \newpage
@@ -91,39 +81,10 @@
 %\includepdf[pagecommand={\thispagestyle{plain}}]{./figs/folha-assinaturas.pdf}	
 \cleardoublepage
 
-% 5. Dedicatória ---
-\begin{dedicatoria}
-    \thispagestyle{empty}
-		\vspace*{\fill}
-    \centering
-    \noindent
-    \textit{Dedico esta tese à todo mundo.}
-    \vspace*{\fill}
-\end{dedicatoria}
-% ---
 
-% 6. Agradecimentos ---
-\begin{agradecimentos}
-    \thispagestyle{empty}
-    Agradecimentos aqui.
-\end{agradecimentos}
+% --- RESUMOS (em português e inglês) ---
 
-% ---
-
-% --- Epígrafe  ---
-\begin{epigrafe}
-	\thispagestyle{empty}
-    \vspace*{\fill}
-	\begin{flushright}
-		\textit{``Escreva aqui a sua epígrafe''\\
-		(Citação)}
-	\end{flushright}
-\end{epigrafe}
-
-
-\thispagestyle{empty}
 \begin{resumo}
-			% 7. RESUMO em português
      Colocar o resumos aqui.
      
     \vspace{\onelineskip}
@@ -132,8 +93,7 @@
 
     \vspace{\onelineskip}
     \vspace{\onelineskip}
-		
-		% 8. Abstract (resumo traduzido para o inglês);
+
     \begin{otherlanguage*}{english}
     \begin{center}{\ABNTEXchapterfont\huge Abstract}\end{center}
     
@@ -143,58 +103,75 @@
     \noindent\textbf{Keywords}: keyword 1; keyword 2; keyword 3.
 
     \end{otherlanguage*}
-		
-		% 9. Resumo em uma terceira língua (opcional);
-		% \begin{otherlanguage*}{english} %% substitua o ``english'' pelo idioma desejado.
-    % \begin{center}{\ABNTEXchapterfont\huge Abstract}\end{center}
-    
-    % Put abstract here.
-    % \vspace{\onelineskip}
-
-    % \noindent\textbf{Keywords}: keyword 1; keyword 2; keyword 3.
-
-    % \end{otherlanguage*}
-		
 \end{resumo}
+% ---
 
-% 10. Lista de ilustrações (opcional);
+% --- inserir o sumário ---
+\pdfbookmark[0]{\contentsname}{toc}
+
+\tableofcontents*
+
+\cleardoublepage
+% ---
+
+% --- Dedicatória ---
+\begin{dedicatoria}
+    \vspace*{\fill}
+    \centering
+    \noindent
+    \textit{Dedico esta tese à todo mundo.}
+    \vspace*{\fill}
+\end{dedicatoria}
+% ---
+
+% --- Agradecimentos ---
+\begin{agradecimentos}
+    
+    
+    Agradecimentos aqui.
+    
+    
+\end{agradecimentos}
+% ---
+
+% --- Epígrafe  ---
+\begin{epigrafe}
+    \vspace*{\fill}
+	\begin{flushright}
+		\textit{``Escreva aqui a sua epígrafe''\\
+		(Citação)}
+	\end{flushright}
+\end{epigrafe}
+% ---
+
+
+% --- inserir lista de ilustrações ---
 \pdfbookmark[0]{\listfigurename}{lof}
 \listoffigures*
-\thispagestyle{empty}
 \cleardoublepage
 % ---
 
-% 11. Lista de Tabelas (opcional);
+% --- inserir lista de tabelas ---
 \pdfbookmark[0]{\listtablename}{lot}
 \listoftables*
-\thispagestyle{empty}
 \cleardoublepage
 % ---
 
-% 12. Lista de Abreviaturas e Siglas (opcional);
+% --- inserir lista de Acronimos e Abreviações ---
 \renewcommand{\nomname}{Lista de Acrônimos e Abreviações}
 \pdfbookmark[0]{\nomname}{las}
 \printnomenclature
-\thispagestyle{empty}
 \cleardoublepage
 % ---
 
-% 13. Lista de Símbolos (opcional);
-
-% ---
-
-% 14. Sumário.
-\pdfbookmark[0]{\contentsname}{toc}
-\tableofcontents*
-\thispagestyle{empty}
-\cleardoublepage
-% ---
+\pagenumbering{arabic}
 
 % ---- ELEMENTOS TEXTUAIS ----
 \textual
 
 % ---- Capítulos ----
-\include{introducao}
+
+
 \include{algebra}
 \include{algoritmosGeneticos}
 \include{metodologia}
@@ -210,6 +187,7 @@
 \bibliography{tese}
 
 % ---- Apêndices ----
+
 \begin{apendicesenv}
 % Imprime uma página indicando o início dos apêndices
 \partapendices
