@@ -1,21 +1,21 @@
-%ARQUIVO DE PREAMBULO DA TESE - PACOTES E CONFIGURAÇÕES
+%ARQUIVO DE PREAMBULO DA TESE - PACOTES E CONFIGURAÃ‡Ã•ES
 
 \documentclass[
-	% -- opções da classe memoir --
+	% -- opÃ§Ãµes da classe memoir --
 	12pt,				% tamanho da fonte
-	openright,			% capítulos começam em pág ímpar (insere página vazia caso preciso)
-	oneside,			% para impressão em verso e anverso. Oposto a oneside. twoside
+	openright,			% capÃ­tulos comeÃ§am em pÃ¡g Ã­mpar (insere pÃ¡gina vazia caso preciso)
+	oneside,			% para impressÃ£o em verso e anverso. Oposto a oneside. twoside
 	a4paper, %letterpaper,		% tamanho do papel.
-	% -- opções da classe abntex2 --
-	%chapter=TITLE,		% títulos de capítulos convertidos em letras maiúsculas
-	%section=TITLE,		% títulos de seções convertidos em letras maiúsculas
-	%subsection=TITLE,	% títulos de subseções convertidos em letras maiúsculas
-	%subsubsection=TITLE,% títulos de subsubseções convertidos em letras maiúsculas
-	% -- opções do pacote babel --
-	english,			% idioma adicional para hifenização
-	%french,			% idioma adicional para hifenização
-	%spanish,			% idioma adicional para hifenização
-	brazil,				% o último idioma é o principal do documento
+	% -- opÃ§Ãµes da classe abntex2 --
+	%chapter=TITLE,		% tÃ­tulos de capÃ­tulos convertidos em letras maiÃºsculas
+	%section=TITLE,		% tÃ­tulos de seÃ§Ãµes convertidos em letras maiÃºsculas
+	%subsection=TITLE,	% tÃ­tulos de subseÃ§Ãµes convertidos em letras maiÃºsculas
+	%subsubsection=TITLE,% tÃ­tulos de subsubseÃ§Ãµes convertidos em letras maiÃºsculas
+	% -- opÃ§Ãµes do pacote babel --
+	english,			% idioma adicional para hifenizaÃ§Ã£o
+	%french,			% idioma adicional para hifenizaÃ§Ã£o
+	%spanish,			% idioma adicional para hifenizaÃ§Ã£o
+	brazil,				% o Ãºltimo idioma Ã© o principal do documento
 	sumario=tradicional,
 	]{abntex2}
 
@@ -25,17 +25,17 @@
 	\usepackage{cmap}				% Mapear caracteres especiais no PDF
 	\usepackage{lmodern}			% Usa a fonte Latin Modern		
 	\usepackage[T1]{fontenc}		% Selecao de codigos de fonte.
-	\usepackage[latin1]{inputenc}	% Codificacao do documento (conversão automática dos acentos)
-	% original \usepackage[utf8]{inputenc}		% Codificacao do documento (conversão automática dos acentos)
-	\usepackage{lastpage}			% Usado pela Ficha catalográfica
-	\usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
+	%\usepackage[latin1]{inputenc}	% Codificacao do documento (conversÃ£o automÃ¡tica dos acentos)
+	\usepackage[utf8]{inputenc}		% Codificacao do documento (conversÃ£o automÃ¡tica dos acentos)
+	\usepackage{lastpage}			% Usado pela Ficha catalogrÃ¡fica
+	\usepackage{indentfirst}		% Indenta o primeiro parÃ¡grafo de cada seÃ§Ã£o.
 	\usepackage{color}				% Controle das cores
-	\usepackage[pdftex]{graphicx}	% Inclusão de gráficos
+	\usepackage[pdftex]{graphicx}	% InclusÃ£o de grÃ¡ficos
 	\usepackage{epstopdf}           % Pacote que converte as figuras em eps para pdf
 	% ---
-	\usepackage{hyphenat} % para deixar de fazer a hifenização em trechos específicos
+	\usepackage{hyphenat} % para deixar de fazer a hifenizaÃ§Ã£o em trechos especÃ­ficos
 	% ---
-	% Pacotes adicionais, usados apenas no âmbito do Modelo Canônico do abnteX2
+	% Pacotes adicionais, usados apenas no Ã¢mbito do Modelo CanÃ´nico do abnteX2
 	% ---
 	\usepackage{nomencl}
 	\usepackage{amsmath}
@@ -48,46 +48,46 @@
 	% ---
 
 	% ---
-	% Pacotes de citações
+	% Pacotes de citaÃ§Ãµes
 	% ---
-	%\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
-	\usepackage[alf,abnt-etal-cite=2,abnt-etal-list=0,abnt-etal-text=emph]{abntex2cite}	% Citações padrão ABNT
+	%\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citaÃ§Ãµes na bibl
+	\usepackage[alf,abnt-etal-cite=2,abnt-etal-list=0,abnt-etal-text=emph]{abntex2cite}	% CitaÃ§Ãµes padrÃ£o ABNT
 
 	% ---
-	% Pacote de customização - Unicamp
+	% Pacote de customizaÃ§Ã£o - Unicamp
 	% ---
 	\usepackage{unicamp}
 	
 	% ---
-	% CONFIGURAçõES DE PACOTES
+	% CONFIGURAÃ§ÃµES DE PACOTES
 	% ---
 
 	% ---
-	% Configurações do pacote backref
-	% Usado sem a opção hyperpageref de backref
+	% ConfiguraÃ§Ãµes do pacote backref
+	% Usado sem a opÃ§Ã£o hyperpageref de backref
 
-	%customização do negrito em ambientes matemáticos
+	%customizaÃ§Ã£o do negrito em ambientes matemÃ¡ticos
 	\newcommand{\mb}[1]{\mathbf{#1}}
 
-	%customização de teoremas
-	\newtheorem{mydef}{Definição}[chapter]
+	%customizaÃ§Ã£o de teoremas
+	\newtheorem{mydef}{DefiniÃ§Ã£o}[chapter]
 	\newtheorem{lemm}{Lema}[chapter]
 	\newtheorem{theorem}{Teorema}[chapter]
 	\floatname{algorithm}{Pseudoc\'{o}digo}
 	\renewcommand{\listalgorithmname}{Lista de Pseudoc\'{o}digos}
 
-	% Para mudar fonte dos títulos de capítulos, de secões, etc  para padrão Latex (fonte cmr) descomente a linha a seguir. 
+	% Para mudar fonte dos tÃ­tulos de capÃ­tulos, de secÃµes, etc  para padrÃ£o Latex (fonte cmr) descomente a linha a seguir. 
 	%\renewcommand{\ABNTEXchapterfont}{\fontfamily{cmr}\fontseries{b}\selectfont}
 
 	% ---
-	% Configurações de aparência do PDF final
+	% ConfiguraÃ§Ãµes de aparÃªncia do PDF final
 
 	% alterando o aspecto da cor azul
 	\definecolor{blue}{RGB}{41,5,195}
 
 
 
-	% informações do PDF
+	% informaÃ§Ãµes do PDF
 	\makeatletter
 	\hypersetup{
 				%pagebackref=true,
@@ -98,7 +98,7 @@
 			pdfkeywords={abnt}{latex}{abntex}{abntex2}{trabalho acad\^{e}mico},
 			%hidelinks,					% desabilita as bordas dos links
 			colorlinks=true,       	    % false: boxed links; true: colored links
-			% aqui vc pode trocar a cor dos links do sumário, lista de figs, etc.
+			% aqui vc pode trocar a cor dos links do sumÃ¡rio, lista de figs, etc.
 				linkcolor=red,          	% color of internal links
 				citecolor=blue,        		% color of links to bibliography
 				filecolor=magenta,      	% color of file links
@@ -110,19 +110,19 @@
 	% ---
 
 	% ---
-	% Espaçamentos entre linhas e parágrafos
+	% EspaÃ§amentos entre linhas e parÃ¡grafos
 	% ---
 
-	% O tamanho do parágrafo é dado por:
+	% O tamanho do parÃ¡grafo Ã© dado por:
 	\setlength{\parindent}{2.0cm}
 
-	% Controle do espaçamento entre um parágrafo e outro:
-	\setlength{\parskip}{0.2cm}  % tente também \onelineskip
+	% Controle do espaÃ§amento entre um parÃ¡grafo e outro:
+	\setlength{\parskip}{0.2cm}  % tente tambÃ©m \onelineskip
 
 	% ---
 	% Informacoes de dados para CAPA e FOLHA DE ROSTO
 	% ---
-	\titulo{Título da Dissertação/Tese}
+	\titulo{TÃ­tulo da DissertaÃ§Ã£o/Tese}
 	\autor{Adriano Batista Prieto}
 	\local{Limeira}
 	\data{2015}
@@ -135,8 +135,8 @@
 			}
 
 	%\tipotrabalho{Doutorado}	
-	%\preambulo{ Dissertação/Tese apresentada à Faculdade/Instituto da Universidade Estadual de Campinas como parte dos requisitos exigidos para a obtenção do título de Mestre(a)/Doutor(a) em <NOME DO TÍTULO>, na Àrea de <NOME DA ÁREA> (para teses/dissetações redigidas em português)}
+	%\preambulo{ DissertaÃ§Ã£o/Tese apresentada Ã  Faculdade/Instituto da Universidade Estadual de Campinas como parte dos requisitos exigidos para a obtenÃ§Ã£o do tÃ­tulo de Mestre(a)/Doutor(a) em <NOME DO TÃTULO>, na Ã€rea de <NOME DA ÃREA> (para teses/dissetaÃ§Ãµes redigidas em portuguÃªs)}
 
-	\tipotrabalho{Dissertação (Mestrado)}
-	\preambulo{ \textit{\nohyphens{Dissertação apresentada à Faculdade de Tecnologia da Universidade Estadual de Campinas como parte dos requisitos exigidos para a obtenção do título de Mestre em Tecnologia, na área de Tecnologia e Inovação.}}}
+	\tipotrabalho{DissertaÃ§Ã£o (Mestrado)}
+	\preambulo{ \textit{\nohyphens{DissertaÃ§Ã£o apresentada Ã  Faculdade de Tecnologia da Universidade Estadual de Campinas como parte dos requisitos exigidos para a obtenÃ§Ã£o do tÃ­tulo de Mestre em Tecnologia, na Ã¡rea de Tecnologia e InovaÃ§Ã£o.}}}
 	% ---

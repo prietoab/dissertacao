@@ -1,130 +1,119 @@
-\chapter{Resultados e discuss„o}
+\chapter{Resultados e discuss√£o}
 \label{cap:resultados}
 
 \begin{enumerate}
 	
-	\item Par·grafo de introduÁ„o do capÌtulo. Citar que, basicmente, o leitor encontrar· no capÌtulo:
+	\item Par√°grafo de introdu√ß√£o do cap√≠tulo. Citar que, basicmente, o leitor encontrar√° no cap√≠tulo:
 		\begin{enumerate}
-			\item Resultados do ONEMAX, legitimando o uso do cÛdigo para o programa mais complexo que foi utilizado no mÈtodo dos indianos.
-			\item o estudo dos tipos de \textit{fitness}, operador respons·vel pelo elo entre o algoritmo e o problema \cite{Linden2008}, que, para o nosso caso, È encontrar autovalores. Ponte para o prÛximo: para cada tipo de \textit{fitness}, um resultado diferente.
+			\item Resultados do ONEMAX, legitimando o uso do c√≥digo para o programa mais complexo que foi utilizado no m√©todo dos indianos.
+			\item o estudo dos tipos de \textit{fitness}, operador respons√°vel pelo elo entre o algoritmo e o problema \cite{Linden2008}, que, para o nosso caso, √© encontrar autovalores. Ponte para o pr√≥ximo: para cada tipo de \textit{fitness}, um resultado diferente.
 		\end{enumerate}
 
-	\item Os dois tipos de fitness dos indianos. Ideia central: dois tipos, resultados diferentes. Com $\nabla \rho$ chegamos a um autovalor qualquer, com $(\rho - \rho_0)^2$ podemos chegar ao mÌnimo, mas d· mais trabalho. Ponte para o prÛximo: proposta de dois novos fitness.
+	\item Os dois tipos de fitness dos indianos. Ideia central: dois tipos, resultados diferentes. Com $\nabla \rho$ chegamos a um autovalor qualquer, com $(\rho - \rho_0)^2$ podemos chegar ao m√≠nimo, mas d√° mais trabalho. Ponte para o pr√≥ximo: proposta de dois novos fitness.
 	
-	\item CombinaÁ„o de $\nabla \rho$ com $(\rho - \rho_0)^2$. Se cada forma leva a comportamentos diferentes, tentamos combinar os dois termos em um ˙nico fitness. Uma hipÛtese seria a melhoria da qualidade dos resultados. A hipÛtese n„o foi confirmada. Ponte para o prÛximo: a busca pela qualidade levou ‡ verificaÁ„o da import‚ncia do par‚metro $\lambda$.
+	\item Combina√ß√£o de $\nabla \rho$ com $(\rho - \rho_0)^2$. Se cada forma leva a comportamentos diferentes, tentamos combinar os dois termos em um √∫nico fitness. Uma hip√≥tese seria a melhoria da qualidade dos resultados. A hip√≥tese n√£o foi confirmada. Ponte para o pr√≥ximo: a busca pela qualidade levou √† verifica√ß√£o da import√¢ncia do par√¢metro $\lambda$.
 	
-	\item AlÈm do que os indianos disseram, que $\lambda$ È escolhido para n„o estourar a funÁ„o exponencial, ele tem influÍncia na convergÍncia do algoritmo e na precis„o (ou resoluÁ„o) do fitness. Se na primeira populaÁ„o, geraÁ„o inicial, o fitness mÈdio È alto, isso provoca convergÍncia precoce, fazendo com que o resultado final seja ruim. Por outro lado, se no inÌcio o fitness mÈdio È muito baixo, n„o h· muita discriminaÁ„o entre os indivÌduos, o fitness n„o cresce e n„o chegamos a uma soluÁ„o. A medida que o fitness se aproxima de 1, a discriminaÁ„o entre os indivÌduos fica difÌcil, levando ao problema da resoluÁ„o. Ponte para o prÛximo: v·rios testes levaram ao desenvolvimento de uma equaÁ„o empÌrica para $\lambda$, restrita ‡s matrizes de Coope$-$Sabo \cite{Coope1977}.
+	\item Al√©m do que os indianos disseram, que $\lambda$ √© escolhido para n√£o estourar a fun√ß√£o exponencial, ele tem influ√™ncia na converg√™ncia do algoritmo e na precis√£o (ou resolu√ß√£o) do fitness. Se na primeira popula√ß√£o, gera√ß√£o inicial, o fitness m√©dio √© alto, isso provoca converg√™ncia precoce, fazendo com que o resultado final seja ruim. Por outro lado, se no in√≠cio o fitness m√©dio √© muito baixo, n√£o h√° muita discrimina√ß√£o entre os indiv√≠duos, o fitness n√£o cresce e n√£o chegamos a uma solu√ß√£o. A medida que o fitness se aproxima de 1, a discrimina√ß√£o entre os indiv√≠duos fica dif√≠cil, levando ao problema da resolu√ß√£o. Ponte para o pr√≥ximo: v√°rios testes levaram ao desenvolvimento de uma equa√ß√£o emp√≠rica para $\lambda$, restrita √†s matrizes de Coope$-$Sabo \cite{Coope1977}.
 	
-	\item FÛrmula empÌrica. 
+	\item F√≥rmula emp√≠rica. Por j√° conhecermos de antem√£o os autovalores das matrizes de Coope$-$Sabo, foi poss√≠vel criar uma f√≥rmula emp√≠rica para $\lambda$. Ela garante que na primeira popula√ß√£o o \textsl{fitness} m√©dio √© baixo, previnindo o \textsl{underflow} do \textit{fitness} e a converg√™ncia prematura.
 	
 \end{enumerate}
-
-\section{ONEMAX}
-
-	Problema 1: ONEMAX, considerado o ``\textit{Hello World}'' dos algoritmos genÈticos.
 	
-	Definir objetivo do problema.
-	
-	RepresentaÁ„o cromossomial: zeros e uns.
-	
-	Fitness: soma dos genes.
-	
-	SeleÁ„o: por roleta
-	
-	Crossover: ponto ˙nico
-	
-	MutaÁ„o: simples
-	
-	Gr·fico do comportamento do fitness.
-	
-	Listar ˙ltima geraÁ„o, mostrando que o algoritmo chegou na soluÁ„o.
-	
-
-\section{$f_i = e^{-\lambda(\nabla\rho_i)^2}$ n„o leva ao mÌnimo}
+\section{O m√©todo n√£o leva ao m√≠nimo global}	
 
 	Retomar brevemente o artigo de 2004. 
 	
 	Focar no fitness.
 	
-	Apresentar os par‚metros utilizados no artigo de 2004 para os testes.
+	Apresentar os par√¢metros utilizados no artigo de 2004 \cite{metodo2004} para os testes.
 	
-	AplicaÁ„o desse par‚metros em matrizes de Coope-Sabo de ordem	N = 10, 20, 30, 40, 50, 60, 70, 80, 90 e 100.
+	Par√¢metros:
 	
-	Dez execuÁıes com sementes distintas. (precis„o boa)
+	\begin{itemize}
+		\item N√∫mero de indiv√≠duos: 20.
+		\item Probabilidade de \textit{crossover}: 0,75.
+		\item Probabilidade de muta√ß√£o: 0,5.
+		\item Intensidade de muta√ß√£o: n√£o fala explicitamente. utilizado 0,01, valor estipulado durante a explica√ß√£o do m√©todo.
+		
+	\end{itemize}
 	
-	Gr·ficos do comportamento do \textit{fitness} (fitness em funÁ„o das geraÁıes).
+	Aplica√ß√£o desse par√¢metros em matrizes de Coope-Sabo de ordem	N = 10, 20, 30, 40, 50, 60, 70, 80, 90 e 100.
 	
-	Gr·ficos do comportamento do $\rho$.
+	Dez execu√ß√µes com sementes distintas. (precis√£o boa)
 	
-	Tabela com valores na parada da(o): geraÁ„o, $\rho$, \textit{fitness}, autovalor relacionado ao mÌnimo local, erro em relaÁ„o a esse mÌnimo local, autovalor que o programa acabou preso (mÌnimo local).
+	Gr√°ficos do comportamento do \textit{fitness} (fitness em fun√ß√£o das gera√ß√µes).
 	
-	\textbf{\textcolor[rgb]{1,0,0}{Novidade}}: VerificaÁ„o empÌrica que o fitness na forma $f_i = e^{-\lambda(\nabla\rho)^2}$ n„o leva ao autovalor mÌnimo, mas est· sujeito a mÌnimos locais.
+	Gr√°ficos do comportamento do $\rho$.
 	
-	Explicar retomando os fatos sobre cociente de Rayleigh apresentados no (futuro) capÌtulo de ·lgebra linear.
+	Tabela com valores na parada da(o): gera√ß√£o, $\rho$, \textit{fitness}, autovalor relacionado ao m√≠nimo local, erro em rela√ß√£o a esse m√≠nimo local, autovalor que o programa acabou preso (m√≠nimo local).
 	
-	Apesar de n„o chegar ao mÌnimo, pode ser utilizado de maneira exploratÛria. Relembrar as dez execuÁıes anteriores e verificar que houve diferentes autovalores encontrados.
+	\textbf{\textcolor[rgb]{1,0,0}{Novidade}}: Verifica√ß√£o emp√≠rica que o fitness na forma $f_i = e^{-\lambda(\nabla\rho)^2}$ n√£o leva ao autovalor m√≠nimo, mas est√° sujeito a m√≠nimos locais.
 	
-	Problema: lentid„o. Ponte para ...
+	Explicar retomando os fatos sobre cociente de Rayleigh apresentados no (futuro) cap√≠tulo de √°lgebra linear.
 	
-	\section{$f_i = e^{[-\lambda \nabla \rho]}$ È mais r·pido do que $f_i = e^{[-\lambda (\nabla \rho)^2]}$}
+	Apesar de n√£o chegar ao m√≠nimo, pode ser utilizado de maneira explorat√≥ria. Relembrar as dez execu√ß√µes anteriores e verificar que houve diferentes autovalores encontrados.
 	
-	Como um dos critÈrios de parada utiliza $\nabla \rho$ (sem quadrado), testamos essa forma no fitness.
+	Problema: lentid√£o. Ponte para ...
 	
-	V·rias execuÁıes.
+	\section{$f_i = e^{[-\lambda \nabla \rho]}$ √© mais r√°pido do que $f_i = e^{[-\lambda (\nabla \rho)^2]}$}
 	
-	Gr·fico comparando o comportamento (um termina mais r·pido)
+	Como um dos crit√©rios de parada utiliza $\nabla \rho$ (sem quadrado), testamos essa forma no fitness.
 	
-	Tabela com os detalhes explÌcitos do do ganho.
+	V√°rias execu√ß√µes.
 	
-	Ponte pra falar sobre o outro fitness que encontra o mÌnimo.
+	Gr√°fico comparando o comportamento (um termina mais r√°pido)
 	
-	\section{$f_i = e^{-\lambda(\rho_i - \rho_0)^2}$ leva ao autovalor mÌnimo ($E_0$), mas devemos saber aproximadamente onde ele est·}
+	Tabela com os detalhes expl√≠citos do do ganho.
+	
+	Ponte pra falar sobre o outro fitness que encontra o m√≠nimo.
+	
+	\section{$f_i = e^{-\lambda(\rho_i - \rho_0)^2}$ leva ao autovalor m√≠nimo ($E_0$), mas devemos saber aproximadamente onde ele est√°}
 	
 	Justificar esse outro fitness com o artigo de 2006.
 	
-	Discutir a introduÁ„o do novo par‚metro $\rho_0$.
+	Discutir a introdu√ß√£o do novo par√¢metro $\rho_0$.
 	
-	Com $\rho = 0$, realizar exatamente as mesmas execuÁıes da seÁ„o anterior.
+	Com $\rho = 0$, realizar exatamente as mesmas execu√ß√µes da se√ß√£o anterior.
 	
-	Realizar dez execuÁıes com precis„o boa para N = 10 e N = 100;
+	Realizar dez execu√ß√µes com precis√£o boa para N = 10 e N = 100;
 	
-	Verificar que foi possÌvel chegar no mÌnimo autovalor.
+	Verificar que foi poss√≠vel chegar no m√≠nimo autovalor.
 	
-	Exemplos de execuÁ„o:
+	Exemplos de execu√ß√£o:
 	
 	
 	\begin{enumerate}
-		\item \textbf{O que acontece quando $\rho_0$ est· um pouco acima de $E_0$?}
+		\item \textbf{O que acontece quando $\rho_0$ est√° um pouco acima de $E_0$?}
 		
 				Para com $<\rho> \approx \rho_0$
 				
-				N„o encontra o menor autovalor ($E_0$).
+				N√£o encontra o menor autovalor ($E_0$).
 				
-				PorÈm, verifica-se que o $<\nabla \rho> \approx 0$.
+				Por√©m, verifica-se que o $<\nabla \rho> \approx 0$.
 				
-				Ent„o, estamos prÛximos ao menor autovalor.
+				Ent√£o, estamos pr√≥ximos ao menor autovalor.
 
 				
-		\item \textbf{O que acontece quando $\rho_0$ est· um pouco abaixo de $\lambda_0$}
+		\item \textbf{O que acontece quando $\rho_0$ est√° um pouco abaixo de $\lambda_0$}
 						
-				Encontra uma aproximaÁ„o para o autovalor mÌnimo ($\lambda_0$).
+				Encontra uma aproxima√ß√£o para o autovalor m√≠nimo ($\lambda_0$).
 				
-				$<fitness>$ È prÛximo a 1 pois $<\rho>$ È prÛximo de $\rho_0$.
+				$<fitness>$ √© pr√≥ximo a 1 pois $<\rho>$ √© pr√≥ximo de $\rho_0$.
 				
 				$<\nabla \rho> \approx 0$.
 				
 						
-		\item \textbf{O que acontece quando $\rho_0$ est· muito acima de $E_0$?}
+		\item \textbf{O que acontece quando $\rho_0$ est√° muito acima de $E_0$?}
 		
-					Acredito que n„o encontrar· uma aproximaÁ„o para $E_0$, pois a regi„o de busca est· muito distante. (verificar)
+					Acredito que n√£o encontrar√° uma aproxima√ß√£o para $E_0$, pois a regi√£o de busca est√° muito distante. (verificar)
 					
 				Para com $<\rho> \approx \rho_0$
 				
 				Verifica-se que o $\nabla \rho >> 0$. Portanto, estamos distantes do menor autovalor.
 						
-		\item \textbf{O que acontece quando $\rho_0$ est· muito abaixo de $E_0$?}
+		\item \textbf{O que acontece quando $\rho_0$ est√° muito abaixo de $E_0$?}
 				
-				Acredito que n„o encontrar· uma aproximaÁ„o para $E_0$, pois a regi„o de busca est· muito distante.
+				Acredito que n√£o encontrar√° uma aproxima√ß√£o para $E_0$, pois a regi√£o de busca est√° muito distante.
 				
 				Para com $<\rho> \approx \rho_0$
 				
@@ -132,66 +121,66 @@
 		
 	\end{enumerate}
 	
-	Citar brevemente a relaÁ„o entre a dificuldade (parece uma inÈrcia) de melhorar a precis„o dos resultados no final, dizer que isso est· relacionado com o formato da funÁ„o \textit{fitness}.
+	Citar brevemente a rela√ß√£o entre a dificuldade (parece uma in√©rcia) de melhorar a precis√£o dos resultados no final, dizer que isso est√° relacionado com o formato da fun√ß√£o \textit{fitness}.
 	
-	Ponte para a discuss„o do \textit{fitness}
+	Ponte para a discuss√£o do \textit{fitness}
 	
-\section{$f_i = e^{-\lambda(\rho_i - \rho_0)^2}$ prÛximo de $\rho$ È intrinsicamente impreciso}
+\section{$f_i = e^{-\lambda(\rho_i - \rho_0)^2}$ pr√≥ximo de $\rho$ √© intrinsicamente impreciso}
 	
-	Como $\lambda$ e $\rho_0$ s„o constantes por definiÁ„o, $f_i$ È uma funÁ„o apenas de $\rho$.
+	Como $\lambda$ e $\rho_0$ s√£o constantes por defini√ß√£o, $f_i$ √© uma fun√ß√£o apenas de $\rho$.
 	
-	FunÁ„o simÈtrica em torno de $\rho_0$.
+	Fun√ß√£o sim√©trica em torno de $\rho_0$.
 	
-	Gr·fico com diferentes $\rho_0$'s para o domÌnio $\rho = [-200,200]$. 
+	Gr√°fico com diferentes $\rho_0$'s para o dom√≠nio $\rho = [-200,200]$. 
 	
-	Para uma dada funÁ„o $fitness$, em torno de zero, por exemplo, dar um \textit{zoom} no pico.
+	Para uma dada fun√ß√£o $fitness$, em torno de zero, por exemplo, dar um \textit{zoom} no pico.
 	
 	\begin{figure}[htbp]
 		\centering
 			\includegraphics{figs/varios-fit-mono-zoom.pdf}
-		\caption{Zoom prÛximo do pico}
+		\caption{Zoom pr√≥ximo do pico}
 		\label{fig:varios-fit-mono-zoom}
 	\end{figure}
 	
 	
-	Gr·ficos com $\rho = [-5,5]$ e $\rho = [-0.1,+0.1]$.
+	Gr√°ficos com $\rho = [-5,5]$ e $\rho = [-0.1,+0.1]$.
 	
-	Verificar que no ˙ltimo gr·fico o SciLab j· apresenta dificuldades para diferenciar os pontos de $f$.
+	Verificar que no √∫ltimo gr√°fico o SciLab j√° apresenta dificuldades para diferenciar os pontos de $f$.
 	
-	Gr·fico da variaÁ„o do fitness como funÁ„o da variaÁ„o do $\rho$ (a derivada).
+	Gr√°fico da varia√ß√£o do fitness como fun√ß√£o da varia√ß√£o do $\rho$ (a derivada).
 	
-	A derivada È 
+	A derivada √© 
 	
 	$$
 		\frac{df}{d\rho} = -2\lambda(\rho - \rho0)e^{-\lambda(\rho - \rho0)^2}
 	$$
 	
-	Com $\rho = [-200,200]$, gr·fico da derivada.
+	Com $\rho = [-200,200]$, gr√°fico da derivada.
 	
-	Gr·fico comparando $f$ com $df/d\rho$. Verificar visualmente que $df/d\rho$ È muito pequeno, prÛximo de zero. 
+	Gr√°fico comparando $f$ com $df/d\rho$. Verificar visualmente que $df/d\rho$ √© muito pequeno, pr√≥ximo de zero. 
 	
-	Tabela com os valores mostrando que, prÛximo ‡ $\rho_0$, uma mudanÁa de $\Delta\rho = 0.1$ leva a uma variaÁ„o de $\Delta f <= 0.000001$.
+	Tabela com os valores mostrando que, pr√≥ximo √† $\rho_0$, uma mudan√ßa de $\Delta\rho = 0.1$ leva a uma varia√ß√£o de $\Delta f <= 0.000001$.
 	
-	Para o algoritmo genÈtico isso È ruim. Cada rho est· associado a um indivÌduo e o fitness deve diferenciar cada um, de modo que a maior nota È dada ao indivÌduo mais prÛximo da soluÁ„o.
+	Para o algoritmo gen√©tico isso √© ruim. Cada rho est√° associado a um indiv√≠duo e o fitness deve diferenciar cada um, de modo que a maior nota √© dada ao indiv√≠duo mais pr√≥ximo da solu√ß√£o.
 	
-	Veja que para $\rho = [-0.3,+0.3]$ o fitness È igual a 1. Nessa regi„o a o fitness falha na diferenciaÁ„o dos indivÌduos.
+	Veja que para $\rho = [-0.3,+0.3]$ o fitness √© igual a 1. Nessa regi√£o a o fitness falha na diferencia√ß√£o dos indiv√≠duos.
 	
-	Para fitness muito pequeno h· o mesmo problema. Com isso, pode-se definir uma regi„o do fitness onde a funÁ„o È apropriada para o uso dos algoritmos genÈticos. Figura \ref{fig:fitness_boaRegiao}.
+	Para fitness muito pequeno h√° o mesmo problema. Com isso, pode-se definir uma regi√£o do fitness onde a fun√ß√£o √© apropriada para o uso dos algoritmos gen√©ticos. Figura \ref{fig:fitness_boaRegiao}.
 	
-	Para Futuro, continuaÁ„o do trabalho: h· alguma maneira de lidar com os par‚metros de $f$ de modo a ficarmos sempre na regi„o boa?
+	Para Futuro, continua√ß√£o do trabalho: h√° alguma maneira de lidar com os par√¢metros de $f$ de modo a ficarmos sempre na regi√£o boa?
 	
-	Regi„o boa: entre as duas linhas, quase linear.
+	Regi√£o boa: entre as duas linhas, quase linear.
 		
 	\begin{figure}[htbp]
 		\centering
 			\includegraphics[width=0.90\textwidth]{figs/resultados/fitness_boaRegiao.pdf}
-		\caption{Boa regi„o para o fitness (entre as duas linhas)}
+		\caption{Boa regi√£o para o fitness (entre as duas linhas)}
 		\label{fig:fitness_boaRegiao}
 	\end{figure}
 	
-	H· um limite de precis„o intrÌnseco com o uso desse fitness.
+	H√° um limite de precis√£o intr√≠nseco com o uso desse fitness.
 	
-	Por isso a dificuldade em melhorar a precis„o.
+	Por isso a dificuldade em melhorar a precis√£o.
 	
 	% Table generated by Excel2LaTeX from sheet 'Plan2'
 \begin{tabular}{rr}
@@ -243,82 +232,82 @@
 \end{tabular}  
 
 		
-		O par‚metro $\lambda$ tambÈm influencia fortemente o fitness e o algoritmo genÈtico.
+		O par√¢metro $\lambda$ tamb√©m influencia fortemente o fitness e o algoritmo gen√©tico.
 		
-		Ponte para a discuss„o do $\lambda$.
+		Ponte para a discuss√£o do $\lambda$.
 		
 	\section{Por que o $\lambda$ deve ser escolhido cuidadosamente?}
 	
-	ExecuÁıes para N=10 com diferentes $\lambda$'s. Com os gr·ficos, explicar o que o artigo de 2004 quis dizer com \textit{fitness overflow/underflow}.
+	Execu√ß√µes para N=10 com diferentes $\lambda$'s. Com os gr√°ficos, explicar o que o artigo de 2004 quis dizer com \textit{fitness overflow/underflow}.
 	
-	Gr·ficos com rho entre 0 e 250 (exemplo pra N=10), mas com cortes em diferentes rhos.
+	Gr√°ficos com rho entre 0 e 250 (exemplo pra N=10), mas com cortes em diferentes rhos.
 	
 	\begin{figure}[pt]
 	\centering
 		\includegraphics{figs/varios-fits-color.pdf}
-	\caption{Fitness em funÁ„o do lambda $-$ colorido}
+	\caption{Fitness em fun√ß√£o do lambda $-$ colorido}
 	\label{fig:varios-fits-color}
 \end{figure}
 
 \begin{figure}[pb]
 	\centering
 		\includegraphics{figs/varios-fits-mono.pdf}
-	\caption{Fitness em funÁ„o do lambda}
+	\caption{Fitness em fun√ß√£o do lambda}
 	\label{fig:varios-fits-mono}
 \end{figure}
 
-	Explicar que uma boa escolha do $\lambda$ deve cobrir todos os autovalores. Citar as execuÁıes anteriores (boas e ruins em funÁ„o de cada $\lambda$).
+	Explicar que uma boa escolha do $\lambda$ deve cobrir todos os autovalores. Citar as execu√ß√µes anteriores (boas e ruins em fun√ß√£o de cada $\lambda$).
 	
-	Gr·fico com $\lambda$ fazendo o fitness cortar em um $\rho$ muito baixo. Discutir puxando as execuÁıes anteriores.
+	Gr√°fico com $\lambda$ fazendo o fitness cortar em um $\rho$ muito baixo. Discutir puxando as execu√ß√µes anteriores.
 	
-	Outro gr·fico, mas com $\lambda$ fazendo o fitness cortar em um $\rho$ muito alto. Discutir puxando as execuÁıes anteriores.
+	Outro gr√°fico, mas com $\lambda$ fazendo o fitness cortar em um $\rho$ muito alto. Discutir puxando as execu√ß√µes anteriores.
 	
-	Gr·fico com uma boa escolha de $\lambda$. Discutir puxando as execuÁıes anteriores.
+	Gr√°fico com uma boa escolha de $\lambda$. Discutir puxando as execu√ß√µes anteriores.
 	
-	ApÛs estimativa, refinar a obtenÁ„o do $\lambda$. Alterar o $lambda$ (valores em torno da estimativa), executar o programa para verificar se o fitness mÈdio da primeira populaÁ„o È baixo. (se a populaÁ„o inicial tem fitness muito grande, h· convergÍncia prematura).
+	Ap√≥s estimativa, refinar a obten√ß√£o do $\lambda$. Alterar o $lambda$ (valores em torno da estimativa), executar o programa para verificar se o fitness m√©dio da primeira popula√ß√£o √© baixo. (se a popula√ß√£o inicial tem fitness muito grande, h√° converg√™ncia prematura).
 	
 	Tabela com alguns $lambdas$ encontrados dessa maneira (estimativa e refinamento).
 	
 	Infelizmente, para cada matriz, um $\lambda$ diferente.
 	
-	Ponte pra equaÁ„o empÌrica do $\lambda$.
+	Ponte pra equa√ß√£o emp√≠rica do $\lambda$.
 	
-	\section{EquaÁ„o empÌrica para o $\lambda$}
+	\section{Equa√ß√£o emp√≠rica para o $\lambda$}
 	
-	Delineamento da equaÁ„o como feito na reuni„o de 29/09.
+	Delineamento da equa√ß√£o como feito na reuni√£o de 29/09.
 	
 	Isolar $\lambda$ a partir da $f=e^{-\lambda*(\rho - \rho_0)^2}$
 	
 	Fazer $f = 0.00001 \approx 0$.
 	
-	Substituir $(\rho - \rho_0)^2$ por $E_{central} - E_{mÌnimo}$. Justificar.
+	Substituir $(\rho - \rho_0)^2$ por $E_{central} - E_{m√≠nimo}$. Justificar.
 	
-	Regress„o linear para $E_{central} - E_{mÌnimo}$ com funÁ„o apenas da ordem da matriz (N).
+	Regress√£o linear para $E_{central} - E_{m√≠nimo}$ com fun√ß√£o apenas da ordem da matriz (N).
 	
-	Inserir a EquaÁ„o obtida na regress„o na equaÁ„o de $\lambda$.
+	Inserir a Equa√ß√£o obtida na regress√£o na equa√ß√£o de $\lambda$.
 	
 	Fator $0.65$: obtido empiricamente de modo que o $\lambda$ seja semelhante aos encontrados pelo processo de estimativa e refinamento.
 	
-	Exemplo de execuÁ„o com $\lambda$ autom·tico.
+	Exemplo de execu√ß√£o com $\lambda$ autom√°tico.
 	
-	Explicitar que essa equaÁ„o È v·lida apenas para matrizes de Coope-Sabo. Apesar disso, foi importante para o estudo pois permitiu automaÁ„o completa.
+	Explicitar que essa equa√ß√£o √© v√°lida apenas para matrizes de Coope-Sabo. Apesar disso, foi importante para o estudo pois permitiu automa√ß√£o completa.
 		
-	\section{A mistura de $(\rho - \rho_0)^2$ com $\nabla\rho$ n„o leva a melhores resultados}
+	\section{A mistura de $(\rho - \rho_0)^2$ com $\nabla\rho$ n√£o leva a melhores resultados}
 	
-	Como em seÁ„o anterior verificamos que $f_i = e^{[-\lambda \nabla \rho]}$ È mais r·pido do que $f_i = e^{[-\lambda (\nabla \rho)]}$, e que o $\nabla\rho$ est· diretamente associado aos autovalores, pensei na seguinte hipÛtese: inserir $\nabla \rho$ ao fitness com $(\rho - \rho_0)^2$ traria resultados mais r·pidos.
+	Como em se√ß√£o anterior verificamos que $f_i = e^{[-\lambda \nabla \rho]}$ √© mais r√°pido do que $f_i = e^{[-\lambda (\nabla \rho)]}$, e que o $\nabla\rho$ est√° diretamente associado aos autovalores, pensei na seguinte hip√≥tese: inserir $\nabla \rho$ ao fitness com $(\rho - \rho_0)^2$ traria resultados mais r√°pidos.
 	
-	Justificativas para a hipÛtese: 
+	Justificativas para a hip√≥tese: 
 	
 	\begin{enumerate}
-		\item Inserir $\nabla \rho$ no fitness puniria os $\rho$'s que, apesar de prÛximos de $\rho_0$, n„o fossem autovalor. Em outras palavras, o termo $\rho - \rho_0 \approx 0$, mas $\nabla \rho >> 0$ e, portanto, o fitness ficaria pequeno.
+		\item Inserir $\nabla \rho$ no fitness puniria os $\rho$'s que, apesar de pr√≥ximos de $\rho_0$, n√£o fossem autovalor. Em outras palavras, o termo $\rho - \rho_0 \approx 0$, mas $\nabla \rho >> 0$ e, portanto, o fitness ficaria pequeno.
 		
-		\item Como o fitness, a princÌpio, estaria diferenciamento melhor os bons indivÌduos, o algoritmo teria uma taxa de convergÍncia maior.
+		\item Como o fitness, a princ√≠pio, estaria diferenciamento melhor os bons indiv√≠duos, o algoritmo teria uma taxa de converg√™ncia maior.
 		
 	\end{enumerate}
 	
 		Executar $10$ para o primeiro fitness, e, utilizando as mesmas dez sementes, executar outros $10$ testes com ou outro fitness.
 		
-		ComparaÁ„o dos resultados: gr·ficos do comportamento do fitness e tabela comparando a velocidade de convergÍncia (em que geraÁ„o o critÈrio de parada foi atingido), tempo de execuÁ„o e erro relativo ao menor autovalor ``exato'' (obtido no SciLab).
+		Compara√ß√£o dos resultados: gr√°ficos do comportamento do fitness e tabela comparando a velocidade de converg√™ncia (em que gera√ß√£o o crit√©rio de parada foi atingido), tempo de execu√ß√£o e erro relativo ao menor autovalor ``exato'' (obtido no SciLab).
 	
 	\section{Resultados preliminares na GPU}
 	
@@ -326,7 +315,7 @@
 	
 				ERAD: artigo $+$ poster
 				
-		\subsection{MÈtodo paralelizado (vers„o atual, com ganho de $1,4$}
+		\subsection{M√©todo paralelizado (vers√£o atual, com ganho de $1,4$}
 		
 				Falar um pouco.
 		

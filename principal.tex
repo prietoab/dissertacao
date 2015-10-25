@@ -1,24 +1,24 @@
 %%*********************************************************
-%% Essa vers„o corresponde ao padr„o CCPG 001/2015.
+%% Essa vers√£o corresponde ao padr√£o CCPG 001/2015.
 %%
-%% Ela foi adaptada do trabalho anterior de v·rias pessoas,
+%% Ela foi adaptada do trabalho anterior de v√°rias pessoas,
 %% e mais detalhes podem ser encontrados abaixo.
 %% 
 %% Adriano Batista Prieto, 16 de outubro de 2015.
 %% adrianoprieto@yahoo.com.br
 %% *********************************************************
-%Modelos para a ediÁ„o de dissertaÁıes e teses
+%Modelos para a edi√ß√£o de disserta√ß√µes e teses
 %
-%Modelo LaTeX segundo o formato especificado na InformaÁ„o CCPG 002/2013.
+%Modelo LaTeX segundo o formato especificado na Informa√ß√£o CCPG 002/2013.
 % http://www.prpg.unicamp.br/arqpdfnormas/infccpg002_2013.pdf
 %
-%Esse modelo para a ediÁ„o de dissertaÁıes e teses foi adaptado da vers„o elaborada pelos alunos Daniel Guerreiro e Silva, Filipe Ieda Fazanaro e  Marcos Ricardo Covre da Faculdade de Engenharia ElÈtrica e de ComputaÁ„o
+%Esse modelo para a edi√ß√£o de disserta√ß√µes e teses foi adaptado da vers√£o elaborada pelos alunos Daniel Guerreiro e Silva, Filipe Ieda Fazanaro e  Marcos Ricardo Covre da Faculdade de Engenharia El√©trica e de Computa√ß√£o
 %
 %http://www0.fee.unicamp.br/cpg/Modelos.html
 %
-%Modelo baseado no abntex2 disponÌvel em https://code.google.com/p/abntex2/
+%Modelo baseado no abntex2 dispon√≠vel em https://code.google.com/p/abntex2/
 %
-%InstruÁıes para instalaÁ„o do abntex2 disponÌveis em https://code.google.com/p/abntex2/wiki/Instalacao
+%Instru√ß√µes para instala√ß√£o do abntex2 dispon√≠veis em https://code.google.com/p/abntex2/wiki/Instalacao
 %
 %
 %%
@@ -27,18 +27,18 @@
 
 \input{preambulo}
 
-% ---- compila o Ìndice  ----
+% ---- compila o √≠ndice  ----
 \makeindex
 \makenomenclature
 % ---
 
-% ---- InÌcio do documento ----
+% ---- In√≠cio do documento ----
 \begin{document}
 
-% Retira espaÁo extra obsoleto entre as frases.
+% Retira espa√ßo extra obsoleto entre as frases.
 \frenchspacing
 
-% ---- ELEMENTOS PR…-TEXTUAIS ----
+% ---- ELEMENTOS PR√â-TEXTUAIS ----
 \pretextual
 
 %\pagenumbering{roman}
@@ -47,24 +47,24 @@
 \imprimircapa
 % ---
 
-% 2. Folha de Rosto. (o * indica que haver· a ficha catalogr·fica) ---
+% 2. Folha de Rosto. (o * indica que haver√° a ficha catalogr√°fica) ---
 \thispagestyle{empty}
 \imprimirfolhaderosto*
 % --
 
-% 3. Ficha catalogr·fica ---
+% 3. Ficha catalogr√°fica ---
 
-% A biblioteca da FT lhe fornecer· um PDF
-% com a ficha catalogr·fica definitiva apÛs a defesa do trabalho. Quando estiver
-% com o documento, salve-o como PDF no diretÛrio do seu projeto e substitua todo
-% o conte˙do de implementaÁ„o deste arquivo pelo comando abaixo:
+% A biblioteca da FT lhe fornecer√° um PDF
+% com a ficha catalogr√°fica definitiva ap√≥s a defesa do trabalho. Quando estiver
+% com o documento, salve-o como PDF no diret√≥rio do seu projeto e substitua todo
+% o conte√∫do de implementa√ß√£o deste arquivo pelo comando abaixo:
 
-% --- Para a vers„o final, delete as linhas abaixo e insira a linha do \includepdf
+% --- Para a vers√£o final, delete as linhas abaixo e insira a linha do \includepdf
 \thispagestyle{empty}
  \begin{fichacatalografica}
     \vspace*{\fill}
     \begin{center}
-        \textsc{Inclua aqui o pdf com a ficha catalogr·fica fornecida.}
+        \textsc{Inclua aqui o pdf com a ficha catalogr√°fica fornecida.}
     \end{center}
     \vspace*{\fill}
 % --- --- ---
@@ -73,17 +73,17 @@
 % ---
 
 
-% 4. Folha de aprovaÁ„o ---
+% 4. Folha de aprova√ß√£o ---
 
-% ApÛs a aprovaÁ„o do trabalho, substitua todo o conte˙do deste arquivo por uma
-% imagem da p·gina assinada pela banca com o comando abaixo:
+% Ap√≥s a aprova√ß√£o do trabalho, substitua todo o conte√∫do deste arquivo por uma
+% imagem da p√°gina assinada pela banca com o comando abaixo:
 
-% --- Na vers„o final, exclua essas linhas e insira o \includepdf
+% --- Na vers√£o final, exclua essas linhas e insira o \includepdf
 \newpage
 \thispagestyle{empty}
 \vspace*{\fill}
 \begin{center}
-    \textsc{Inclua aqui a Folha de aprovaÁ„o.}
+    \textsc{Inclua aqui a Folha de aprova√ß√£o.}
 \end{center}
 \vspace*{\fill}
 \newpage
@@ -91,13 +91,13 @@
 %\includepdf[pagecommand={\thispagestyle{plain}}]{./figs/folha-assinaturas.pdf}	
 \cleardoublepage
 
-% 5. DedicatÛria ---
+% 5. Dedicat√≥ria ---
 \begin{dedicatoria}
     \thispagestyle{empty}
 		\vspace*{\fill}
     \centering
     \noindent
-    \textit{Dedico esta tese ‡ todo mundo.}
+    \textit{Dedico esta tese √† todo mundo.}
     \vspace*{\fill}
 \end{dedicatoria}
 % ---
@@ -110,20 +110,20 @@
 
 % ---
 
-% --- EpÌgrafe  ---
+% --- Ep√≠grafe  ---
 \begin{epigrafe}
 	\thispagestyle{empty}
     \vspace*{\fill}
 	\begin{flushright}
-		\textit{``Escreva aqui a sua epÌgrafe''\\
-		(CitaÁ„o)}
+		\textit{``Escreva aqui a sua ep√≠grafe''\\
+		(Cita√ß√£o)}
 	\end{flushright}
 \end{epigrafe}
 
 
 \thispagestyle{empty}
 \begin{resumo}
-			% 7. RESUMO em portuguÍs
+			% 7. RESUMO em portugu√™s
      Colocar o resumos aqui.
      
     \vspace{\onelineskip}
@@ -133,7 +133,7 @@
     \vspace{\onelineskip}
     \vspace{\onelineskip}
 		
-		% 8. Abstract (resumo traduzido para o inglÍs);
+		% 8. Abstract (resumo traduzido para o ingl√™s);
     \begin{otherlanguage*}{english}
     \begin{center}{\ABNTEXchapterfont\huge Abstract}\end{center}
     
@@ -144,7 +144,7 @@
 
     \end{otherlanguage*}
 		
-		% 9. Resumo em uma terceira lÌngua (opcional);
+		% 9. Resumo em uma terceira l√≠ngua (opcional);
 		% \begin{otherlanguage*}{english} %% substitua o ``english'' pelo idioma desejado.
     % \begin{center}{\ABNTEXchapterfont\huge Abstract}\end{center}
     
@@ -157,7 +157,7 @@
 		
 \end{resumo}
 
-% 10. Lista de ilustraÁıes (opcional);
+% 10. Lista de ilustra√ß√µes (opcional);
 \pdfbookmark[0]{\listfigurename}{lof}
 \listoffigures*
 \thispagestyle{empty}
@@ -172,18 +172,18 @@
 % ---
 
 % 12. Lista de Abreviaturas e Siglas (opcional);
-\renewcommand{\nomname}{Lista de AcrÙnimos e AbreviaÁıes}
+\renewcommand{\nomname}{Lista de Acr√¥nimos e Abrevia√ß√µes}
 \pdfbookmark[0]{\nomname}{las}
 \printnomenclature
 \thispagestyle{empty}
 \cleardoublepage
 % ---
 
-% 13. Lista de SÌmbolos (opcional);
+% 13. Lista de S√≠mbolos (opcional);
 
 % ---
 
-% 14. Sum·rio.
+% 14. Sum√°rio.
 \pdfbookmark[0]{\contentsname}{toc}
 \tableofcontents*
 \thispagestyle{empty}
@@ -193,25 +193,25 @@
 % ---- ELEMENTOS TEXTUAIS ----
 \textual
 
-% ---- CapÌtulos ----
+% ---- Cap√≠tulos ----
 \include{introducao}
-\include{algebra}
-\include{algoritmosGeneticos}
+%\include{algebra}
+%\include{algoritmosGeneticos}
 \include{metodologia}
 \include{resultadosDiscussao}
 
 % --- Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz ---
 \bookmarksetup{startatroot}%
 
-% ---- ELEMENTOS PÛS-TEXTUAIS ----
+% ---- ELEMENTOS P√≥S-TEXTUAIS ----
 \postextual
 
-% ---- ReferÍncias bibliogr·ficas ----
+% ---- Refer√™ncias bibliogr√°ficas ----
 \bibliography{tese}
 
-% ---- ApÍndices ----
+% ---- Ap√™ndices ----
 \begin{apendicesenv}
-% Imprime uma p·gina indicando o inÌcio dos apÍndices
+% Imprime uma p√°gina indicando o in√≠cio dos ap√™ndices
 \partapendices
 
 \include{apendiceA}
@@ -221,7 +221,7 @@
 
 % ---- Anexos ----
 \begin{anexosenv}
-% Imprime uma p·gina indicando o inÌcio dos anexos
+% Imprime uma p√°gina indicando o in√≠cio dos anexos
 \partanexos
 
 \include{anexoA}

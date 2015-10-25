@@ -1,27 +1,17 @@
-\chapter{Materiais e Métodos}
+\chapter{Materiais e MÃ©todos}
 \label{cap:metodologia}
 
-Antes de atacar o método em si foi necessário estudo de Algoritmos Genéticos e Linguagem C, escolhida pensando em CUDA.
-
-\section{Algoritmos Genéticos}
-
-Metodologia de estudo: revisão da literatura e aplicação de GA em dois problemas.
-	
-\section{Robocode}
-
-Problema 2: Criação de um robô que foi capaz de vencer os dois campeões do campeonato de Robocode da FT (disciplina de Inteligência Artificial).
-
-Brevemente.
+Antes de atacar o mÃ©todo em si foi necessÃ¡rio estudo de Algoritmos GenÃ©ticos e Linguagem C, escolhida pensando em CUDA.
 
 \section{CUDA}
 
-Metodologia: revisão bibliográfica e aplicação no ONEMAX.
+Metodologia: revisÃ£o bibliogrÃ¡fica e aplicaÃ§Ã£o no ONEMAX.
 
 Material do ERAD.
 
-\section{Método}
+\section{MÃ©todo}
 
-	Artigo de 2004.	Aproveitar conteúdo do segundo relatório de estudos dirigidos.
+	Artigo de 2004.	Aproveitar conteÃºdo do segundo relatÃ³rio de estudos dirigidos.
 
 	Apresentar o fitness \textit{fitness} com $\rho - \rho_0$ utilizado no Artigo de 2006.
 
@@ -29,61 +19,61 @@ Material do ERAD.
 	
 \section{Framework/Programa Serial}
 
-	Optou-se por desenvolver do zero todo o programa. Motivo: controle sobre todas as características do método.
+	Optou-se por desenvolver do zero todo o programa. Motivo: controle sobre todas as caracterÃ­sticas do mÃ©todo.
 
 	Linguagem C: linguagem nativa para CUDA.
 
 	Totalmente parametrizado. 
 
-	Com foi será possível:
+	Com foi serÃ¡ possÃ­vel:
 
 	\begin{enumerate}
-		\item Estudo do método 
-		\item Estudo de algoritmos genéticos
-		\item Novas aplicações como máximo de função
+		\item Estudo do mÃ©todo 
+		\item Estudo de algoritmos genÃ©ticos
+		\item Novas aplicaÃ§Ãµes como mÃ¡ximo de funÃ§Ã£o
 		\begin{enumerate}
-			\item Mudança no fitness 
-			\item Mudança nos critérios de parada
+			\item MudanÃ§a no fitness 
+			\item MudanÃ§a nos critÃ©rios de parada
 		\end{enumerate}	
 	\end{enumerate}
 
 
-	Descrição dos parâmetros.
+	DescriÃ§Ã£o dos parÃ¢metros.
 
-	Descrição de cada função, incluindo \textit{print screen} das partes de código mais fundamentais:
+	DescriÃ§Ã£o de cada funÃ§Ã£o, incluindo \textit{print screen} das partes de cÃ³digo mais fundamentais:
 
 	\begin{enumerate}
 		\item Estruturas de dados
-		\item Geração de números pseudoaleatórios
-		\item Geração das Matrizes de Coope
-		\item Geração da População Inicial
-		\item Fitness: as várias equações
-		\item Fitness: cálculo de $\rho_i$
-		\item Fitness: cálculo de $\nabla\rho_i$
-		\item Seleção
+		\item GeraÃ§Ã£o de nÃºmeros pseudoaleatÃ³rios
+		\item GeraÃ§Ã£o das Matrizes de Coope
+		\item GeraÃ§Ã£o da PopulaÃ§Ã£o Inicial
+		\item Fitness: as vÃ¡rias equaÃ§Ãµes
+		\item Fitness: cÃ¡lculo de $\rho_i$
+		\item Fitness: cÃ¡lculo de $\nabla\rho_i$
+		\item SeleÃ§Ã£o
 		\item Crossover
-		\item Mutação
-		\item Álgebra Linear: multiplicação de matrizes
-		\item Álgebra Linear: multiplicação de matriz por escalar
-		\item Álgebra Linear: subtração de matrizes
+		\item MutaÃ§Ã£o
+		\item Ãlgebra Linear: multiplicaÃ§Ã£o de matrizes
+		\item Ãlgebra Linear: multiplicaÃ§Ã£o de matriz por escalar
+		\item Ãlgebra Linear: subtraÃ§Ã£o de matrizes
 	\end{enumerate}
 
-	Qualidade dos números pseudo-aleatórios (base do GA)
+	Qualidade dos nÃºmeros pseudo-aleatÃ³rios (base do GA)
 	
 	
 
 	\begin{enumerate}
-			\item Mostrar que a distribuição dos números segue o esperado para números aleatórios
-			\item Quanto maior a quantidade de pontos, melhor a distribuição
-			\item Gráfico: histograma de frequência.
+			\item Mostrar que a distribuiÃ§Ã£o dos nÃºmeros segue o esperado para nÃºmeros aleatÃ³rios
+			\item Quanto maior a quantidade de pontos, melhor a distribuiÃ§Ã£o
+			\item GrÃ¡fico: histograma de frequÃªncia.
 	\end{enumerate}
 
-	Exemplo de execução no Windows.
+	Exemplo de execuÃ§Ã£o no Windows.
 
 	Reprodutibilidade.
 	
 	Exemplo de reprodutibilidade.
 
-	Código disponível em
+	CÃ³digo disponÃ­vel em
 
 	\texttt{https://github.com/prietoab/msc\_code}
