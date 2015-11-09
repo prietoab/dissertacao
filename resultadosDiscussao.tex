@@ -17,37 +17,303 @@
 	
 	\item Fórmula empírica. Por já conhecermos de antemão os autovalores das matrizes de Coope$-$Sabo, foi possível criar uma fórmula empírica para $\lambda$. Ela garante que na primeira população o \textsl{fitness} médio é baixo, previnindo o \textsl{underflow} do \textit{fitness} e a convergência prematura.
 	
-\end{enumerate}
+	\end{enumerate}
 	
 \section{O método não leva ao mínimo global}	
-
-	Retomar brevemente o artigo de 2004. 
 	
-	Focar no fitness.
+	Na seção \ref{sec:metodo} vimos no artigo \cite{metodo2004} que o \textit{fitness} utilizado foi
 	
-	Apresentar os parâmetros utilizados no artigo de 2004 \cite{metodo2004} para os testes.
-	
-	Parâmetros:
-	
-	\begin{itemize}
-		\item Número de indivíduos: 20.
-		\item Probabilidade de \textit{crossover}: 0,75.
-		\item Probabilidade de mutação: 0,5.
-		\item Intensidade de mutação: não fala explicitamente. utilizado 0,01, valor estipulado durante a explicação do método.
+	\begin{equation}
+		\label{eq:fitnessGrad2}
+		f_i = e^{-\lambda \| \nabla \rho_i \|^2},
+	\end{equation}
+	onde $f_i$ é o \textit{fitness} do $i$-ésimo indivíduo da população, $\lambda$ é um parâmetro para evitar o estouro do \textit{fitness} e $\| \nabla \rho_i\|^2$ é o módulo ao quadrado do vetor gradiente de $\rho$, dado por
 		
-	\end{itemize}
+				\begin{equation}
+					\nabla \rho_i = \frac{2[H - \rho_i]C_i}{C_i^t C_i},
+				\end{equation}
+	em que $C_i$ é um vetor candidato à solução do problema do autovalor
 	
-	Aplicação desse parâmetros em matrizes de Coope-Sabo de ordem	N = 10, 20, 30, 40, 50, 60, 70, 80, 90 e 100.
+	\begin{equation}
+		HC = EC.
+	\end{equation}
 	
-	Dez execuções com sementes distintas. (precisão boa)
+	A fim de reproduzir os resultados, testamos o método com matrizes de Coope\-Sabo de ordem 10, 20, 30 e 40, utilizando os mesmos parâmetros encontrados em \cite{metodo2004}: probabilidade de \textit{crossover} $p_c = 75\%$, probabilidade de mutação $p_m = 50\%$ e intensidade de mutação $\Delta = 0,01$. Com um bom ajuste de $\lambda$, que será discutido em detalhes posteriormente, o \textit{fitness} comportou-se conforme o esperado em todos os casos. Um exemplo está na figura \ref{fig:compFitnessTipo1N10}, que apresenta o melhor fitness de cada geração para uma matriz de ordem N = 10. Na primeira geração o melhor \textit{fitness} é pequeno, aproximadamente 0,1, cresce rapidamente e a partir da décima geração está próximo de 1.
 	
-	Gráficos do comportamento do \textit{fitness} (fitness em função das gerações).
+	\begin{figure}[htbp]
+		\centering
+			\includegraphics{figs/resultados/compFitnessTipo1N10.pdf}
+			\caption{Comportamento do \textsl{fitness} tipo 1 para N = 10. Na primeira geração o melhor \textit{fitness} é pequeno, aproximadamente 0,1, cresce rapidamente e a partir da décima geração está próximo de 1.}
+		\label{fig:compFitnessTipo1N10}
+	\end{figure}
 	
-	Gráficos do comportamento do $\rho$.
+	O próximo passo foi verificar o comportamento de $\rho$, o Quociente de Rayleigh, e, especificamente, sua convergência para o menor autovalor $E_0$. Ainda conforme \cite{metodo2004}, obteríamos uma curva semelhante à da figura \ref{fig:compFitnessTipo1N10}, mas invertida, ou seja, os primeiros valores de $\rho$ seriam grandes e, rapidamente, diminuiriam até haver convergência para o autovalor mínimo. Na figura \ref{fig:rho_N10} há um exemplo.	Os gráficos exibem os valores de $\rho$ para a mesma execução apresentada na figura \ref{fig:compFitnessTipo1N10}. Note no primeiro gráfico que até a geração 20 o quociente $\rho$ teve caráter oscilatório e, então, aparentemente estabilizou-se entre 6 e 8, valores muito superiores ao autovalor mínimo para essa matriz, $E_0 = 0,38675$. Entretanto, ainda no primeiro gráfico, observa-se que há uma tendência de queda do $\rho$ entre as gerações 40 e 50 e, portanto, existiria a possibilidade do algoritmo convergir para $E_0$. Porém, para esse exemplo especificamente, isso não aconteceu, como pode ser visto no segundo gráfico da figura \ref{fig:rho_N10}. Para garantir a estabilidade, o programa foi executado até a geração 400.000, e o valor médio obtido foi $<\rho> = 6,572898$. Para nossa surpresa, além do valor obtido de $\rho$ para o melhor indivíduo não ser o mínimo, ele não é um valor qualquer, mas corresponde, com erro menor que $0,00002\%$, ao quarto autovalor da matriz, $E_3 = 6,572897$. Um gráfico expandido dessa execução está na figura \ref{fig:rho_N10_completa} da página \pageref{fig:rho_N10_completa}. Pensamos, então, que poderia haver algo de errado com o nosso programa. 
 	
-	Tabela com valores na parada da(o): geração, $\rho$, \textit{fitness}, autovalor relacionado ao mínimo local, erro em relação a esse mínimo local, autovalor que o programa acabou preso (mínimo local).
+	\begin{figure}[htbp]
+		\centering
+			\includegraphics[width=0.40\textwidth]{figs/resultados/rho_N10_g50.pdf}
+			\includegraphics[width=0.40\textwidth]{figs/resultados/rho_N10_g400000.pdf}
+		\caption{Comportamento de $\rho$ (Quociente de Rayleigh) para uma matriz de Coope$-$Sabo de ordem 10.}
+		\label{fig:rho_N10}
+	\end{figure}
 	
-	\textbf{\textcolor[rgb]{1,0,0}{Novidade}}: Verificação empírica que o fitness na forma $f_i = e^{-\lambda(\nabla\rho)^2}$ não leva ao autovalor mínimo, mas está sujeito a mínimos locais.
+	\newpage
+	\begin{landscape}
+	\begin{figure}[p]
+		\centering
+			\includegraphics[width=1.3\textwidth]{figs/resultados/rho_N10.png}
+		\caption{Comportamento de $\rho$ (Quociente de Rayleigh) para uma matriz de Coope$-$Sabo de ordem 10.}
+		\label{fig:rho_N10_completa}
+	\end{figure}
+	\end{landscape}
+	\newpage
+			
+	Após esses resultados preliminares executamos uma validação cuidadosa do programa, testando cada uma de suas quase 2500 linhas e comparando os resultados das operações e cálculos com os softwares Excel \cite{excel} e SciLab \cite{scilab}. A hipótese era a de que erros numéricos, principalmente nas funções de álgebra linear e nos operadores genéticos, pudessem ter levado ao comportamento incorreto da não convergência para o menor autovalor. De fato alguns erros foram encontrados.
+	
+	Discutiremos a seguir os testes com a versão corrigida do programa e exibidos nas figuras \ref{fig:execucoes_N10}, \ref{fig:execucoes_N20}, \ref{fig:execucoes_N30} e \ref{fig:execucoes_N40}. Visando brevidade, apresentaremos dados para matrizes de Coope\-Sabo de ordem 10, 20, 30 e 40, sem perda de generalidade. Foram cinco execuções para cada matriz, até a geração 400.000, gerando sempre dois gráficos, um do comportamento do \textit{fitness} médio (<\textit{fitness}>) e outro do comportamento do Quociente de Rayleigh médio (<$\rho$>), ambos em função do número de gerações, e dando ênfase às primeiras 100 gerações. Essas escolhas, número máximo da geração e uso de médias sobre cada população, visaram garantir, respectivamente, a convergência genética e boa precisão. A exibição de apenas as primeiras 100 gerações tem como objetivo olhar em detalhe (com \textit{zoom}) o momento em que o \textit{crossover} tem mais peso, ou seja, onde há geralmente os saltos no espaço de soluções de um Algoritmo Genético. Em todos os gráficos de $<\rho>$ há indicado nas legendas o autovalor mínimo $E_0$ e o autovalor obtido após as 400.000 gerações ($E_{obtido}$). Na tabela \ref{tab:autovalores10a40} há a lista de todos os autovalores. Por exemplo, para uma matriz de ordem $N = 10$, o menor autovalor é $E_0 = $0,386075, e o quinto autovalor para $N = 30$ é $E_4$ = 8,450274.
+	
+	Comecemos a discussão com o que foi encontrado em todas as execuções. Em qualquer gráfico do \textit{fitness} observa-se estabilidade do comportamento conforme esperado pelo método: no início seu valor é baixo, próximo de zero, cresce rapidamente nas primeiras gerações e fica estável próximo de $<fitness> = 1$. Com relação ao $\rho$, há sempre oscilações, sejam pequenas variações em torno de uma clara linha de tendência, como nas execuções 02 para N = 10, ou grandes saltos, como na execução 05 de N = 20 e 05 de N = 30. Novamente, o menor autovalor não foi obtido em nenhuma execução, contradizendo os resultados de \cite{metodo2004}, mas, por outro lado, o algoritmo sempre encontrou algum autovalor.
+
+\newpage	
+\begin{figure}[phtb]
+\centering
+  \begin{tabular}{@{}cc@{}}
+    \includegraphics[width=.40\textwidth]{figs/resultados/N10_01_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N10_01_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N10_02_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N10_02_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N10_03_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N10_03_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N10_04_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N10_04_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N10_05_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N10_05_rho.pdf}
+    %\multicolumn{2}{c}{\includegraphics[width=.23\textwidth]{example-image-a}}
+  \end{tabular}
+  \caption{Execuções N = 10.}
+	\label{fig:execucoes_N10}
+\end{figure}
+\newpage
+	
+De fato, verificando os dados da tabela \ref{tab:execucoes10a40}, concluímos que tais valores não devem ser coincidência. Para todas as execuções o \textit{fitness} médio chegou ao valor máximo ($<f> = 1,000000$). As médias de $\rho$ sobre todos os indivíduos da última população possuem baixo desvio padrão ($\sigma$ < 0,0001), indicando que eles são muito parecidos e que o algoritmo atingiu a convergência genética. Ou seja, não há mais na população variabilidade genética suficiente para alterar o rumo da busca de modo a atingir o menor autovalor, ou o mínimo global. Portanto, o algoritmo chegou em um mínimo local, corroborado pelos baixos erros relativos de $<\rho>$ quando comparado com o autovalor mais próximo. Por exemplo, para N = 30, execução 4,  $<\rho>$ = 40,772447, correspondendo, com erro relativo menor que $-0,001\%$, ao vigésimo primeiro autovalor, $E_{20} = 40,772850$. Apesar das evidências descritas acima, até esse ponto ainda há dúvidas sobre a validade do nosso programa e, obviamente, dos resultados que dele saíram. Então, buscamos embasamento mais rigoroso.
+
+De acordo com \cite{metodo2004}, se algum $C_i$, em algum momento, é o autovetor fundamental (associado ao menor autovalor), o $\nabla \rho$ é nulo. Com o \textit{fitness} da equação \eqref{eq:fitnessGrad2} os autores afirmam\footnote{Tradução livre de ``\textit{Clearly, $f_i \rightarrow 1$, as $\nabla \rho_i \rightarrow 0$, signalling that the evolution has hit the true ground state eigenvector of $H$ in the vector $C_i$}''.} que ``\textit{Claramente, $f_i \rightarrow 1$ quando $\nabla \rho_i \rightarrow 0$, sinalizando que a evolução atingiu o verdadeiro autovetor fundamental de $H$ em $C_i$}''. Há duas relações distintas de causalidade nessa frase, e acreditamos que nelas residam a explicação dos resultados obtidos por nós até agora.
+
+A primeira relação de causalidade refere-se à afirmação ``\textit{$f_i \rightarrow 1$ quando $\nabla \rho_i \rightarrow 0$}'', que está absolutamente correta. Retomando a seção \ref{cap:metodo}, o \textit{fitness} definido pela equação \ref{eq:fitnessGrad2} é limitado no intervalo (0,1] e, como $\lambda > 0$, só chega ao seu valor máximo quando $\nabla \rho_i = 0$. Em outras palavras, $\nabla \rho_i \rightarrow 0$ implica $f_i \rightarrow 1$.
+
+Na afirmação ``(...) sinalizando que a evolução atingiu o verdadeiro autovetor fundamental de $H$ em $C_i$}'' reside a segunda relação de causalidade que, apesar de sutil, é muito poderosa: se $f_i \rightarrow 1$, $C_i = C_0$.
+	
+\begin{figure}[phtb]
+\centering
+  \begin{tabular}{@{}cc@{}}
+    \includegraphics[width=.40\textwidth]{figs/resultados/N20_01_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N20_01_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N20_02_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N20_02_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N20_03_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N20_03_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N20_04_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N20_04_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N20_05_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N20_05_rho.pdf}
+    %\multicolumn{2}{c}{\includegraphics[width=.23\textwidth]{example-image-a}}
+  \end{tabular}
+  \caption{Execuções N = 20.}
+	\label{fig:execucoes_N20}
+\end{figure}
+
+\begin{figure}[phtb]
+\centering
+  \begin{tabular}{@{}cc@{}}
+    \includegraphics[width=.40\textwidth]{figs/resultados/N30_01_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N30_01_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N30_02_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N30_02_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N30_03_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N30_03_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N30_04_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N30_04_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N30_05_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N30_05_rho.pdf}
+    %\multicolumn{2}{c}{\includegraphics[width=.23\textwidth]{example-image-a}}
+  \end{tabular}
+  \caption{Execuções N = 30.}
+	\label{fig:execucoes_N30}
+\end{figure}
+
+\begin{figure}[phtb]
+\centering
+  \begin{tabular}{@{}cc@{}}
+    \includegraphics[width=.40\textwidth]{figs/resultados/N40_01_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N40_01_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N40_02_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N40_02_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N40_03_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N40_03_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N40_04_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N40_04_rho.pdf}   \\
+		\includegraphics[width=.40\textwidth]{figs/resultados/N40_05_fitness.pdf} &
+    \includegraphics[width=.40\textwidth]{figs/resultados/N40_05_rho.pdf}
+    %\multicolumn{2}{c}{\includegraphics[width=.23\textwidth]{example-image-a}}
+  \end{tabular}
+  \caption{Execuções N = 40.}
+	\label{fig:execucoes_N40}
+\end{figure}
+
+\newpage
+\begin{landscape}
+\begin{center}
+\begin{table}[htbp]
+\caption{Execuções para matrizes de Coope$-$Sabo.}
+\label{tab:execucoes10a40}
+% Table generated by Excel2LaTeX from sheet 'Plan1 (2)'
+\begin{tabular}{cccccccccc}
+\hline \hline
+   \textbf{N} & \textbf{Execução} & \textbf{Semente} & \textbf{$\lambda$} & \textbf{<\textit{Fitness}>} & \textbf{<$\rho$>} & \textbf{$\sigma$} & \textbf{\# autovalor} & \textbf{Autovalor} & \textbf{Erro relativo} \\
+\hline \hline
+        10 &          0 & 1445738835 &   0,128788 &   1,000000 &   2,461122 &   0,000023 &          1 &   2,461056 &    0,003\% \\
+\hline
+        10 &          1 & 1445780626 &   0,128788 &   1,000000 &   6,572898 &   0,000013 &          3 &   6,572897 &  0,00001\% \\
+\hline
+        10 &          2 & 1445780762 &   0,128788 &   1,000000 &   6,572883 &   0,000015 &          3 &   6,572897 &  -0,0002\% \\
+\hline
+        10 &          3 & 1445780907 &   0,128788 &   1,000000 &   6,572910 &   0,000016 &          3 &   6,572897 &   0,0002\% \\
+\hline
+        10 &          4 & 1445781049 &   0,128788 &   1,000000 &  12,765701 &   0,000016 &          6 &  12,765740 &  -0,0003\% \\
+\hline
+        10 &          5 & 1445781195 &   0,128788 &   1,000000 &   4,518952 &   0,000012 &          2 &   4,518931 &   0,0005\% \\
+\hline
+        20 &          1 & 1445795292 &   0,026665 &   1,000000 &   8,498192 &   0,000052 &          4 &   8,497626 &    0,007\% \\
+\hline
+        20 &          2 & 1445795501 &   0,026665 &   1,000000 &  12,551830 &   0,000018 &          6 &  12,551780 &   0,0004\% \\
+\hline
+        20 &          3 & 1445795718 &   0,026665 &   1,000000 &  12,551878 &   0,000020 &          6 &  12,551780 &   0,0008\% \\
+\hline
+        20 &          4 & 1445795953 &   0,026665 &   1,000000 &  14,578527 &   0,000035 &          7 &  14,578450 &   0,0005\% \\
+\hline
+        20 &          5 & 1445796166 &   0,026665 &   1,000000 &  18,634220 &   0,000062 &          9 &  18,633850 &    0,002\% \\
+\hline
+        30 &          1 & 1445796378 &   0,011171 &   1,000000 &  26,616790 &   0,000065 &         13 &  26,616670 &   0,0005\% \\
+\hline
+        30 &          2 & 1445796746 &   0,011171 &   1,000000 &  26,616595 &   0,000029 &         13 &  26,616670 &  -0,0003\% \\
+\hline
+        30 &          3 & 1445797109 &   0,011171 &   1,000000 &  22,580060 &   0,000051 &         11 &  22,580300 &   -0,001\% \\
+\hline
+        30 &          4 & 1445797473 &   0,011171 &   1,000000 &  40,772447 &   0,000071 &         20 &  40,772850 &   -0,001\% \\
+\hline
+        30 &          5 & 1445797882 &   0,011171 &   1,000000 &  30,655283 &   0,000022 &         15 &  30,655270 &  0,00004\% \\
+\hline
+        40 &          1 & 1445798248 &   0,006105 &   1,000000 &  26,554758 &   0,000040 &         13 &  26,554690 &   0,0003\% \\
+\hline
+        40 &          2 & 1445798838 &   0,006105 &   1,000000 &  54,773734 &   0,000078 &         27 &  54,773690 &  0,00008\% \\
+\hline
+        40 &          3 & 1445799429 &   0,006105 &   1,000000 &  58,819413 &   0,000087 &         29 &  58,819810 &  -0,0007\% \\
+\hline
+        40 &          4 & 1445800091 &   0,006105 &   1,000000 &  40,651473 &   0,000077 &         20 &  40,651140 &   0,0008\% \\
+\hline
+        40 &          5 & 1445800683 &   0,006105 &   1,000000 &  40,650764 &   0,000061 &         20 &  40,651140 &  -0,0009\% \\
+\hline \hline
+\end{tabular}
+\end{table}  
+\end{center}
+\end{landscape}
+
+\newpage
+
+	
+\begin{table}[pt]
+	\caption{Autovalores para matrizes de Coope$-$Sabo de ordem 10, 20, 30 e 40.}
+	\label{tab:autovalores10a40}
+% Table generated by Excel2LaTeX from sheet 'Todos'
+\begin{center}
+\begin{tabular}{r|r|r|r|r}
+	\hline \hline
+		 \textbf{\#} &   \textbf{10} &   \textbf{20} &   \textbf{30} &   \textbf{40} \\
+	\hline \hline
+					 0 &   0,386075 &   0,341237 &   0,319737 &   0,306086 \\
+	\hline
+					 1 &   2,461056 &   2,397247 &    2,36844 &   2,350583 \\
+	\hline
+					 2 &   4,518931 &   4,436173 &   4,401134 &   4,379909 \\
+	\hline
+					 3 &   6,572897 &   6,468521 &   6,427419 &     6,4031 \\
+	\hline
+					 4 &   8,628524 &   8,497626 &   8,450274 &    8,42294 \\
+	\hline
+					 5 &   10,69057 &   10,52507 &   10,47105 &   10,44068 \\
+	\hline
+					 6 &   12,76574 &   12,55178 &    12,4905 &     12,457 \\
+	\hline
+					 7 &   14,86753 &   14,57845 &   14,50908 &   14,47232 \\
+	\hline
+					 8 &   17,03654 &   16,60562 &   16,52713 &   16,48692 \\
+	\hline
+					9 &   22,07215 &   18,63385 &   18,54488 &     18,501 \\
+	\hline
+					10 &            &    20,6637 &   20,56255 &    20,5147 \\
+	\hline
+					11 &            &   22,69588 &    22,5803 &   22,52816 \\
+	\hline
+					12 &            &   24,73127 &   24,59828 &   24,54146 \\
+	\hline
+					13 &            &   26,77114 &   26,61667 &   26,55469 \\
+	\hline
+					14 &            &   28,81733 &    28,6356 &   28,56792 \\
+	\hline
+					15 &            &   30,87288 &   30,65527 &   30,58122 \\
+	\hline
+					16 &            &   32,94325 &   32,67586 &   32,59466 \\
+	\hline
+					17 &            &   35,04014 &    34,6976 &   34,60831 \\
+	\hline
+					18 &            &   37,19805 &   36,72077 &   36,62223 \\
+	\hline
+					19 &            &    45,2308 &   38,74571 &   38,63648 \\
+	\hline
+					20 &            &            &   40,77285 &   40,65114 \\
+	\hline
+					21 &            &            &   42,80277 &    42,6663 \\
+	\hline
+					22 &            &            &   44,83625 &   44,68204 \\
+	\hline
+					23 &            &            &   46,87444 &   46,69846 \\
+	\hline
+					24 &            &            &   48,91902 &   48,71568 \\
+	\hline
+					25 &            &            &   50,97274 &   50,73385 \\
+	\hline
+					26 &            &            &   53,04052 &   52,75311 \\
+	\hline
+					27 &            &            &   55,13271 &   54,77369 \\
+	\hline
+					28 &            &            &   57,27946 &   56,79581 \\
+	\hline
+					29 &            &            &   68,37101 &   58,81981 \\
+	\hline
+					30 &            &            &            &   60,84608 \\
+	\hline
+					31 &            &            &            &   62,87517 \\
+	\hline
+					32 &            &            &            &   64,90781 \\
+	\hline
+					33 &            &            &            &   66,94504 \\
+	\hline
+					34 &            &            &            &   68,98845 \\
+	\hline
+					35 &            &            &            &   71,04053 \\
+	\hline
+					36 &            &            &            &   73,10578 \\
+	\hline
+					37 &            &            &            &   75,19353 \\
+	\hline
+					38 &            &            &            &   77,33102 \\
+	\hline
+					39 &            &            &            &   91,50634 \\
+	\hline \hline
+	\end{tabular}
+	\end{center}  
+\end{table}
+	
 	
 	Explicar retomando os fatos sobre cociente de Rayleigh apresentados no (futuro) capítulo de álgebra linear.
 	
@@ -290,7 +556,7 @@
 	
 	Exemplo de execução com $\lambda$ automático.
 	
-	Explicitar que essa equação é válida apenas para matrizes de Coope-Sabo. Apesar disso, foi importante para o estudo pois permitiu automação completa.
+	Explicitar que essa equação é válida apenas para matrizes de Coope$-$Sabo. Apesar disso, foi importante para o estudo pois permitiu automação completa.
 		
 	\section{A mistura de $(\rho - \rho_0)^2$ com $\nabla\rho$ não leva a melhores resultados}
 	
