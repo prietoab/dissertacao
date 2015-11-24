@@ -347,7 +347,7 @@ e apresenta semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. H�
 
 	 A justificativa para o funcionamento do método em \cite{metodo2011} segue a mesma estrutura de \cite{metodo2004}: ``\textit{Se $\rho_i \rightarrow E_L$ durante a busca, $f_i \rightarrow 1$ e $C_i$ está próximo do autovetor fundamental de $H$}''\footnote{Tradução minha para ``\textit{If $\rho_i \rightarrow E_L$ during the search, $f_i \rightarrow 1$ and $C_i$ approaches the ground eigenvector of $H$}''.}. Parece que, outra vez, não há garantia de que, se $f_i \rightarrow 1$, $\rho$ tende, necessariamente, ao autovalor fundamental. E aqui há um agravante: nada na equação \ref{eq:fitnessRho0} está diretamente associado aos autovalores de $H$. Lembre-se que o \textit{fitness} anterior (equação \ref{eq:fitnessGrad2}) contém $\nabla \rho$, que possui relação direta com os autovalores de $H$ quando $\nabla \rho = 0$.
 	
-	Repeti as execuções da tabela \ref{tab:execucoes10a40} alterando apenas o \textit{fitness} e configurando o parâmetro $E_L$ para $E_L = 0$, um pouco abaixo dos autovalores mínimos. Os resultados estão na página \pageref{tab:execucoesNovoFitness}. Surpreendentemente, apesar do que foi dito no parágrafo anterior, o programa encontrou o menor autovalor em \textbf{todos} os casos. Assim como nas primeiras execuções, o desvio padrão ($\sigma$) da média de $\rho$ na última geração (400.000) foi pequeno, indicando convergência genética. Entretanto, essa foi a única semelhança. Os próprios valores de $\sigma$ são uma ordem de grandeza menores, sugerindo que os indivíduos são mais semelhantes entre si. O \textit{fitness} médio só atingiu seu valor máximo para a matriz de ordem $N = 40$. Aliás, especificamente para $E_L$ fixado em $E_L = 0$, o <\textit{fitness}> final diminui com $N$, pois $E_L$ está mais distante de $E_0$ na matriz de ordem 10 do que na de ordem 40. Os erros relativos não ultrapassaram $1\%$, mas foram substancialmente maiores comparados aos obtidos com o primeiro \textit{fitness}. Enquanto nos testes anteriores seus valores permaneceram estáveis, agora os erros relativos apresentaram tendência de crescimento com N.
+	Repeti as execuções da tabela \ref{tab:execucoes10a40} alterando apenas o \textit{fitness} e configurando o parâmetro $E_L$ para $E_L = 0$, um pouco abaixo dos autovalores mínimos. Os resultados estão na página \pageref{tab:execucoesNovoFitness}, e os gráficos da evolução do \textit{fitness} e do quociente de Rayleigh estão nas páginas \pageref{fig:execucoes_N10_EL}, \pageref{fig:execucoes_N20_EL}, \pageref{fig:execucoes_N30_EL} e \pageref{fig:execucoes_N40_EL}. Surpreendentemente, apesar do que foi dito no parágrafo anterior, o programa encontrou o menor autovalor em \textbf{todos} os casos. Assim como nas primeiras execuções, o desvio padrão ($\sigma$) da média de $\rho$ na última geração (400.000) foi pequeno, indicando convergência genética. Entretanto, essa foi a única semelhança. Os próprios valores de $\sigma$ são uma ordem de grandeza menores, sugerindo que os indivíduos são mais semelhantes entre si. O \textit{fitness} médio só atingiu seu valor máximo para a matriz de ordem $N = 40$. Aliás, especificamente para $E_L$ fixado em $E_L = 0$, o <\textit{fitness}> final diminui com $N$, pois $E_L$ está mais distante de $E_0$ na matriz de ordem 10 do que na de ordem 40. Os erros relativos não ultrapassaram $1\%$, mas foram substancialmente maiores comparados aos obtidos com o primeiro \textit{fitness}. Enquanto nos testes anteriores seus valores permaneceram estáveis, agora os erros relativos apresentaram tendência de crescimento com N.
 	
 	\begin{landscape}
 \begin{center}
@@ -430,6 +430,8 @@ e apresenta semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. H�
 		\label{fig:N-10_E-0_rho_comparacao}
 	\end{figure}
 	
+  Inserir as referências das figuras de todas as execuções. Local: entre parênteses, logo após a citação da figura do comportamento do $\rho$.
+	
 	\begin{figure}[phtb]
 	\centering
   \begin{tabular}{@{}cc@{}}
@@ -503,10 +505,9 @@ e apresenta semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. H�
   \caption{Execuções para N = 40 com o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
 	\label{fig:execucoes_N40_EL}
 	\end{figure}
+		
 	
-	Escolher um para discutir.
-	
-	Exemplos de execução:
+	Ok. Os dados mostraram que chega no menor autovalor. Mas, se não há relação direta no fitness, como isso acontece? Outra sutileza: $E_L$ é um limite inferior para o \textit{menor} autovalor. Roubada? Não parece muito útil, pois o fitness só foi próximo de 1 porque escolhi um $E_L$ bem próximo de $E_0$. Mas, o que aconteceria se eu não soubesse por onde anda ou autovalor mínimo? Quatro cenários para $E_L$. Cenário 1: com sorte, o $E_L$ escolhido está um pouco abaixo do $E_0$. Encontra o valor mínimo, conforme exemplos. Cenário 2: um pouco acima de $E_0$. Cenário 3: muito abaixo de $E_0$; Cenário 4: muito acima de $E_0$.
 	
 	
 	\begin{enumerate}
