@@ -110,82 +110,6 @@ Apesar de não chegar ao mínimo, o método pode ser utilizado de maneira explor
 
 Resta a dúvida: afinal, como o autovalor mínimo foi obtido com o \textit{fitness} definido pela equação \ref{eq:fitnessGrad2}? Não sabemos. Esse \textit{fitness} foi utilizado não só em \cite{metodo2004}, mas também em \cite{metodo2006}, \cite{metodo2008} e \cite{metodo2009}, seguindo exatamente o argumento resumido pela equação \ref{eq:causalidadeErrada}. Não identificamos nada nesses quatro artigos que pudesse levar à resposta. Seguimos o estudo com uma nova definição do \textit{fitness} encontrada em \cite{metodo2011}.
 
-\begin{figure}[phtb]
-\centering
-  \begin{tabular}{@{}cc@{}}
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N10_01_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N10_01_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N10_02_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N10_02_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N10_03_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N10_03_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N10_04_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N10_04_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N10_05_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N10_05_rho.pdf}
-    %\multicolumn{2}{c}{\includegraphics[width=.23\textwidth]{example-image-a}}
-  \end{tabular}
-  \caption{Execuções N = 10.}
-	\label{fig:execucoes_N10}
-\end{figure}
-
-\begin{figure}[phtb]
-\centering
-  \begin{tabular}{@{}cc@{}}
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N20_01_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N20_01_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N20_02_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N20_02_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N20_03_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N20_03_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N20_04_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N20_04_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N20_05_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N20_05_rho.pdf}
-    %\multicolumn{2}{c}{\includegraphics[width=.23\textwidth]{example-image-a}}
-  \end{tabular}
-  \caption{Execuções N = 20.}
-	\label{fig:execucoes_N20}
-\end{figure}
-
-\begin{figure}[phtb]
-\centering
-  \begin{tabular}{@{}cc@{}}
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N30_01_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N30_01_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N30_02_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N30_02_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N30_03_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N30_03_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N30_04_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N30_04_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N30_05_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N30_05_rho.pdf}
-    %\multicolumn{2}{c}{\includegraphics[width=.23\textwidth]{example-image-a}}
-  \end{tabular}
-  \caption{Execuções N = 30.}
-	\label{fig:execucoes_N30}
-\end{figure}
-
-\begin{figure}[phtb]
-\centering
-  \begin{tabular}{@{}cc@{}}
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N40_01_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N40_01_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N40_02_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N40_02_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N40_03_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N40_03_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N40_04_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N40_04_rho.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N40_05_fitness.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessGrad/N40_05_rho.pdf}
-    %\multicolumn{2}{c}{\includegraphics[width=.23\textwidth]{example-image-a}}
-  \end{tabular}
-  \caption{Execuções N = 40.}
-	\label{fig:execucoes_N40}
-\end{figure}
-
 \begin{landscape}
 \begin{center}
 \begin{table}[htbp]
@@ -242,99 +166,6 @@ Resta a dúvida: afinal, como o autovalor mínimo foi obtido com o \textit{fitne
 \end{table}  
 \end{center}
 \end{landscape}
-
-\begin{table}[pt]
-	\caption{Autovalores para matrizes de Coope$-$Sabo de ordem 10, 20, 30 e 40.}
-	\label{tab:autovalores10a40}
-% Table generated by Excel2LaTeX from sheet 'Todos'
-\begin{center}
-\begin{tabular}{r|r|r|r|r}
-	\hline \hline
-		 \textbf{\#} &   \textbf{10} &   \textbf{20} &   \textbf{30} &   \textbf{40} \\
-	\hline \hline
-					 0 &   0,386075 &   0,341237 &   0,319737 &   0,306086 \\
-	\hline
-					 1 &   2,461056 &   2,397247 &    2,36844 &   2,350583 \\
-	\hline
-					 2 &   4,518931 &   4,436173 &   4,401134 &   4,379909 \\
-	\hline
-					 3 &   6,572897 &   6,468521 &   6,427419 &     6,4031 \\
-	\hline
-					 4 &   8,628524 &   8,497626 &   8,450274 &    8,42294 \\
-	\hline
-					 5 &   10,69057 &   10,52507 &   10,47105 &   10,44068 \\
-	\hline
-					 6 &   12,76574 &   12,55178 &    12,4905 &     12,457 \\
-	\hline
-					 7 &   14,86753 &   14,57845 &   14,50908 &   14,47232 \\
-	\hline
-					 8 &   17,03654 &   16,60562 &   16,52713 &   16,48692 \\
-	\hline
-					9 &   22,07215 &   18,63385 &   18,54488 &     18,501 \\
-	\hline
-					10 &            &    20,6637 &   20,56255 &    20,5147 \\
-	\hline
-					11 &            &   22,69588 &    22,5803 &   22,52816 \\
-	\hline
-					12 &            &   24,73127 &   24,59828 &   24,54146 \\
-	\hline
-					13 &            &   26,77114 &   26,61667 &   26,55469 \\
-	\hline
-					14 &            &   28,81733 &    28,6356 &   28,56792 \\
-	\hline
-					15 &            &   30,87288 &   30,65527 &   30,58122 \\
-	\hline
-					16 &            &   32,94325 &   32,67586 &   32,59466 \\
-	\hline
-					17 &            &   35,04014 &    34,6976 &   34,60831 \\
-	\hline
-					18 &            &   37,19805 &   36,72077 &   36,62223 \\
-	\hline
-					19 &            &    45,2308 &   38,74571 &   38,63648 \\
-	\hline
-					20 &            &            &   40,77285 &   40,65114 \\
-	\hline
-					21 &            &            &   42,80277 &    42,6663 \\
-	\hline
-					22 &            &            &   44,83625 &   44,68204 \\
-	\hline
-					23 &            &            &   46,87444 &   46,69846 \\
-	\hline
-					24 &            &            &   48,91902 &   48,71568 \\
-	\hline
-					25 &            &            &   50,97274 &   50,73385 \\
-	\hline
-					26 &            &            &   53,04052 &   52,75311 \\
-	\hline
-					27 &            &            &   55,13271 &   54,77369 \\
-	\hline
-					28 &            &            &   57,27946 &   56,79581 \\
-	\hline
-					29 &            &            &   68,37101 &   58,81981 \\
-	\hline
-					30 &            &            &            &   60,84608 \\
-	\hline
-					31 &            &            &            &   62,87517 \\
-	\hline
-					32 &            &            &            &   64,90781 \\
-	\hline
-					33 &            &            &            &   66,94504 \\
-	\hline
-					34 &            &            &            &   68,98845 \\
-	\hline
-					35 &            &            &            &   71,04053 \\
-	\hline
-					36 &            &            &            &   73,10578 \\
-	\hline
-					37 &            &            &            &   75,19353 \\
-	\hline
-					38 &            &            &            &   77,33102 \\
-	\hline
-					39 &            &            &            &   91,50634 \\
-	\hline \hline
-	\end{tabular}
-	\end{center}  
-\end{table}
 
 \section{Outro \textit{fitness} para encontrar o mínimo global}
 
@@ -430,84 +261,65 @@ e apresenta semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. H�
 		\label{fig:N-10_E-0_rho_comparacao}
 	\end{figure}
 	
-  Inserir as referências das figuras de todas as execuções. Local: entre parênteses, logo após a citação da figura do comportamento do $\rho$.
 	
-	\begin{figure}[phtb]
-	\centering
-  \begin{tabular}{@{}cc@{}}
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-0_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-0_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-1_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-1_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-2_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-2_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-3_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-3_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-4_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-4_rho_extendido.pdf} \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-5_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-5_rho_extendido.pdf}
-  \end{tabular}
-  \caption{Execuções para N = 10 com o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
-	\label{fig:execucoes_N10_EL}
-	\end{figure}
 	
-	\begin{figure}[phtb]
-	\centering
-  \begin{tabular}{@{}cc@{}}
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-1_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-1_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-2_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-2_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-3_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-3_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-4_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-4_rho_extendido.pdf} \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-5_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-5_rho_extendido.pdf}
-  \end{tabular}
-  \caption{Execuções para N = 20 com o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
-	\label{fig:execucoes_N20_EL}
-	\end{figure}
-	
-	\begin{figure}[phtb]
-	\centering
-  \begin{tabular}{@{}cc@{}}
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-1_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-1_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-2_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-2_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-3_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-3_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-4_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-4_rho_extendido.pdf} \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-5_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-5_rho_extendido.pdf}
-  \end{tabular}
-  \caption{Execuções para N = 30 com o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
-	\label{fig:execucoes_N30_EL}
-	\end{figure}
-	
-	\begin{figure}[phtb]
-	\centering
-  \begin{tabular}{@{}cc@{}}
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-1_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-1_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-2_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-2_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-3_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-3_rho_extendido.pdf}   \\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-4_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-4_rho_extendido.pdf}		\\
-		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-5_fitness-extendido.pdf} &
-    \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-5_rho_extendido.pdf}
-  \end{tabular}
-  \caption{Execuções para N = 40 com o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
-	\label{fig:execucoes_N40_EL}
-	\end{figure}
 		
 	
 	Ok. Os dados mostraram que chega no menor autovalor. Mas, se não há relação direta no fitness, como isso acontece? Outra sutileza: $E_L$ é um limite inferior para o \textit{menor} autovalor. Roubada? Não parece muito útil, pois o fitness só foi próximo de 1 porque escolhi um $E_L$ bem próximo de $E_0$. Mas, o que aconteceria se eu não soubesse por onde anda ou autovalor mínimo? Quatro cenários para $E_L$. Cenário 1: com sorte, o $E_L$ escolhido está um pouco abaixo do $E_0$. Encontra o valor mínimo, conforme exemplos. Cenário 2: um pouco acima de $E_0$. Cenário 3: muito abaixo de $E_0$; Cenário 4: muito acima de $E_0$.
+	
+	coloar as figuras dos cenários aqui.
+	
+	Para as execuções da semente 1445738835.
+	
+	Semente 1445738835. Tipo 1. EL um pouco acima.
+	
+	\begin{figure}[htbp]
+	\centering
+  \begin{tabular}{@{}cc@{}}
+	
+		\includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T1_S-1445738835_fitness.pdf} &
+    \includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T1_S-1445738835_rho.pdf}
+  \end{tabular}
+  \caption{Execução para a semente 1445738835. $E_L$ um pouco acima de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
+	\label{fig:execucoesSemente_EL_umPoucoAcima}
+	\end{figure}
+	
+	Semente 1445738835. Tipo 3. 
+	
+	\begin{figure}[htbp]
+	\centering
+  \begin{tabular}{@{}cc@{}}	
+		\includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T3_S-1445738835_fitness.pdf} &
+    \includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T3_S-1445738835_rho.pdf}
+  \end{tabular}
+  \caption{Execução para a semente 1445738835. $E_L$ muito acima de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
+	\label{fig:execucoesSemente_EL_umMuitoAcima}
+	\end{figure}
+	
+	
+	Semente 1445738835. Tipo 4. Até 500 gerações.
+	
+	\begin{figure}[htbp]
+	\centering
+  \begin{tabular}{@{}cc@{}}	
+		\includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T4_S-1445738835_fitness.pdf} &
+    \includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T4_S-1445738835_rho.pdf}
+  \end{tabular}
+  \caption{Execução para a semente 1445738835. $E_L$ muito abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$. Até geração 500.}
+	\label{fig:execucoesSemente_EL_umMuitoAbaixo500}
+	\end{figure}
+	
+	Semente 1445738835. Tipo 4. Entre 30.000 e 40.000 gerações.
+	
+	\begin{figure}[htbp]
+	\centering
+  \begin{tabular}{@{}cc@{}}	
+		\includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T4_S-1445738835_fitness-extendido.pdf} &
+    \includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T4_S-1445738835_rho_extendido.pdf}
+  \end{tabular}
+  \caption{Execução para a semente 1445738835. $E_L$ muito abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$. Geração entre 30.000 e 40.000.}
+	\label{fig:execucoesSemente_EL_umMuitoAbaixo40000}
+	\end{figure}
 	
 	
 	\begin{enumerate}
