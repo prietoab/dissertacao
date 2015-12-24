@@ -1,93 +1,51 @@
 \chapter{Algoritmos Genéticos\label{cap:ga}}
 
-% INÍCIO TIAGO
+Da-se o nome \emph{Algoritmos Genéticos} (GAs) a uma técnica de busca baseada numa metáfora da Evolução. Na Natureza muitos animais competem entre si por recursos limitados, e os vencedores de uma dada população têm mais change de procriação. Seu êxito vem das catacterísticas que os tornam melhor adaptados para os desafios apresentados pelo ambiente onde vivem. Seus filhos levarão essas características adiante. 
 
-Proposto inicialmente por Holland \cite{Holland}, os GAs são uma classe particular de algoritmos evolutivos que buscam por soluções aproximadas em problemas com vasto espaço de busca e que, por sua complexidade, tornam inviável o uso de métodos convencionais.
+Esse mecanismo de seleção dos melhores foi descoberto por Darwin, que o chamou de Seleção Natural. A partir dele foi possível explicar como a natureza gera organismos complexos e capazes de solucionar problemas difíceis. Darwin não sabia como as características eram transmitidas e como novas surgiam.
+
+Fazendo experimentos com plantas, Mendel determinou como se dá a transmissão. Há uma unidade básica de informação associada às características dos organismos, que ele chamou de Gene. Definiu como \emph{Fenótipo} as características externas de um organismo, e \emph{Genótipo} o conjunto de genes associados a um dado fenótipo. Na reprodução sexuada os filhos possuem uma mistura entre os genes do pai e da mãe. Por isso, não são idênticos a nenhum dos seus progenitores, mas são semelhantes a eles.
+
+Sabe-se hoje que toda a informação de um organismo está codificada no DNA, que contém os genes. A combinação entre os genes dos pais acontece durante a reprodução, num evento chamado de Cruzamento Cromossômico, ou \emph{Crossing$-$Over}, onde há troca de informação entre os cromossomos. Durante a cópia do DNA ocorrem, com baixíssima probabilidade, erros eventuais, fazendo com que o filho tenha um novo atributo. 
+
+Se a nova característica for muito boa, após várias gerações ela estará espalhada por toda população. O indivíduo será beneficiado na competição e provavelmente se reproduzirá mais, assim como seus filhos. A cada nova geração, mais indivíduos possuirão o novo fenótipo, perpetuando a transmissão dos genes assossiados. 
+
+Apesar de não ter sido o primeiro a utilizar ideias da Evolução em Ciência da Computação, John Holland é considerado o pai dos Algoritmos Genéticos. Ele estudou formalmente, do ponto de vista matemático, a adaptação na natureza e propôs uma heurística baseada nesse estudo. Seu objetivo era simular a Evolução em computadores. Em 1975 publicou o livro \emph{Adaptation in Natural and Artificial Systems}. A partir de então muitos passaram a usar GAs na solução de problemas de diversas áreas.
+
+O algoritmo genético mais básico é composto por cinco processos (figura \ref{fig:fluxoGABasico})
+
+\begin{itemize}
+
+	\item \textbf{Gerar população inicial}: População inicial gerada aleatoriamente.
 	
-	No decorrer deste trabalho serão expostas as origens históricas e as principais características dos GAs, apresentando exemplos de implementações de forma a ilustrar na prática o seu funcionamento.
-
- \section{Histórico da Computação Evolutiva}
+	\item \textbf{Avaliação}: Cada indivíduo recebe uma nota. Maiores notas indicam indivíduos mais aptos (soluções mais próximas do objetivo). Esta medida é conhecida como \textit{Fitness}. 
+	
+	\item \textbf{Teste do critério de parada}: Com todos os indivíduos avaliados, é possível verificar se algum deles representa uma boa solução.
  
-A teoria da evolução, proposta por Darwin (1859), é a essência das técnicas utilizadas na Computação Evolutiva (CE). Surgida em meados dos anos 60 e partindo da idéia que a Inteligência Computacional busca imitar o comportamento e os fenômenos encontrados na natureza, os conceitos da CE são inspirados no darwinismo, traduzindo em termos computacionais a teoria da seleção natural e o adaptacionismo.
-
-Na natureza, seja pela falta de recursos ou dificuldades apresentadas pelo ambiente, a tendência da evolução é perpetuar os genes mais adaptados de uma população, e, nesta lei de sobrevivência do mais forte, aqueles que se mantêm tem uma probabilidade maior de se reproduzir (\textit{crossover}) e gerar descendentes com as mesmas capacidades. Existe ainda um fator de mutação, geralmente causado por erro na cópia do código genético, que, numa taxa muito pequena, acaba trazendo alterações na codificação genética do individuo, podendo ou não beneficiá-lo.
-
-As técnicas evolutivas traduzem este cenário artificialmente da seguinte forma: Uma população de soluções candidatas (indivíduos) à resolução de um problema (ambiente), passará pelos processos de seleção, \textit{crossover} e mutação. Geração após geração, o algoritmo evolui até que um destes indivíduos seja escolhido como a solução mais próxima (indivíduo mais apto) para o problema em questão. Os operadores envolvidos nestas etapas serão descritos adiante neste trabalho.
-
-No âmbito da CE surgiram diferentes linhas de pesquisa, que por divergirem em alguns aspectos acabaram por criar sub-áreas independentes de estudo. Dentre as principais, podemos citar:
-\begin{itemize}
- \item Programação Evolutiva \cite{Fogel}; 
- \item Estratégias Evolutivas \cite{Rechenberg};
- \item Algoritmos Genéticos \cite{Holland}
+	\item \textbf{Seleção}: A Seleção escolhe os sobreviventes da população atual que comporão a próxima população. Um bom processo de seleção atribui maior chance aos indivíduos com melhores \emph{fitness}.
+ 
+	\item \textbf{Reprodução (\emph{crossover})}: Com probabilidade alta (\approx 70\%), indivíduos são selecionados aleatoriamente e geram filhos através da combinação de seus genes.
+	
+	\item \textbf{Mutação}: Com baixíssima probabilidade (\approx 1\%), genes são escolhidos para sofrer alterações em seus valores.
+	
 \end{itemize} 
 
-Esses métodos vêm sendo muito explorados por diversos pesquisadores em busca de soluções para problemas demasiadamente complexos, pela ausência ou incapacidade de resolução via métodos determinísticos convencionais.
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=1.00\textwidth]{figs/ga/fluxoGABasico.png}
+	\caption{Fluxograma do algoritmo genético típico.}
+	\label{fig:fluxoGABasico}
+\end{figure}
 
-É importante salientar que as técnicas evolutivas, pelo seu caráter estocástico, nem sempre encontram a solução ótima para o problema, e devem ser utilizadas com muito critério. A prioridade deve ser sempre dada para os algoritmos exatos (quando disponíveis).
-
-\section{Algoritmos Genéticos}
-
-Este trabalho tem como objetivo principal apresentar uma técnica de busca baseada nos conceitos da CE, conhecida como Algoritmos Genéticos (GAs) e proposta inicialmente por Holland \cite{Holland}.
-
-Os GAs usam terminologia baseada na CE, fazendo analogia entre sistemas naturais e artificiais, exemplificado na tabela \ref{tabSist}:
-
-\begin{table}[htp]
- \caption{\label{tabSist}Sistemas Naturais x Sistemas Artificiais}
- \begin{center}
-  \begin{tabular}{c|c}
-   \hline
-   \textbf{Genética Natural}  & \textbf{Genética Artificial} \\
-   \hline
-   gene    & caractere \\
-   alelo    & valor do caractere \\
-   cromossomo & cadeia de caracteres (individuo) \\ 
-   locus    & posição do gene na cadeia de caracteres \\
-   ambiente  & problema a ser solucionado \\
-   \hline
-   \end{tabular}
- \end{center}
-\end{table}
- 
-A estrutura básica de um GA é composta pelos seguintes passos:
-
-\begin{itemize}
-
- \item \textbf{Avaliação}: Uma função de avaliação é aplicada a todos os indivíduos de uma população a fim de determinar os mais aptos (soluções mais próximas do objetivo). Esta medida é conhecida como \textit{Fitness}. 
- 
- \item \textbf{Seleção}: A seleção escolhe os indivíduos que serão copiados para a próxima geração, sendo os com maior \textit{Fitness} aqueles com maior probabilidade de serem escolhidos.
- 
- \item \textbf{Variação}: Os indivíduos escolhidos pela seleção passam pelos processos de \textit{crossover} e mutação, de acordo com a probabilidade pré-estabelecida que estes operadores podem ocorrer.
- 
-\end{itemize} 
-
-Normalmente os GAs partem de uma população inicial gerada aleatoriamente e evoluem em busca de uma solução que satisfaça o objetivo traçado para a aplicação. Pela sua natureza estocástica, a responsabilidade de sucesso de um GA decai sobre a sua função de avaliação, tornando-a peça fundamental de todo o processo.
-
-\section{Motivação e Relevância}
-
-Os GAs têm uma estrutura simples e singular, que pode ser utilizada para as mais diversas aplicações. Isso torna-os extremamente genéricos, e facilita o reuso de uma mesma implementação para problemas distintos.
-
-A sua capacidade de atuar em problemas NP-Completo, aliada à facilidade de reutilização, tornaram esta técnica muito interessante, levando pesquisadores de diversas áreas a utilizá-la com sucesso. Podemos citar publicações nas áreas de:
- 
-\begin{itemize}
-\item \textbf{Otimização Combinatória}: Diversos trabalhos na área de otimização combinatória utilizam com sucesso o os GAs. Em \cite{Anna} é mostrada a aplicação na configuração de uma turbina hidrocinética.
-
-\item \textbf{Robótica}: O trabalho de Harashima \cite{Harashima} propõe a utilização de GAs na movimentação de um braço robótico.
-
-\item \textbf{Jogos}: Em \cite{Appolinario} é apresentada uma solução para navegação autônoma de agentes em jogos utilizando GAs. É feito um comparativo com uma solução baseada em árvores de busca. Apesar da ligeira desvantagem nos experimentos apresentados, os GAs mostram-se uma solução promissora para problemas em maior escala.
-
-\item \textbf{Reconhecimento de padrões em imagens}: Em \cite{Marinho}, utiliza-se uma combinação de técnicas de segmentação de imagens e GAs para facilitar o reconhecimento de áreas devastadas na mata atlântica, buscando por padrões entre as imagens capturadas por satélite;
-
-\item \textbf{Treinamento de Redes Neurais}: A capacidade dos GAs em gerar populações de boas soluções pode ser usada para o treinamento de Redes Neurais \cite{VanRooij1996}.
-
-\end{itemize} 
+$----------------------------------------$
 
 \section{Principais Elementos de um Algoritmo Genético}
 	
 	\subsection{Representação Cromossomial}
 
-	Conforme citado anteriormente, o cromossomo é uma cadeia de caracteres (genes) de comprimento \textit{L}, que representa um indivíduo candidato a solução do problema proposto.
+	O cromossomo é uma cadeia de caracteres (genes) de comprimento \textit{L}, que representa um indivíduo candidato a solução do problema proposto.
 	
-	Esta representação compreende parte de grande importância num GA, pois é a partir desta estrutura que os indivíduos serão avaliados e também sofrerão a atuação dos operadores de variação (\textit{crossover} e mutação) e seleção natural. A codificação genética encontrada nos cromossomos dos seres vivos caracteriza as diferenças encontradas em cada espécie. Tal importância não poderia ser menos crítica quando traduzida para a genética artificial, portanto, uma boa codificação do cromossomo influi diretamente no sucesso da aplicação de um GA.
+	Esta representação compreende parte de grande importância num GA, pois é a partir desta estrutura que os indivíduos serão avaliados e também sofrerão a atuação dos operadores de variação (\textit{crossover} e mutação) e seleção. Uma boa codificação do cromossomo influi diretamente no sucesso da aplicação de um GA.
 	
 	No momento da definição desta representação, deve-se ter em mente \cite{Linden2008}:
 	
@@ -101,8 +59,8 @@ A sua capacidade de atuar em problemas NP-Completo, aliada à facilidade de reut
 	
 	Caso se faça necessário, um cromossomo pode conter mais de uma variável em sua cadeia, sendo que estas serão concatenadas para representar o indivíduo. Na tabela \ref{tabCromo} é exibido um exemplo com três possíveis indivíduos com cromossomo multivariável (variáveis x1 e x2) de comprimento $L = 5$ e alelos que variam entre 1 e 0. Porém, é possível implementar soluções com \textit{k} diferentes alelos para cada locus do cromossomo, contudo a dificuldade em manipular esta estrutura será maximizada.
 	
-	Pela simplicidade apresentada pela representação binária, este trabalho optou por utilizá-la em seus exemplos e implementações. 
-	
+	Os exemplos dessa seção utilizam representação binária. Mas pode-se utilizar outros tipos de representação. Decimal, inteira, símbolos etc. Isso faz do GA importante ferramenta para a vida real.
+		
 	\begin{table}[htp]
  \caption{\label{tabCromo}Exemplo de representação cromossomial}
  \begin{center}
