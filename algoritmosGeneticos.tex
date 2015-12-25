@@ -1,5 +1,9 @@
 \chapter{Algoritmos Genéticos\label{cap:ga}}
 
+O objetivo desse capítulo é dar uma breve introdução aos Algoritmos Genéticos (GAs). Apesar dos GAs terem como base uma teoria matemática formal, o foco está nos aspectos práticos. Espero que o leitor que nunca teve contato com GA possa ter uma boa ideia de seu funcionamento utilizando pouco tempo. Os mais experientes em GA ou outras técnicas de Computação Evolutiva podem pular o capítulo sem prejuízo.
+
+\section{Aspectos históricos}
+
 Da-se o nome \emph{Algoritmos Genéticos} (GAs) a uma técnica de busca baseada numa metáfora da Evolução. Na Natureza muitos animais competem entre si por recursos limitados, e os vencedores de uma dada população têm mais change de procriação. Seu êxito vem das catacterísticas que os tornam melhor adaptados para os desafios apresentados pelo ambiente onde vivem. Seus filhos levarão essas características adiante. 
 
 Esse mecanismo de seleção dos melhores foi descoberto por Darwin, que o chamou de Seleção Natural. A partir dele foi possível explicar como a natureza gera organismos complexos e capazes de solucionar problemas difíceis. Darwin não sabia como as características eram transmitidas e como novas surgiam.
@@ -12,6 +16,29 @@ Se a nova característica for muito boa, após várias gerações ela estará es
 
 Apesar de não ter sido o primeiro a utilizar ideias da Evolução em Ciência da Computação, John Holland é considerado o pai dos Algoritmos Genéticos. Ele estudou formalmente, do ponto de vista matemático, a adaptação na natureza e propôs uma heurística baseada nesse estudo. Seu objetivo era simular a Evolução em computadores. Em 1975 publicou o livro \emph{Adaptation in Natural and Artificial Systems}. A partir de então muitos passaram a usar GAs na solução de problemas de diversas áreas.
 
+\section{Terminologia}
+
+Os GAs usam terminologia baseada na Seleção Natural e Genética, conforme tabela abaixo:
+ 
+\begin{table}[htp]
+	\caption{\label{tabSist}Sistemas Naturais x Sistemas Artificiais}
+	\begin{center}
+		\begin{tabular}{c|c}
+			\hline
+			\textbf{Sistema Natural}  & \textbf{Sistema Artificial} \\
+			\hline
+			gene				&			caractere																		\\
+			alelo				&			valor do caractere													\\
+			cromossomo	&			cadeia de caracteres (indivíduo)						\\ 
+			locus				&			posição do gene na cadeia de caracteres			\\
+			ambiente		&			problema a ser solucionado									\\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+\section{Fluxograma de um algoritmo genético simples}
+
 O algoritmo genético mais básico é composto por cinco processos (figura \ref{fig:fluxoGABasico})
 
 \begin{itemize}
@@ -20,13 +47,13 @@ O algoritmo genético mais básico é composto por cinco processos (figura \ref{
 	
 	\item \textbf{Avaliação}: Cada indivíduo recebe uma nota. Maiores notas indicam indivíduos mais aptos (soluções mais próximas do objetivo). Esta medida é conhecida como \textit{Fitness}. 
 	
-	\item \textbf{Teste do critério de parada}: Com todos os indivíduos avaliados, é possível verificar se algum deles representa uma boa solução.
+	\item \textbf{Teste do critério de parada}: Com todos os indivíduos avaliados, é possível verificar se algum deles representa uma boa solução e se o algoritmo pode ser finalizado. Um número máximo de gerações também pode ser utilizado.
  
 	\item \textbf{Seleção}: A Seleção escolhe os sobreviventes da população atual que comporão a próxima população. Um bom processo de seleção atribui maior chance aos indivíduos com melhores \emph{fitness}.
  
-	\item \textbf{Reprodução (\emph{crossover})}: Com probabilidade alta (\approx 70\%), indivíduos são selecionados aleatoriamente e geram filhos através da combinação de seus genes.
+	\item \textbf{Reprodução (\emph{crossover})}: Com probabilidade alta ($>$ 70\%), indivíduos são selecionados aleatoriamente e geram filhos através da combinação de seus genes.
 	
-	\item \textbf{Mutação}: Com baixíssima probabilidade (\approx 1\%), genes são escolhidos para sofrer alterações em seus valores.
+	\item \textbf{Mutação}: Com baixíssima probabilidade ($\approx$ 1\%), genes são escolhidos para sofrer alterações em seus valores.
 	
 \end{itemize} 
 
@@ -37,36 +64,30 @@ O algoritmo genético mais básico é composto por cinco processos (figura \ref{
 	\label{fig:fluxoGABasico}
 \end{figure}
 
-$----------------------------------------$
-
-\section{Principais Elementos de um Algoritmo Genético}
-	
-	\subsection{Representação Cromossomial}
+	\section{Representação Cromossomial}
 
 	O cromossomo é uma cadeia de caracteres (genes) de comprimento \textit{L}, que representa um indivíduo candidato a solução do problema proposto.
 	
-	Esta representação compreende parte de grande importância num GA, pois é a partir desta estrutura que os indivíduos serão avaliados e também sofrerão a atuação dos operadores de variação (\textit{crossover} e mutação) e seleção. Uma boa codificação do cromossomo influi diretamente no sucesso da aplicação de um GA.
+	Esta representação compreende parte de grande importância num GA, pois é a partir desta estrutura que os indivíduos serão avaliados e também sofrerão a atuação dos operadores de seleção e variação (\textit{crossover} e mutação). Uma boa codificação do cromossomo influi diretamente no sucesso da aplicação de um GA.
 	
-	No momento da definição desta representação, deve-se ter em mente \cite{Linden2008}:
+	Uma boa definição segue os princípios abaixo \cite{Linden2008}:
 	
 	\begin{itemize}
-\item Deve ser a mais simples possível.
-\item Soluções proibidas não devem ser representadas. 
-\item Condições de qualquer tipo devem estar implícitas na representação.
-\end{itemize} 
+		\item Deve ser a mais simples possível.
+		\item Soluções proibidas não devem ser representadas. 
+		\item Condições de qualquer tipo devem estar implícitas na representação.
+	\end{itemize} 
 	
-	A representação binária introduzida por Holland \cite{Holland} é a mais comum entre os GAs, por facilitar a utilização dos operadores genéticos e ser de fácil manipulação.
+	A representação binária introduzida por Holland é a mais comum entre os GAs. Um dos motivos é facilitar a utilização dos operadores genéticos e ter fácil manipulação.
 	
-	Caso se faça necessário, um cromossomo pode conter mais de uma variável em sua cadeia, sendo que estas serão concatenadas para representar o indivíduo. Na tabela \ref{tabCromo} é exibido um exemplo com três possíveis indivíduos com cromossomo multivariável (variáveis x1 e x2) de comprimento $L = 5$ e alelos que variam entre 1 e 0. Porém, é possível implementar soluções com \textit{k} diferentes alelos para cada locus do cromossomo, contudo a dificuldade em manipular esta estrutura será maximizada.
-	
-	Os exemplos dessa seção utilizam representação binária. Mas pode-se utilizar outros tipos de representação. Decimal, inteira, símbolos etc. Isso faz do GA importante ferramenta para a vida real.
+	Caso se faça necessário, um cromossomo pode conter mais de uma variável em sua cadeia, sendo que estas serão concatenadas para representar o indivíduo. Na tabela \ref{tabCromo} é exibido um exemplo com três possíveis indivíduos com cromossomo multivariável (variáveis $x_1$ e $x_2$) de comprimento $L = 5$ e alelos que variam entre 1 e 0. Porém, é possível implementar soluções com \textit{k} diferentes alelos para cada locus do cromossomo, contudo a dificuldade em manipular esta estrutura será maximizada.
 		
 	\begin{table}[htp]
  \caption{\label{tabCromo}Exemplo de representação cromossomial}
  \begin{center}
   \begin{tabular}{c|c|c}
    \hline
-   Indivíduo & x1  & x2 \\
+   Indivíduo & $x_1$  & $x_2$ \\
    \hline
    1 & 10010    & 01101 \\
    2 & 00110    & 11100 \\
@@ -76,72 +97,71 @@ $----------------------------------------$
  \end{center}
 \end{table}
 
-%========================TIAGO - fim ========================================================
+
+Os exemplos dessa seção utilizam representação binária. Mas pode-se utilizar outros tipos, como decimal, inteira, símbolos etc.
 	
-	\subsection{Função de Avaliação}
+	\section{Função de Avaliação}
 	
-	Na Introdução foi dito que a função de avaliação tem um papel fundamental em um algoritmo genético. Podemos ir além, afirmando que ela é o elo mais forte - senão o único - entre o algoritmo e o problema que tentamos resolver no mundo real. Aliás, geralmente a principal diferença entre dois GAs reside apenas, e justamente, na função de avaliação. Portanto, não seria estranho concluir que ela deve conter todo o conhecimento do problema, incluindo suas condições e restrições.
+	A função de avaliação tem um papel fundamental em um algoritmo genético. Junto com a representação cromossomial, ela é o elo entre o algoritmo e o problema que tentamos resolver no mundo real. Aliás, geralmente a principal diferença entre dois GAs reside na função de avaliação. Ela deve conter todo o conhecimento do problema, incluindo suas condições e restrições.
 	
 	Mas, afinal, o que \textit{é} a função de avaliação? Uma vez definido o problema e, em seguida, o objetivo do algoritmo, ela representa nesse contexto a qualidade de um indivíduo. Em outras palavras, através da função de avaliação devemos ser capazes de identificar se um cromossomo leva ou não à uma boa solução. Assim, ela deve refletir a meta que desejamos atingir.
 	
 	Ao aplicarmos a função de avaliação\footnote{Essa função também pode ser chamada de Função Custo, por isso o $f_c$ na equação \ref{funcaval}.} em um indivíduo obtemos uma nota associada aquele cromossomo. Essa nota é um número, um escalar, que pode ser discreto (inteiro) ou contínuo (real):
 	
 	\begin{equation}\label{funcaval}
-		n = f_c(cromossomo)
+		f_i = f_c(\mbox{cromossomo}_i)
 	\end{equation}
 	
-	Então, já podemos apresentar a primeira característica de uma função de avaliação: quanto maior a nota, melhor o indivíduo. Pensando em termos da Teoria da Evolução, maiores notas exprimem indivíduos mais adaptados ao ambiente (metas). Além disso, na equação \ref{funcaval}, $n$ é uma métrica que deve identificar o quão próximo um cromossomo está de uma boa solução.
+	Então, já podemos apresentar a primeira característica de uma função de avaliação: quanto maior a nota, melhor o indivíduo. Pensando em termos da Seleção Natural de Darwin, maiores notas exprimem indivíduos mais adaptados ao ambiente (metas). Além disso, na equação \ref{funcaval}, $n$ é uma métrica que deve identificar o quão próximo um cromossomo está de uma boa solução.
 	
 	Por exemplo, suponha que o cromossomo $c_1$ tem nota $n_1 = 10$, enquanto $n_2 = 9,7$ é atribuída ao cromossomo $c_2$. Imaginando hipoteticamente que uma boa solução está próxima de $n_{boa} = 11$, podemos concluir que ambos são bons, mas $c_1$ é melhor. Sintetizando, uma boa função de avaliação deve quantificar, dentre boas soluções, quais são as melhores.
 	
-	Outro número importante é o \textit{fitness} médio ($<n>$), ou seja, a razão entre a soma das notas de todos os indivíduos e o número de indivídios na geração ($N$):
+	Outro número importante é o \textit{fitness} médio ($<f>$), ou seja, a razão entre a soma das notas de todos os indivíduos e o número de indivídios na geração ($N$):
 	
 	\begin{equation}\label{fitness_medio}
-		<n> = \frac{\sum_{i = 1}^{N} n_i}{N}
+		<f> = \frac{\sum_{i = 1}^{N} f_i}{N}
 	\end{equation}
 	
 	
-	Quando não sabemos qual será a maior nota possível para o nosso problema, temos a opção de usar a estabilidade de $<n>$ como critério de parada. Por quê? Porque se a média das notas não muda muito com o passar do tempo, podemos concluir que o material genético disponível indivíduo a indivíduo é muito semelhante, e essa ausência de variabilidade faz com que uma geração futura se pareça com a passada. Em linguagem mais técnica, estamos confinados a uma região específica no espaço de soluções.
+	Quando não sabemos qual será a maior nota possível para o nosso problema, temos a opção de usar a estabilidade de $<f>$ como critério de parada. Se a média das notas não muda muito com o passar do tempo, podemos concluir que o material genético disponível indivíduo a indivíduo é muito semelhante, e essa ausência de variabilidade faz com que uma geração futura se pareça com a passada. Em linguagem mais técnica, estamos confinados a uma região específica no espaço de soluções.
 	
-	Com relação ao comportamento da função de avaliação, É extremamente desejável que  seja suave e regular. O que isso quer dizer? Que, se um indivíduo é levemente superior a outro, sua nota deve ser apenas um pouco maior. Infelizmente, na maioria das vezes isso não acontece, e o impacto pode surgir em forma de instabilidade do \textit{fitness} médio. Na figura \ref{figFitness} encontramos dois exemplos.
+	Com relação ao comportamento da função de avaliação, é desejável que seja suave e regular. Se um indivíduo é levemente superior a outro, sua nota deve ser apenas um pouco maior. Infelizmente, na maioria das vezes isso não acontece, e o impacto pode surgir em forma de instabilidade do \textit{fitness} médio. Na figura \ref{figFitness} encontramos dois exemplos.
 
 	\begin{figure}[htp]
 		\begin{center}
 			\includegraphics[height=4.7cm]{figs/ga/func_aval_estavel.png}
 			\includegraphics[height=4.7cm]{figs/ga/func_aval_instavel.png}
 		\end{center}
-		\caption{\label{figFitness}Exemplo de instabilidade do \textit{fitness}. Enquanto em (a) o \textit{fitness} cresce de maneira contínua e depois se estabiliza, em (b) há alguns pontos onde onde o comportamento da nota sofre uma mudança razoavelmente brusca. Gráficos retirados de \cite{Bhattacharyya2004}.}
+		\caption{\label{figFitness}Exemplo de instabilidade do \textit{fitness}. Enquanto em (a) o \textit{fitness} cresce de maneira contínua e depois se estabiliza, em (b) há alguns pontos onde onde o comportamento da nota sofre uma mudança razoavelmente brusca. Gráficos retirados de \cite{metodo2004}.}
 	\end{figure}
 
 	Na próxima seção discutiremos um exemplo de definição de uma função de avaliação.
 		
-	\subsection{\label{MaxSeno}Exemplo: Máximos de $f(x) = \sin(x) / x$}
+	\subsection{\label{MaxSeno}Exemplo: Máximos de $y(x) = \sin(x) / x$}
 	
 	A função
 	
 	\begin{equation}\label{eqSinX}
-		f(x) = \frac{\sin(x)}{x}
+		y(x) = \frac{\sin(x)}{x}
 	\end{equation}
-	aparece em várias áreas da matemática. Seu caráter oscilatório é muito útil para descrever pacotes de onda na mecânica quântica \cite{QuGA2006} ou auxiliar no estudo das transformadas de Fourier \cite{James2002}.
+	aparece em várias áreas da matemática. Observando seu gráfico na figura \ref{figSen}, vemos que ela tem um máximo global em $x = 0$ e vários máximos locais. Imaginando que quiséssemos obter os valores de $x$ onde esses máximos aparecem, como definir uma boa função de avaliação?
 	
 	\begin{figure}[htp]
 		\begin{center}
 			\includegraphics[width=13cm]{figs/ga/sen_x__x.png}
 		\end{center}
-		\caption{\label{figSen}Gráfico da função $f(x) = \sin(x) / x$ para $x = [-20,20]$. Se desejamos encontrar os máximos (global ou locais), uma boa função de avaliação seria a própria $f(x)$. Gráfico gerado com o GnuPlot \cite{gnuplot}.}
+		\caption{\label{figSen}Gráfico da função $y(x) = \sin(x) / x$ para $x = [-20,20]$. Se desejamos encontrar os máximos (global ou locais), uma boa função de avaliação seria a própria $y(x)$.}
 	\end{figure}
-	
-	Observando seu gráfico na figura \ref{figSen}, vemos que ela tem um máximo global em $x = 0$ e vários máximos locais. Imaginando que quiséssemos obter os valores de $x$ onde esses máximos aparecem, como definir uma boa função de avaliação?
-	
-	Nesse caso podemos utilizar a própria $f(x)$ (equação \ref{eqSinX}), pois ela possui boas características. Pelo gráfico \ref{figSen} concluímos que ela é suave e, se compararmos dois valores bem próximos de $x$, o resultado de $f(x)$ também é. Por exemplo, $f(0,5) = 0,9589$ e $f(0,51) = 0,9572$, evidenciando que o ponto $x = 0,5$ é um indivíduo levemente melhor.
+		
+	Nesse caso podemos utilizar a própria $y(x)$ (equação \ref{eqSinX}), pois ela possui boas características. Pelo gráfico \ref{figSen} concluímos que ela é suave e, se compararmos dois valores bem próximos de $x$, o resultado de $y(x)$ também é. Por exemplo, $f(0,5) = 0,9589$ e $f(0,51) = 0,9572$, evidenciando que o ponto $x = 0,5$ é um indivíduo levemente melhor.
 	
 	
 	\begin{table}[htp]		
-		\caption{\label{tabSen}Valores de $x$ gerados aleatoriamente para a função $f(x) = \sin(x)/x$. A própria $f(x)$ pode ser usada como função de avaliação.}
+		\caption{\label{tabSen}Valores de $x$ gerados aleatoriamente para a função $y(x) = \sin(x)/x$. A própria $y(x)$ pode ser usada como função de avaliação.}
 		\begin{center}
 			\begin{tabular}{c|c|c}
 				\hline
-				\textbf{Indivíduo}& $\textbf{x}$		& $\textbf{f(x)}$ \\
+				\textbf{Indivíduo}& $\textbf{x}$		& $\textbf{y(x)}$ \\
 				\hline
 				01 & 	2							& 0,455 \\
 				02 & 	3							& 0,047 \\
@@ -156,20 +176,20 @@ $----------------------------------------$
 	\end{table}
 	
 	
-	Se escolhermos vários valores para $x$ aleatoriamente, basta aplicar a $f(x)$ e selecionar os maiores\footnote{Em geral deve-se impor algumas restrições na função de avaliação. Veremos na seção \ref{selecao} que valores negativos são proibidos para o método da Roleta.}. Na tabela \ref{tabSen} listamos cinco pontos como exemplo, assim como a soma dos resultados de $f(x)$. Como veremos na próxima seção, os pontos $01$ e $04$ têm, respectivamente, $0,455/0,680 = 66,9\%$ e $ 0,124/0,680 = 18,2\%$ de chance de serem selecionados no processo de Seleção.
+	Se escolhermos vários valores para $x$ aleatoriamente, basta aplicar a $y(x)$ e selecionar os maiores\footnote{Em geral deve-se impor algumas restrições na função de avaliação. Veremos na seção \ref{selecao} que valores negativos são proibidos.}. Na tabela \ref{tabSen} listamos cinco pontos como exemplo, assim como a soma dos resultados de $y(x)$. Como veremos na próxima seção, os pontos $01$ e $04$ têm, respectivamente, $0,455/0,680 = 66,9\%$ e $ 0,124/0,680 = 18,2\%$ de chance de serem selecionados no processo de Seleção.
 	
-	\subsection{\label{selecao}Seleção}
+	\section{\label{selecao}Seleção}
 	
 	A parte do algoritmo genético que chamamos de \textit{Seleção}\footnote{Alguns autores chamam esse módulo de Seleção de Pais, enquanto outros o definem exatamente como na biologia, Seleção Natural. Para evitar mal entendidos, optamos por chamá-lo apenas de Seleção.} tem como objetivo simular o processo de Seleção Natural da Evolução. Basicamente, os  mais aptos, leia-se ``com maior \textit{fitness}'', devem gerar mais descendentes.
 	
-	Porém, exatamente como na natureza, os indivíduos avaliados com notas menores não devem ser totalmente descartados, e há bons motivos para isso. Em primeiro lugar, esses cromossomos, apesar de mal avaliados, podem conter informação genética importante, senão fundamental, para uma boa solução. Em segundo, a seleção apenas dos melhores, chamada de Elitismo \cite{Bhattacharyya2004}, pode levar à uma convergência precose e com soluções não tão boas.
+	Porém, exatamente como na natureza, os indivíduos avaliados com notas menores não devem ser totalmente descartados, e há bons motivos para isso. Em primeiro lugar, esses cromossomos, apesar de mal avaliados, podem conter informação genética importante, senão fundamental, para uma boa solução. Em segundo, a seleção apenas dos melhores, chamada de Elitismo, pode levar à uma convergência precose e com soluções não tão boas.
 	
-	\subsubsection{\label{ExemploVariabilidade}Exemplo: Variabilidade Genética}
+	\subsection{\label{ExemploVariabilidade}Exemplo: Variabilidade Genética}
 	
-	Como exemplo da importância da variabilidade genética, imagine o problema de encontrar o valor máximo da função $f(x) = -x^2 + 36$ no intervalo (discreto) $x = [0,7]$. Assim, uma representação cromossomial binária com 3 \textit{bits} é suficiente, pois 0 = 000 e 7 = 111 (tabela \ref{tabRepCroX2}).
+	Como exemplo da importância da variabilidade genética, imagine o problema de encontrar o valor máximo da função $y(x) = -x^2 + 36$ no intervalo (discreto) $x = [0,7]$. Assim, uma representação cromossomial binária com 3 \textit{bits} é suficiente, pois 0 = 000 e 7 = 111 (tabela \ref{tabRepCroX2}).
 	
 	\begin{table}[htp]
- 		\caption{\label{tabRepCroX2}Representação cromossomial para os pontos $x = 0$ até $x = 7$ dentro do problema de máximo da função $f(x) = -x^2 + 36$.}
+ 		\caption{\label{tabRepCroX2}Representação cromossomial para os pontos $x = 0$ até $x = 7$ dentro do problema de máximo da função $y(x) = -x^2 + 36$.}
  		\begin{center}
   		\begin{tabular}{c|c}
    			\hline
@@ -192,13 +212,13 @@ $----------------------------------------$
 		\begin{center}
 			\includegraphics[width=13cm]{figs/ga/Parabola.png}
 		\end{center}
-		\caption{\label{figParabola}Gráfico da função $f(x) = -x^2 + 36$ para $x = [-1,1]$. Gráfico gerado com o GnuPlot \cite{gnuplot}.}
+		\caption{\label{figParabola}Gráfico da função $y(x) = -x^2 + 36$ para $x = [-1,1]$.}
 	\end{figure}
 	
 	 Vemos na figura \ref{figParabola} que a resposta correta é $x = 0$, cujo valor é $f(0) = 36$. Suponha agora que os dados da tabela \ref{tabFuncMax} representem a população inicial do algoritmo. Se escolhêssemos apenas os indivíduos com as melhores notas, ou seja, $x = 2$ e $x = 3$, descartaríamos o indivíduo $x = 5$ e perderíamos uma importante característica genética: o zero no \textit{bit} central.
 	 
 \begin{table}[htp]
-		\caption{\label{tabFuncMax}População inicial para o problema de máximo da função $f(x) = -x^2 + 36$. O valor de máximo ocorre em x = 0, ou x = 000 na representação binária.}
+		\caption{\label{tabFuncMax}População inicial para o problema de máximo da função $y(x) = -x^2 + 36$. O valor de máximo ocorre em x = 0, ou x = 000 na representação binária.}
 		\begin{center}
 			\begin{tabular}{c|c}
 				\hline
@@ -213,24 +233,24 @@ $----------------------------------------$
 		\end{center}
 	\end{table}
 		
-		O que aconteceria depois? O mais próximo do valor máximo que o algoritmo conseguiria chegar seria $f(2) = 32$, independentemente do \textit{crossover} entre os indivíduos restantes. Portanto, esse resultado final seria considerado prematuro, efeito denominado \textbf{Convergência Genética}. Em outras palavras, se apenas os melhores indivíduos se reproduzirem, as novas gerações chegarão rapidamente a um estado em que os cromossomos são muito semelhantes entre si, minando a diversidade genética e impedindo a evolução de prosseguir satisfatoriamente.
+		O que aconteceria depois? O mais próximo do valor máximo que o algoritmo conseguiria chegar seria $y(2) = 32$, independentemente do \textit{crossover} entre os indivíduos restantes. Portanto, esse resultado final seria considerado uma \textbf{Convergência Genética} prematura. Em outras palavras, se apenas os melhores indivíduos se reproduzirem, as novas gerações chegarão rapidamente a um estado em que os cromossomos são muito semelhantes entre si, minando a diversidade genética e impedindo que a evolução prossiga satisfatoriamente.
 		
-		Vários métodos foram criados para executar a Seleção de maneira coerente, ou seja, privilegiando os indivíduos com alta função de avaliação, mas não desprezando totalmente os de menor nota. O método mais utilizado em aplicações de Algoritmos Genéticos é o da Roleta, assunto da próxima seção.
+		Vários métodos foram criados para executar a Seleção de maneira coerente, ou seja, privilegiando os indivíduos com alta função de avaliação, mas não desprezando totalmente os de menor nota. Dois deles serão apresentados: o método da Roleta e a Seleção por Torneio.
 	
-	\subsubsection{O método da Roleta (\textit{Roulette Wheel})}
+	\subsection{O método da Roleta (\textit{Roulette Wheel})}
 	
 	A ideia do método é simular uma roleta parecida com as utilizadas em cassinos. Entretando, há duas diferenças. Enquanto na roleta tradicional temos o mesmo tamanho de fatia para cada número, na roleta para os algoritmos genéticos a fatia que cada indivíduo ganha é proporcional à sua avaliação.
 	
-	Uma vez calculados os ângulos para cada cromossomo, giramos a roleta e selecionamos o indivíduo. Nesse ponto reside a segunda diferença. Nos cassinos, o número é selecionado por uma bolinha que também está em movimento. Já nos algoritmos genéticos, o cromossomo é selecionado por um marcador fixo em uma roleta que lembra a utilizada no jogo \textit{Roda a Roda} do SBT \cite{roda-a-roda}.
+	Uma vez calculados os ângulos associados a cada cromossomo, ``giramos a roleta'' e selecionamos o indivíduo. Nesse ponto reside a segunda diferença. Nos cassinos, o número é selecionado por uma esfera que também está em movimento. Já nos algoritmos genéticos, o cromossomo é selecionado por um marcador fixo em uma roleta.
 	
-	Na tabela \ref{tabSumFitness} temos os valores dessas fatias (em porcentagem e graus) para o exemplo da seção \ref{ExemploVariabilidade}. Note que o indivíduo 2 foi descartado, e esse é um ponto muito importante no método da roleta. \textbf{indivíduos com avaliações negativas não podem ocupar a roleta}, e o motivo é simples: notas negativas levam a pedaços negativos na roleta, como, por exemplo, - 15\% ou -125$^\circ$.
+	Na tabela \ref{tabSumFitness} temos os valores dessas fatias (em porcentagem e graus) para o exemplo da seção \ref{ExemploVariabilidade}. Note que o indivíduo 2 foi descartado, e esse é um ponto muito importante no método da roleta. Indivíduos com avaliações negativas não podem ocupar a roleta, e o motivo é simples: notas negativas levam a pedaços negativos na roleta, como, por exemplo, - 15\% ou -125$^\circ$.
 		
 	\begin{table}[htp]		
-		\caption{\label{tabSumFitness}Todas as notas dos indivíduos para o exemplo da seção \ref{ExemploVariabilidade}. Lembre-se que para obter máximo da função $f(x) = -x^2 + 36$ podemos utilizar, com algumas restrições, a própria $f(x)$ como função de avaliação $f_c(x)$ (seção \ref{MaxSeno}).}
+		\caption{\label{tabSumFitness}Todas as notas dos indivíduos para o exemplo da seção \ref{ExemploVariabilidade}. Lembre-se que para obter máximo da função $y(x) = -x^2 + 36$ podemos utilizar, com algumas restrições, a própria $y(x)$ como função de avaliação $f_c(x)$ (seção \ref{MaxSeno}).}
 		\begin{center}
 			\begin{tabular}{c|c|c|c|c|c}
 				\hline
-				\textbf{Indivíduo}	& $\textbf{x}$		& $\textbf{f(x)}$	& \textbf{f$_c$(Indivíduo)} & \textbf{Ocupação (\%)} & \textbf{Ângulo ($^\circ$)} \\
+				\textbf{Indivíduo}	& $\textbf{x}$		& $\textbf{y(x)}$	& \textbf{f$_c$(Indivíduo)} & \textbf{Ocupação (\%)} & \textbf{Ângulo ($^\circ$)} \\
 				\hline
 				01	& 2	& 32  & 32 	& 46	& 165 						\\
 				02	& 7	& -13 & 0		& 0		& 0						\\
@@ -246,16 +266,16 @@ $----------------------------------------$
 	
 	\begin{figure}[htp]
 		\begin{center}
-			\includegraphics[width=13cm]{figs/ga/roleta_viciada.png}
+			\includegraphics[width=0.7\textwidth]{figs/ga/roleta_viciada.png}
 		\end{center}
 		\caption{\label{figRoleta}Roleta criada a partir dos dados da tabela \ref{tabSumFitness}. Note que o indivíduo x = 7 foi descartado porque sua avaliação foi um número menor do que zero.}
 	\end{figure}
 	
-	Mas como implementar tal roleta? Um exemplo em Linguagem C encontra-se na figura \ref{figCodRoleta}. Na linha 226 um \textit{\texttt{for}} é definido de modo que as suas instruções sejam executadas \textit{\texttt{numindividuos}} vezes. Dessa maneira, a população de indivíduos mantêm-se fixa, e podemos trabalhar com vetores constantes. A próxima linha de código armazena em \textit{\texttt{vlrRoleta}} um número aleatório entre 0 e a soma das notas de todos os indivíduos (\textit{\texttt{sumFitness}}). Essa soma também é exibida na tabela \ref{tabSumFitness}. A variável \textit{\texttt{iSelecionado}} armazenará o índice do indivíduo selecionado.
+	Um exemplo em Linguagem C de como implementar tal roleta encontra-se na figura \ref{figCodRoleta}. Na linha 226 um \textit{\texttt{for}} é definido de modo que as suas instruções sejam executadas \textit{\texttt{numIndividuos}} vezes. Dessa maneira, a população de indivíduos mantêm-se fixa, e podemos trabalhar com vetores constantes. A próxima linha de código armazena em \textit{\texttt{vlrRoleta}} um número aleatório entre 0 e a soma das notas de todos os indivíduos (\textit{\texttt{sumFitness}}). Essa soma também é exibida na tabela \ref{tabSumFitness}. A variável \textit{\texttt{iSelecionado}} armazenará o índice do indivíduo selecionado.
 	
 	No laço \textit{\texttt{do ... while}} a roleta começa de fato a girar. A partir do primeiro indivíduo, somamos o \textit{fitness} de cada um em \textit{\texttt{sumFitness}}. Quando essa variável atingir um valor maior do que \textit{\texttt{vlrRoleta}}, o indivíduo com índice \textit{\texttt{iSelecionado}} na geração atual será transferido para a posição \textit{\texttt{iIndividuo}} da próxima geração (linha 238 da figura \ref{figCodRoleta}). 
 	
-	Apesar do caráter randômico do método, ele prevê, estatisticamente, que a quantidade de vezes que um cromossomo aparecerá na próxima geração é proporcional à sua nota. Portanto, não despreza completamente os indivíduos com menor \textit{fitness}, ao mesmo tempo que privilegia os mais aptos.
+	Apesar do caráter randômico do método, ele prevê, estatisticamente, que a quantidade de vezes que um cromossomo aparecerá na próxima geração é proporcional à sua nota. Portanto, não despreza completamente os indivíduos com menor \textit{fitness}, ao mesmo tempo que privilegia os mais aptos \cite{Linden2008}.
 
 	\begin{figure}[htp]
 		\begin{center}
@@ -264,18 +284,14 @@ $----------------------------------------$
 		\caption{\label{figCodRoleta}Exemplo de código em Linguagem C para o método da Roleta.}
 	\end{figure}
 	
-	\subsubsection{Seleção por torneio}
-	
-	Utilizada no mestrado porque o paralelismo é direto.
-	
-	\subsubsection{Exemplo: máximo da função $f(x) = -x^2 + 36$}
+	\subsection{Exemplo: máximo da função $y(x) = -x^2 + 36$}
 	
 	Usaremos os dados da tabela \ref{tabSumFitness} para montar a roleta da figura \ref{figRoleta} e mostrar, passo a passo, o funcionamento do método.
 	
 	Como temos quatro indivíduos na população,
 	
 	$$
-	numindividuos = 4.
+	numIndividuos = 4.
 	$$
 
 	Devemos obter um número aleatrório entre 0 e 70 (soma dos fitness). Imagine que esse primeiro número tenha sido 65:
@@ -290,7 +306,7 @@ $----------------------------------------$
 	iSelecionado = -1.
 	$$
 	
-	Já dentro do laço \textbf{\texttt{do ... while}}O primeiro indivíduo na geração é o $x = 2$, com \textit{fitness} igual a 32. Então \textit{\texttt{sumRoleta}} passa a ser também 32, mas continua menor do que \textit{\texttt{vlrRoleta}}:
+	Já dentro do laço \textbf{\texttt{do ... while}} o primeiro indivíduo na geração é o $x = 2$, com \textit{fitness} igual a 32. Então \textit{\texttt{sumRoleta}} passa a ser também 32, mas continua menor do que \textit{\texttt{vlrRoleta}}:
 	
 	$$
 		sumRoleta = 32 < vlrRoleta = 65.
@@ -326,16 +342,31 @@ $----------------------------------------$
 			5 					& 11										& 70 									& 3						&	27\\	
 			3 					& 27										& 41 									& 5						&	11\\
 			\hline
-			\multicolumn{2}{c|}{$<n>$ = 17,5} & - & \multicolumn{2}{c}{$<n>$ = 24,25}  \\
+			\multicolumn{2}{c|}{$<f>$ = 17,5} & - & \multicolumn{2}{c}{$<f>$ = 24,25}  \\
 			\hline
 		\end{tabular}
 	\end{center}
 \end{table}
 	
-	Dois fatos interessantes aconteceram. O indivíduo com \textit{fitness} zero foi eliminado conforme o esperado. Ele não ocupou espaço na roleta e, obviamente, não poderia participar do processo de seleção. Além disso, o \textit{fitness} médio ($<n>$) da nova população é superior ao da anterior, indicando que a Seleção cumpriu o seu papel em manter os mais aptos.
+	Dois fatos interessantes aconteceram. O indivíduo com \textit{fitness} zero foi eliminado conforme o esperado. Ele não ocupou espaço na roleta e, obviamente, não poderia participar do processo de seleção. Além disso, o \textit{fitness} médio ($<f>$) da nova população é superior ao da anterior, indicando que a Seleção cumpriu o seu papel em manter os mais aptos.
+	
+	\subsection{Seleção por torneio}
+	
+	Nesse tipo de seleção $k$ indivíduos são selecionados aleatoriamente. O que possui maior \emph{fitness} vence e é levado para a próxima geração. O parâmetro $k$ é chamado de \textbf{Tamanho do Torneio}.
+	
+	Assim como na Roleta, nada impede que um indivíduo seja escolhido mais de uma vez. Porém, uma desvantagem do Torneio é que o pior indivíduo será escolhido apenas se competir com cópias dele mesmo. Quanto maior o tamanho da população e do torneio, menor é a probabilidade disso acontecer.
+	
+	O Torneio e a Roleta levam a resultados completamente diferentes, mas há pontos positivos em usar o primeiro. Há indícios empíricos que o Torneio leva a resultados melhores. Ao contrário da Roleta, não há no Torneio favorecimento dos melhores. A única vantagem deles é que, se escolhidos, têm mais chance vencer e prosseguir. Um superindivíduo, aquele com \emph{fitness} muito maior que a média da população, não é privilegiado \cite{Linden2008}. O torneio pode ser facilmente paralelizado.
+	
+	\begin{figure}[htp]
+		\begin{center}
+			\includegraphics[width=1.0\textwidth]{figs/ga/codigoSelecaoTorneio.png}
+		\end{center}
+		\caption{\label{fig:codigoSelecaoTorneio}Exemplo de função em Linguagem C que implementa a Seleção por Torneio.}
+	\end{figure}
 	
 	
-	\subsection{\label{crossover}Reprodução (\textit{Crossover})}
+	\section{\label{crossover}Reprodução (\textit{Crossover})}
 
 	A Reprodução consiste em combinarmos a informação genética de dois cromossomos da população e gerar um ou mais descendentes, até que o número de indivíduos da nova população seja atingido. Uma maneira simples é através do \textbf{\textit{Crossover} de ponto único} (figura \ref{figCrossOver}).
 	
@@ -353,7 +384,7 @@ $----------------------------------------$
 	
 	Esse processo deve ser repetido até que o número de indivíduos desejado seja atingido. Nas figuras \ref{figCodLoopCrossOver} e \ref{figCodCrossOver} há um exemplo de código.
 	
-	\subsubsection{Exemplo: crossover para $f(x) = -x^2 + 36$}
+	\subsubsection{Exemplo: crossover para $y(x) = -x^2 + 36$}
 	
 	Para que o funcionamento do operador \textit{crossover} fique claro, faremos uma execução manual do código contido na figura \ref{figCodLoopCrossOver}. Os indivíduos que utilizaremos serão aqueles selecionados pela Roleta, presentes na tabela \ref{tabRoletaManual}. Ao final teremos quatro indivíduos provenientes de oito pares de cromossomos.
 	
@@ -361,7 +392,7 @@ $----------------------------------------$
 	
 	Entramos no \textit{\texttt{while}} e chamamos a função \textit{\texttt{GeraPontoDeCorte()}}, cujo trabalho é definir o ponto de corte e armazená-lo em uma variável global. Conforme pode ser visto na figura \ref{figCodCrossOver}, essa variável (\textit{\texttt{PontoDeCorte}}) é utilizada na função \textit{\texttt{CrossOver()}}.
 	
-	Cada elemento do vetor \textit{\texttt{geracao}} (linhas 251 e 252) armazena uma população com um número fixo de indivíduos, definida em \textit{\texttt{numindividuos}}. Então, para obter um cromossomo aleatoriamente, geramos, através da função \textit{\texttt{Randomico()}}, um valor entre zero e (\textit{\texttt{numindividuos}} - 1). Esse número será a posição do indivíduo escolhido dentro da geração. 	As variáveis \textit{\texttt{indPai}} e \textit{\texttt{indMae}} receberão os dois indivíduos. 
+	Cada elemento do vetor \textit{\texttt{geracao}} (linhas 251 e 252) armazena uma população com um número fixo de indivíduos, definida em \textit{\texttt{numIndividuos}}. Então, para obter um cromossomo aleatoriamente, geramos, através da função \textit{\texttt{Randomico()}}, um valor entre zero e (\textit{\texttt{numIndividuos}} - 1). Esse número será a posição do indivíduo escolhido dentro da geração. 	As variáveis \textit{\texttt{indPai}} e \textit{\texttt{indMae}} receberão os dois indivíduos. 
 	
 	Em \textit{\texttt{probAux}} guardamos um valor entre 0 e 1, obtido novamente de maneira aleatória. Se ele for menor ou igual a \textit{\texttt{probCrossOver}} (probabilidade de ocorrer a Reprodução), os indivíduos \textit{\texttt{indPai}} e \textit{\texttt{indMae}} gerarão um filho, que será armazenado na posição \textit{\texttt{iIndividuo}} da \textit{\texttt{geracao\_auxiliar}}. A \textit{\texttt{flagCrossOver}} recebe \textit{\texttt{verdadeiro}}, indicando que temos um descendente e podemos sair do \textit{\texttt{while}}.
 	
@@ -374,7 +405,7 @@ $----------------------------------------$
 	Através da tabela \ref{tabRoletaManual} lembramos que 
 	
 	$$
-		numindividuos = 4.
+		numIndividuos = 4.
 	$$
 	
 	Ao entrar no \textit{\texttt{for}} a \textit{\texttt{flagCrossOver}} recebe \textit{\texttt{falso}}:
@@ -402,13 +433,13 @@ $----------------------------------------$
 		PontoDeCorte = 1 \mbox{  e  } probAux = 0,65.
 	$$
 	
-	Na linha 251 \textit{\texttt{Randomico(0, numindividuos)}} retorna 0, e isso significa que \textit{\texttt{indPai}} recebeu $x = 3 = 011$:
+	Na linha 251 \textit{\texttt{Randomico(0, numIndividuos)}} retorna 0, e isso significa que \textit{\texttt{indPai}} recebeu $x = 3 = 011$:
 	
 	$$
 		indPai = 011.
 	$$
 	
-	Em seguida, \textit{\texttt{Randomico(0, numindividuos)}} retorna 3\footnote{Lembre-se que na linguagem C o primeiro elemento de um vetor possui índice \textit{i} = 0. Por isso o número 3 retornou o quarto elemento.}, e isso implica
+	Em seguida, \textit{\texttt{Randomico(0, numIndividuos)}} retorna 3\footnote{Lembre-se que na linguagem C o primeiro elemento de um vetor possui índice \textit{i} = 0. Por isso o número 3 retornou o quarto elemento.}, e isso implica
 	
 	$$
 		indMae = 101.
@@ -427,23 +458,23 @@ $----------------------------------------$
 		geracao\_auxiliar[0] = 001.
 	$$
 	
-	Vamos refletir um pouco sobre esse resultado. Na geração atual (\textit{Geração Final} na tabela \ref{tabRoletaManual}) o indivíduo com melhor \textit{fitness} é o $x = 2$, enquanto $x = 5$ possui a pior nota e $x = 3$ obteve uma avaliação intermediária. Por causa do caráter completamente aleatório do algoritmo, o melhor indivíduo não foi selecionado para gerar descendentes nessa reprodução. Poderíamos supor, num primeiro momento, que esse não tenha sido o melhor caminho. Entretando, o resultado do \textit{crossover} entre $x = 5$ e $x = 3$ gerou um indivíduo com o maior \textit{fitness} desde a geração inicial! Usando $x = 1$ na $f(x)$ chegamos a $f_c(1) = 35$, maior do que o $f(2) = 32$.
+	Na geração atual (\textit{Geração Final} na tabela \ref{tabRoletaManual}) o indivíduo com melhor \textit{fitness} é o $x = 2$, enquanto $x = 5$ possui a pior nota e $x = 3$ obteve uma avaliação intermediária. Por causa do caráter completamente aleatório do algoritmo, o melhor indivíduo não foi selecionado para gerar descendentes nessa reprodução. Poderíamos supor, num primeiro momento, que esse não tenha sido o melhor caminho. Entretando, o resultado do \textit{crossover} entre $x = 5$ e $x = 3$ gerou um indivíduo com o maior \textit{fitness} desde a geração inicial! Usando $x = 1$ na $y(x)$ chegamos a $f_c(1) = 35$, maior do que o $f(2) = 32$.
 	
 \begin{table}[htp]
-	\caption{\label{tabCrossoverManual}Geração antes e depois do \textit{Crossover}. O melhor indivíduo dos descendentes possui o melhor \textit{fitness} entre todas as gerações anteriores. Além disso, o \textit{fitness} médio ($<n>$) também aumentou.}
+	\caption{\label{tabCrossoverManual}Geração antes e depois do \textit{Crossover}. O melhor indivíduo dos descendentes possui o melhor \textit{fitness} entre todas as gerações anteriores. Além disso, o \textit{fitness} médio ($<f>$) também aumentou.}
 	\begin{center}
 		\begin{tabular}{c|c|c|c}
 			\hline
 			\multicolumn{2}{c|}{\textbf{Geração Selecionada}} &  \multicolumn{2}{c}{\textbf{Descendentes}}  \\
 			\hline
-			x 					& \textit{fitness} (n)	& x						& \textit{fitness} (n)	\\
+			x 					& \textit{fitness} (f)	& x						& \textit{fitness} (f)	\\
 			\hline
 			3 					& 27										& 1						&	35 \\
 			2 					& 32 										& 5						&	11 \\
 			3 					& 27										& 3						&	27 \\	
 			5 					& 11										& 3						&	27\\
 			\hline
-			\multicolumn{2}{c|}{$<n>$ = 24,25} & \multicolumn{2}{c}{$<n>$ = 25,00}  \\
+			\multicolumn{2}{c|}{$<f>$ = 24,25} & \multicolumn{2}{c}{$<f>$ = 25,00}  \\
 			\hline
 		\end{tabular}
 	\end{center}
@@ -467,9 +498,9 @@ $----------------------------------------$
 		\caption{\label{figCodCrossOver}Detalhes da função \texttt{CrossOver()}.}
 	\end{figure}
 	
-	\subsection{\label{mutacao}Mutação}
+	\section{\label{mutacao}Mutação}
 		
-	Chegamos à última operação de um algoritmo genético, a Mutação. Assim como no \textit{Crossover}, existe uma probabilidade $p_m$ associada ao acontecimento da Mutação. Porém, nesse momento, não operaremos sobre um par de cromossomos, mas na estrutura interna de cada cromosso: os genes.
+	Chegamos à última operação de um algoritmo genético típico, a Mutação. Assim como no \textit{Crossover}, existe uma probabilidade $p_m$ associada ao acontecimento da Mutação. Porém, nesse momento, não operaremos sobre um par de cromossomos, mas na estrutura interna de cada cromosso: os genes.
 	
 	Se nossos indivíduos possuem dez genes, para cada um dos dez \textit{locus} testamos a condição $p_{aux} <= p_m$, onde $p_{aux}$ é um valor entre zero e um, escolhido aleatoriamente. Caso a desigualdade seja verdadeira, invertemos o \textit{bit} daquela posição e partimos para o próximo \textit{locus}.
 	
@@ -501,7 +532,7 @@ $----------------------------------------$
 		\begin{center}
 			\includegraphics[width=13cm]{figs/ga/Mutacao.png}
 		\end{center}
-		\caption{\label{figMutacao}Representação gráfica de uma mutação. Nesse exemplo a mutação no último \textit{bit} levou à solução ótima para o máximo da função $f(x) -x^2 + 36$.}
+		\caption{\label{figMutacao}Representação gráfica de uma mutação. Nesse exemplo a mutação no último \textit{bit} levou à solução ótima para o máximo da função $y(x) -x^2 + 36$.}
 	\end{figure}
 	
 	Obviamente, existe a possibilidade de bons esquemas serem destruídos com a mudança em algum ``\textit{bit} errado''. Mesmo assim, essa chance é equivalente à probabilidade de transformarmos um péssimo esquema em um excelente espaço de soluções. Nessa linha, a Mutação é a responsável por manter a diversidade e evitar a Convergência Genética (seção \ref{ExemploVariabilidade}).
@@ -525,20 +556,3 @@ $----------------------------------------$
 	Entramos em um \textit{\texttt{for}} que irá varrer todos os genes do \textit{\texttt{Individuo}} e, para cada um, faz o teste $p_{aux} <= p_m$. Se a condição retornar \textit{\texttt{verdadeiro}}, a Mutação é finalmente expressa como a inversão do \textit{bit} no \textit{locus} atual.
 	
 	Depois que todos os indivíduos da população passarem pelo operador Mutação, o ciclo estará fechado. A nova geração está pronta para passar por todo o processo: Avaliação, Seleção, Reprodução e Mutação.
-	
-	\section{Considerações finais}
-	
-	A Teoria da Evolução de Darwin causou uma das principais revoluções na ciência. Seu impacto não está restrito à Biologia, e os Algoritmos Genéticos (GAs), um ramo da Computação Evolutiva, são um bom exemplo disso.
-	
-	Fortemente inspirado no processo de Seleção Natural, todo GA possui uma representação chamada Cromossomial, o equivalente ao DNA. A população de soluções é avaliada para verificar quais são as ruins, as boas e as melhores. As mais adequadas têm maior chance de se reproduzirem e perpetuar seus genes.
-	
-	Do ponto de vista da Inteligência Artificial, os GAs são aplicados com sucesso em vários problemas. Alguns exemplos, dentre muitos, são o reconhecimento de padrões em visão computacional, movimentação de membros em robótica, criação de ambimentes mais realistas em jogos e treinamento de redes neurais. 
-	
-	Estruturalmente todo GA é semelhante, facilitando a modularização do código. Gera-se a população inicial que é avaliada e, em seguida, ela passa pela Seleção, \textit{Crossover} e Mutação. Novos indivíduos são criados e, depois de algumas gerações, chegamos a uma população com um conjunto de boas soluções.
-	
-	Mesmo com boa aplicabilidade, os GAs devem ser utilizados com cuidado. Dada a natureza aleatória do método, não há garantia em geral de uma solução ótima seja encontrada e, por isso, algoritmos que levam à soluções exatas têm prioridade.
-	
-	Porém, problemas combinatoriais muito grandes, como os NP Completos, são um excelente campo de utilização. Além desses, os GAs são eficientes na otimização de problemas multiobjetivos, como escala de horários ou planejamento de logística e produção.
-
-
-
