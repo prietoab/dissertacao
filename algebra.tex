@@ -1,4 +1,124 @@
-\chapter{Autovalores e o Quociente de Rayleigh\label{cap:algebra}}
+\chapter{Álgebra Linear\label{cap:algebra}}
+
+%=============================================================================
+\section{Vetores}
+%=============================================================================
+Vetores são objetos matemáticos representados geometricamente por setas. Possuem direção, sentido e magnitude (módulo). Algebricamente, são representados no espaço $\mathbb{R}^n$ por $n-$uplas ordenadas $X = (c_1, c_2, ..., c_n)$. Por exemplo, a dupla $\vec{w} = (3,4)$ é um vetor do espaço $\mathbb{R}^2$. Porém, a única informação que o escalares (3,4) nos dá é que o módulo do vetor $\vec{w}$ é $\| \vec{w} \| = \sqrt{3^2 + 4^2} = 5$.
+
+Para sabermos qual é a direção e o sentido de $\vec{w}$, é necessária a definição de uma base. No espaço $\mathbb{R}^2$ a base comumente utilizada é formada pelos vetores unitários $\hat{x}$ e $\hat{y}$ (ou $i$ e $j$). Agora, $\vec{w}$ é a soma de dois vetores proporcionais aos vetores da base,
+
+\begin{equation}\label{eq_vetorNaBase}
+	\vec{w} = (3,4) = 3\hat{x} + 4\hat{y},
+\end{equation}
+tem direção de aproximadamente $53$ graus com o eixo $x$ e sentido do ponto $(0,0)$ para o ponto $(3,4)$.
+
+Um vetor $\vec{v}$ qualquer do $\mathbb{R}^3$ utiliza os eixos $x$, $y$ e $z$, e é escrito como a soma de três vetores proporcionais aos versores $\hat{x}$, $\hat{y}$ e $\hat{z}$:
+
+\begin{equation}
+	\vec{v} = (\alpha,\beta,\gamma) = \alpha\hat{x} + \beta \hat{y} + \gamma\hat{z},
+\end{equation}
+onde $\alpha$, $\beta$ e $\gamma$ são números reais.
+
+Generalizando para $\mathbb{R}^n$, um vetor $\psi$ é dado por
+
+\begin{equation}
+	\psi = (c_1, c_2, ..., c_n) = c_1\hat{x}_1 + c_2\hat{x}_2, \mbox{ ... }, c_n\hat{x}_n.
+\end{equation}
+
+Utilizando o somatório,  
+
+\begin{equation}\label{eq:vetor}
+	\psi = \sum_{i=1}^n c_i \hat{x}_i.
+\end{equation}
 
 
-Inseir apenas a álgebra linear necessária para o entendimento do método e da discussão.
+Veremos adiante que o método estudado nessa dissertação utiliza os coeficientes $c_i$ da equação \ref{eq:vetor} para representar um vetor no algoritmo genético.
+
+%=============================================================================
+\section{Autovalores}
+%=============================================================================	
+	\begin{mydef}
+	
+		Seja $T: \mathbb{V} \rightarrow \mathbb{V}$ um operador linear. Um escalar $\lambda$ é chamado \textbf{autovalor} de $T$ se existe um vetor não nulo $\vec{v} \in \mathbb{V}$ tal que
+		
+		\begin{equation}\label{eqAA}
+			T(\vec{v}) = \lambda \vec{v}
+		\end{equation}
+		
+		Um vetor não nulo e que satisfaça a equação \ref{eqAA} acima é chamado de \textbf{autovetor} de T.
+		
+	\end{mydef}
+	
+	\vspace{1cm}
+	
+	O operador linear $T$	é representado, na prática, por uma matriz quadrada $H$, e aplicar $T$ em $\vec{v}$ significa multiplicar a matriz $H$ pelo vetor (coluna) $\vec{v}$:
+	
+	\begin{equation}
+		H\vec{v} = \lambda \vec{v}.
+	\end{equation}
+	
+	Reescrevendo a equação acima chegamos a 
+	
+	\begin{equation}\label{eqEqMatricial}
+		(H - \lambda I)\vec{v} = 0,
+	\end{equation}
+	onde $I$ é a matriz identidade.
+	
+	Para que a equação acima possua solução não trivial, é necessário que
+	
+	\begin{equation}\label{eqDeterminanteZeto}	
+		\mbox{det}(H - \lambda I) = 0.
+	\end{equation}
+	
+	O cálculo desse determinante resultará na busca das raízes (reais ou imaginárias) de um polinômio com o mesmo grau da ordem da matriz $H$; cada raiz será um autovalor de $H$, e cada autovalor utilizado na equação \ref{eqAA} levará ao autovetor correspondente.
+	
+	\textbf{Exemplo} \cite{Santos2010}: determinar os autovalores do operador $T: \mathbb{R}^3 \rightarrow \mathbb{R}^3$ definido por $T(\vec{v}) = H\vec{v}$, para todo $\vec{v} \in \mathbb{R}^3$, em que
+		
+		\begin{equation}
+			H=\left[\begin{array}{rrr}
+								2		&		0		&		1		\\
+								2		&		1		&		2		\\
+								1		&		0		&		2								
+							\end{array}\right]
+		\end{equation}
+		
+		Para este operador o polinômio característico é
+		
+		$$
+			p(\lambda) = \mbox{det}(H - \lambda I_3) = \mbox{det}\left[\begin{array}{rrr}
+						2	-\lambda	&		0						&		1		\\
+						2						&		1	-\lambda	&		2		\\
+						1						&		0						&		2	-\lambda							
+						\end{array}\right]
+		$$
+		
+		\begin{equation}\label{eqPolCarac}
+			p(\lambda) = (1 - \lambda)^2 (3 - \lambda)
+		\end{equation}
+	
+	Igualar a zero a equação \ref{eqPolCarac} acima
+	
+		\begin{equation}\label{eqIgualAZero}
+			p(\lambda) = (1 - \lambda)^2 (3 - \lambda) = 0
+		\end{equation}
+		leva às seguintes raízes:
+		
+		\begin{equation}\label{autovaloresExemplo}
+			\lambda_1 = 1, \lambda_2 = 1 \mbox{ e } \lambda_3 = 3.
+		\end{equation}
+		
+		Portanto, $\lambda_1 = 1, \lambda_2 = 1 \mbox{ e } \lambda_3 = 3$ são os autovalores de $H$.
+		
+		Obter os autovalores por meio do polinômino característico é prático para matrizes pequenas. Mas, para as de médio e grande porte, o custo computacional de lidar com grandes polinômios torna o cálculo inviável. Vários métodos numéricos mais eficientes $-$ e sofisticados $-$ foram desenvolvidos \cite{Wilkinson1965, Parlett1998}. E alguns utilizam propriedades de matrizes Hermitianas.
+
+\section{Matrizes Hermitianas}
+
+	---------------------------------------------
+	
+\section{Matrizes Simétricas}
+	
+	---------------------------------------------
+	
+\section{Quociente de Rayleigh}
+	
+	---------------------------------------------
