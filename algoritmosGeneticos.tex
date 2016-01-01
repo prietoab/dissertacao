@@ -350,13 +350,15 @@ Os exemplos dessa seção utilizam representação binária. Mas pode-se utiliza
 	
 	Dois fatos interessantes aconteceram. O indivíduo com \textit{fitness} zero foi eliminado conforme o esperado. Ele não ocupou espaço na roleta e, obviamente, não poderia participar do processo de seleção. Além disso, o \textit{fitness} médio ($<f>$) da nova população é superior ao da anterior, indicando que a Seleção cumpriu o seu papel em manter os mais aptos.
 	
-	\subsection{Seleção por torneio}
+%-------------------------------------------------------	
+	\subsection{Seleção por torneio}\label{sec:torneio}
+%-------------------------------------------------------	
 	
 	Nesse tipo de seleção $k$ indivíduos são selecionados aleatoriamente. O que possui maior \emph{fitness} vence e é levado para a próxima geração. O parâmetro $k$ é chamado de \textbf{Tamanho do Torneio}.
 	
 	Assim como na Roleta, nada impede que um indivíduo seja escolhido mais de uma vez. Porém, uma desvantagem do Torneio é que o pior indivíduo será escolhido apenas se competir com cópias dele mesmo. Quanto maior o tamanho da população e do torneio, menor é a probabilidade disso acontecer.
 	
-	O Torneio e a Roleta levam a resultados completamente diferentes, mas há pontos positivos em usar o primeiro. Há indícios empíricos que o Torneio leva a resultados melhores. Ao contrário da Roleta, não há no Torneio favorecimento dos melhores. A única vantagem deles é que, se escolhidos, têm mais chance vencer e prosseguir. Um superindivíduo, aquele com \emph{fitness} muito maior que a média da população, não é privilegiado \cite{Linden2008}. O torneio pode ser facilmente paralelizado.
+	O Torneio e a Roleta levam a resultados completamente diferentes, mas há pontos positivos em usar o primeiro. Há indícios empíricos que o Torneio leva a resultados melhores. Ao contrário da Roleta, não há no Torneio favorecimento dos melhores. A única vantagem deles é que, se escolhidos, têm mais chance vencer e prosseguir. Um superindivíduo, aquele com \emph{fitness} muito maior que a média da população, não é privilegiado \cite{Linden2008}. O torneio também pode ser facilmente paralelizado.
 	
 	\begin{figure}[htp]
 		\begin{center}
