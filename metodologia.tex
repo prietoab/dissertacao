@@ -249,8 +249,8 @@ Na figura \ref{fig:cross2004_tabelaDepois} há os dois novos indivíduos.
 	
 	\begin{equation}
 		\begin{array}{l}
-		S^{'}_k = (c_{k1}, c_{k2}, \cdots, c^{'}_{kp} c_{k,p+1}, \cdots, c_{kn})	\\
-			S^{'}_l = (c_{l1}, c_{l2}, \cdots,  c^{'}_{lp} c_{l,p+1}, \cdots, c_{ln}).	
+		S_k = (c_{k1}, c_{k2}, \cdots, c_{kn})	\\
+		S_l = (c_{l1}, c_{l2}, \cdots, c_{ln})	
 		\end{array}
 	\end{equation}
 	
@@ -268,7 +268,7 @@ Na figura \ref{fig:cross2004_tabelaDepois} há os dois novos indivíduos.
 	\begin{equation}
 		\begin{array}{l}
 			c^{'}_{ki} = f_c c_{ki} + (1 - f_c) c_{li}     \\
-			c^{'}_{li} = (1 - f_c) c_{ki} + f c_{li}
+			c^{'}_{li} = (1 - f_c) c_{ki} + f_c c_{li}
 		\end{array}
 	\end{equation}
 	onde $f_c$ é dado por
@@ -376,8 +376,46 @@ Na figura \ref{fig:cross2004_tabelaDepois} há os dois novos indivíduos.
 \subsubsection{\emph{Crossover} utilizado}	
 %----------------------------------------------------
 
-	Escolhi utilizar o \emph{crossover} de \cite{metodo2011} levemente modificado.
-
+	A quantidade de nova informação não é escalável com o tamanho do cromossomo no \emph{crossover} de \cite{metodo2004}. Ele altera apenas uma posição (locus) de cada indivíduo, independentemente do tamanho do cromossomo. Por exemplo, se a ordem do Hamiltoniano for $n = 100$, o \emph{string} terá 100 elementos, mas apenas um sofrerá alteração. O mesmo aconteceria para $n = 1.000$, 10.000 e assim por diante.
+	
+	Ainda sobre o artigo de 2004, é impossível haver troca de informação na última posição. O parâmetro $p$, obtido aleatoriamente, dá a posição que ocorrerá o \emph{crossover}. Porém, parte do cálculo envolve os elementos $c_{k,p+1}$ e $c_{l,p+1}$. Note o índice $p+1$. Como a posição máxima é $n$, o maior índice possível para estes elementos é $p + 1 = n$, impondo o limite $p \leq n - 1$. Nos exemplos apresentados, $n = 6$, $p \leq 5$ e, portanto, a posição $6$ nunca será escolhida.
+	
+	Isso pode dificultar a busca. Suponhe que uma solução precise do valor 23 no último coeficiente do cromossomo ($c_n = 0,23$). Se nenhum indivíduo da população inicial já tiver nascido com ele, esse valor nunca aparecerá por meio do \emph{crossover}. Resta como esperança a Mutação, porém, por definição, ela tem baixa probabilidade \cite{Linden2008}. Também não há garantia de que, após muitas gerações com sucessivas operações de \emph{crossover}, mutação e seleção, haverá um indivíduo na população que, além de ter 0,23 na última posição, possua os outros $(n-1)$ primeiros elementos necessários.
+		
+		O \emph{crossover} de \cite{metodo2004} é um caso especial do \emph{crossover} de \cite{metodo2011}. O operador de reprodução de \cite{metodo2011} é o clássico \emph{crossover} de dois pontos \cite{Linden2008}. Nele, $p \geq o$, e, se $o = p$, há mistura em apenas uma posição do \emph{string}, exatamente o que acontece em \cite{metodo2004}. Como $1 \leq o \leq n$ e $1 \leq p \leq n$, o último gene também está sujeito à operação, e o problema citado no parágrafo anterior não existe.
+		
+	Pelo que expus acima, escolhi utilizar o \emph{crossover} de \cite{metodo2011}, mas com uma pequena modificação. No cálculo dos novos coeficientes $c^{'}_{i}$, invés do parâmetro $f_c$, usei o $f$ conforme definido em \cite{metodo2004}. O $f$ pode variar entre $0$ e $1$, enquanto o $f_c$, além de necessitar do parâmetro adicional $r$, é limitado apenas entre $0,75$ e $1$. Assim, acredito que $f$ seja mais abrangente como parâmetro de mistura e criação de nova informação.
+	
+	A seguir apresento sinteticamente a estrutura do \emph{crossover} utilizado. Um par de indivíduos $(S_k, S_l)$
+	
+	\begin{equation}
+		\begin{array}{l}
+			S_k = (c_{k1}, c_{k2}, \cdots, c_{kn})	\\
+			S_l = (c_{l1}, c_{l2}, \cdots, c_{ln})	
+		\end{array}
+	\end{equation}
+	é obtido aleatoriamente da população. Com probabilidade $p_c$, a operação de \emph{crossover} acontece. Dois pontos de corte $o$ e $p$ são obtidos, também aleatoriamente, gerando os novos \emph{strings} $S^{'}_k$ e $S^{'}_l$ na forma
+		
+	\begin{equation}
+		\begin{array}{l}
+			S^{'}_k = (c_{k1}, c_{k2}, \cdots, c^{'}_{ko}, \cdots , c^{'}_{kp}, c_{k,p+1}, \cdots, c_{kn})	\\
+			S^{'}_l = (c_{l1}, c_{l2}, \cdots, c^{'}_{lo}, \cdots , c^{'}_{lp}, c_{l,p+1}, \cdots, c_{ln}),
+		\end{array}
+	\end{equation}
+	onde
+	
+	\begin{equation}
+		\begin{array}{l}
+			c^{'}_{ki} = f c_{ki} + (1 - f) c_{li}     \\
+			c^{'}_{li} = (1 - f) c_{ki} + f c_{li}
+		\end{array}
+	\end{equation}
+	e
+	
+	\begin{equation}
+	0 \leq f \leq 1 \mbox{       (obtido aleatoriamente)}
+	\end{equation}
+	
 -----------------
 
 	Apresentar e definir a matriz de Coope-Sabo (citar artigo original de 77), utilizada no pelos indianos no artigo de 2006.
