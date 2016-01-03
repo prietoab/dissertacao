@@ -3,6 +3,45 @@
 Antes de atacar o método em si foi necessário estudo de Algoritmos Genéticos e Linguagem C, escolhida pensando em CUDA.
 
 %========================================================
+\section{Algoritmos Genéticos}
+%========================================================
+	
+	Iniciei os estudos em Algoritmos Genéticos pelos livros \cite{Mitchell98} e \cite{Linden2008} e, antes de partir para o trabalho da dissertação em si, ataquei três problemas completamente distintos.
+	
+	O primeiro foi o ONEMAX \cite{onemaxNaGPU}, desenvolvido ``do zero'', em Linguagem C. Considerado o \emph{hello world} do GA, tem representação cromossomial binária, o \emph{fitness} é a soma dos \emph{bits} de cada indivíduo e o objetivo é obter um indivíduo com o maior número de '1' possível. Com ele foi possível estudar os parâmetros de um GA simples, como número de indivíduos e a probabilidade de \emph{crossover}, e verificar a influência de cada um na qualidade da solução, convergência, desempenho, evolução do \emph{fitness} etc.
+	
+	\begin{figure}[htbp]
+		\centering
+			\includegraphics[width=0.60\textwidth]{figs/resultados/onemax/onemax_objetivo.png}
+		\caption{ONEMAX: representação cromossomial, \emph{fitness} e objetivo.}
+		\label{fig:onemax_objetivo_metodologia}
+	\end{figure}
+	
+	Tendo a estrutura básica do ONEMAX, o próximo passo foi tentar fazer um modelo. Abordei o Problema das Oito Rainhas, que consiste em posicionar oito rainhas em um tabuleiro de xadrez de modo que não se ataquem. Sem nenhuma referência externa, propus um modelo de GA que conseguiu chegar em algumas soluções \cite{qualificacao_adriano}. Uma delas está na figura \ref{fig:OitoRainhasSolucao}.
+	
+	\begin{figure}[htbp]
+		\centering
+			\includegraphics[width=0.30\textwidth]{figs/materiais_metodo/ga/OitoRainhasSolucao.png}
+		\caption{Uma solução para o Problema das 8 Rainhas.}
+		\label{fig:OitoRainhasSolucao}
+	\end{figure}
+	
+	Tratando o tabuleiro de xadrez como um plano cartesiano, a representação cromossomial era um \emph{string} com os oito pares de coordenadas $(x,y)$. Cada coordenada gerava uma matriz característica de 0's e 1's que, quando somadas, resultava em uma matriz com a informação da quantidade $c$ de ataques que cada rainha sofreu. O objetivo, portanto, era encontrar um indivíduo que levasse a $c = 0$. A função de avaliação foi definida como $f = 1/(1 + c)$.
+	
+	Criar um modelo para o Oito Rainhas foi importante para o entendimento do elo entre um GA e o problema a ser resolvido. Essa ligação encontra-se na representação cromossomial e na função de avaliação. Defini ambas de maneira adequada, mas a representação cromossomial apresentou um problema: pode haver pontos $(x,y)$ repetidos. Em outras palavras, ela permite que duas rainhas sejam colocadas na mesma posição do tabulareiro, o que é proibido no xadrez. 
+	
+	Por fim, utilizei GA na criação de um robô, chamado \emph{Genético}, para ser testado contra os campeões do torneio de Robocode da Faculdade de Tecnologia da Unicamp\footnote{\texttt{http://torneiorobocode.orgfree.com/torneio-ft.php}}. Robocode é um jogo\footnote{\texttt{http://robocode.sourceforge.net/}}, cujo objetivo é programar um tanque de guerra robô para competir contra outros robôs em uma arena de batalha. Ele começou como um projeto pessoal no ano 2000 e depois foi incorporado pela IBM\footnote{\texttt{http://robocode.sourceforge.net/docs/ReadMe.html}}. Atualmente é um projeto de código aberto.
+	
+	\begin{figure}[htbp]
+		\centering
+			\includegraphics[width=0.50\textwidth]{figs/materiais_metodo/ga/Robocode_Battle_Field.PNG}
+		\caption{Arena de batalha do Robocode.}
+		\label{fig:Robocode}
+	\end{figure}
+	
+	Me baseei no artigo \cite{robocodeGA}, publicado em um congresso de computação evolutiva da IEEE. As primeiras versões do \emph{Genético} não travaram boas batalhas. Alterei o \emph{fitness} e o processo de treinamento. Na versão final o ele foi capaz de vencer os robôs que ficaram em primeiro e terceiro lugar no torneio daquele ano (o segundo lugar não estava disponível para \emph{download}). O \emph{Genético} vencia, inclusive, contra os dois simultaneamente \cite{robocodeGA_adriano}.
+	
+%========================================================
 \section{Autovalores de Hamiltonianos com Algoritmos Genéticos\label{sec:metodo}}
 %========================================================
 
@@ -15,7 +54,7 @@ Antes de atacar o método em si foi necessário estudo de Algoritmos Genéticos 
 	Assim, optei por seguir estritamente o processo e os operadores discutidos em \cite{metodo2004}, mas utilizar, também, o \emph{fitness} do \cite{metodo2011}. Ao manter o mesmo GA, foi possível comparar com segurança os resultados das duas funções de avaliação.
 
 %========================================================	
-\section{Descrição do Algoritmo Genético}
+\section{Descrição do Algoritmo}
 %========================================================	
 
 	Há casos em que não há solução exata para a equação de Schrödinger independente do tempo. Quando isso acontece, é preciso introduzir uma base ortonormal finita {$\phi$} e expandir o estado estacionário $\psi$ em termos dos vetores geradores dessa base
@@ -62,7 +101,9 @@ Antes de atacar o método em si foi necessário estudo de Algoritmos Genéticos 
 	\subsection{População}
 %-------------------------------------------------------
 
-	A população inicial é gerada aleatoriamente. Seu tamanho (número de indivíduos) é sempre mantido fixo a cada nova geração.
+	A população inicial é gerada aleatoriamente. Não há nenhuma preferência com relação aos valores iniciais de cada gene.
+	
+	Seu tamanho (número de indivíduos) é sempre mantido fixo a cada nova geração.
 	
 %-------------------------------------------------------
 	\subsection{Funções de Avaliação (\emph{fitness})}
@@ -386,6 +427,8 @@ Na figura \ref{fig:cross2004_tabelaDepois} há os dois novos indivíduos.
 		
 	Pelo que expus acima, escolhi utilizar o \emph{crossover} de \cite{metodo2011}, mas com uma pequena modificação. No cálculo dos novos coeficientes $c^{'}_{i}$, invés do parâmetro $f_c$, usei o $f$ conforme definido em \cite{metodo2004}. O $f$ pode variar entre $0$ e $1$, enquanto o $f_c$, além de necessitar do parâmetro adicional $r$, é limitado apenas entre $0,75$ e $1$. Assim, acredito que $f$ seja mais abrangente como parâmetro de mistura e criação de nova informação.
 	
+	\textbf{\emph{Crossover} utilizado.}
+	
 	A seguir apresento sinteticamente a estrutura do \emph{crossover} utilizado. Um par de indivíduos $(S_k, S_l)$
 	
 	\begin{equation}
@@ -415,19 +458,89 @@ Na figura \ref{fig:cross2004_tabelaDepois} há os dois novos indivíduos.
 	\begin{equation}
 	0 \leq f \leq 1 \mbox{       (obtido aleatoriamente)}
 	\end{equation}
+
+%-------------------------------------------------------
+\subsection{Mutação}
+%-------------------------------------------------------
+
+	A operador Mutação é semelhante nos dois artigos. Todos os cromossomos estão sujeitos à mutação. Se um indivíduo $k$ sofre mutação no gene $q$, o antigo valor $c^{'}_{kq}$ é alterado para $c^{''}_{kq}$ com a seguinte equação:
+
+		\begin{equation}\label{eq:mutacao}
+			c^{''}_{kq} = c^{'}_{kq} + (-1)^{L} r \Delta,
+		\end{equation}
+		onde $L$ é um número inteiro, $r$ um número aleatório ($0 \leq r \leq 1$) e $\Delta$ é a intensidade da mutação.
+		
+		
+	Não ficou claro para mim qual a relação entre a probabilidade $p_m$ e como será a mutação no artigo \cite{metodo2004}. Os autores dizem que todos os \emph{indivíduos} estão sujeitos ao operador, mas não citam quais \emph{genes} podem sofrer mutação. Essa informação está explícita em \cite{metodo2011}, que permite mutação, caso aconteça, em apenas um gene de cada indivíduo. Ou seja, se houver mutação logo no primeiro gene de um cromossomo, o algoritmo parte para o próximo indivíduo.
 	
------------------
+	Assumi que no artigo \cite{metodo2004} os autores utilizaram o operador clássico. Conforme a literatura \cite{Mitchell98, Linden2008} o operador clássico de mutação age com probabilidade $p_m$ em cada gene, de maneira individual e independente. Ou seja, se um gene $c_{k,j}$ sofreu ou não mutação, essa informação não é utilizada para avaliar a ocorrência de mutação no próximo gene $c_{k,j+1}$. Portanto, a probabilidade de cada \emph{gene} sofrer mutação é $p_m$, mas a probabilidade $P_m$ de um \emph{indivíduo} sofrer mutação é, na verdade, $P_m = n*p_m$. Quanto maior o $n$, mais provável ocorrer a mutação, o que me parece razoável. Mutação é causada principalmente por erros de cópia do DNA. Quanto maior a fita, mais chance de acontecer erro.
 
-	Apresentar e definir a matriz de Coope-Sabo (citar artigo original de 77), utilizada no pelos indianos no artigo de 2006.
+	Há diferença na intensidade da mutação $\Delta$. No trabalho de 2004 ela é pequena ($10^{-2}-10^{-3}$) e mantida constante. Já no segundo artigo ela é proporcional ao melhor \emph{fitness} $f_t$ da geração atual $t$, e dada pela equação \ref{eq:Delta2011}. Como o \emph{fitness} começa pequeno e termina próximo de 1, $\Delta \rightarrow 0$ a medida que $f \rightarrow 1$.
+
+\begin{equation}\label{eq:Delta2011}
+	\Delta^{(t)}_m =  1 - f_t.
+\end{equation}	
+
+	Não fiquei confortável com a definição da equação \ref{eq:Delta2011}, por isso usei a intensidade $\Delta$ constante de \cite{metodo2004}. No início de um GA a criação de variabilidade genética é dominada pelo \emph{crossover}. No final, como os indivíduos são parecidos, fica a cargo da mutação fazer isso. A intensidade da mutação deve ser pequena e, se não for constante, é desejável que cresça com o tempo, justamente porque o papel da mutação passa a ser dominante na variabilidade comparado com o \emph{crossover} \cite{Linden2008}. Os autores de \cite{metodo2011} fazem o inverso. Como dito anteriormente, $\Delta$ diminui com o tempo, mas eles não justificam porque optaram por esse comportamento.
+	
+	Com relação à probabilidade de mutação, optei novamente a favor de \cite{metodo2004}. Ambos os trabalhos utilizam valor constante de $p_m$. Entretanto, em \cite{metodo2011} $p_m$ é inversamente proporcional ao tamanho do cromossomo $n$ (equação \ref{eq:probM2011}). Na prática, quanto maior a ordem $n$ do Hamiltoniano, menor a probabilidade de mutação, e no artigo não há justificativa para essa escolha. Fiquei com a probabilidade constante, discutida em livros tradicionais de GA \cite{Mitchell98, Linden2008}.
+
+	\begin{equation}\label{eq:probM2011}
+		p_m = 4.0/n
+	\end{equation}
 
 
+	\textbf{Mutação utilizada.}
+	
+	Abaixo resumo a estrutura da Mutação implementada na dissertação.
+	
+	
+	\begin{itemize}
+		\item \textbf{Probabilidade de mutação $p_m$}
+			\begin{itemize}
+				\item Constante.
+				\item Um dos parâmetros do algoritmo.
+				\item Pode ter qualquer valor $0 \leq p_m \leq 1$.
+			\end{itemize}
+		\item \textbf{Equação da mutação}.
+			\begin{itemize}
+				\item No indivíduo $S$, transforma o valor $c^{'}_{kq}$ do gene $q$ no novo valor $c^{''}_{kq}$.
+				\item Equação: $c^{''}_{kq} = c^{'}_{kq} + (-1)^{L} r \Delta$
+				\item Parâmetro $L$: inteiro aleatório.
+				\item Parâmetro $r$: aleatório ($0 \leq r \leq 1$).
+				\item Intensidade de mutação $\Delta$: Constante. Valores pequenos ($10^{-3}-10^{-2}$).
+			\end{itemize}
+	\end{itemize}
+	
+
+%-------------------------------------------------------
+\subsection{Fluxograma do algoritmo implementado}
+%-------------------------------------------------------
+
+	O algoritmo genético seguiu a estrutura de um GA básico \cite{Mitchell98, Linden2008}. Após gerar a população inicial, Avaliação, Seleção, Crossover e Mutação são executados nessa sequência até que uma condição de parada seja atingida.
+	
+	Na figura \ref{fig:fluxo} está o fluxograma. Ele não é um diagrama completo do \emph{software} desenvolvido, mas é útil para ter a visão geral do algoritmo.
+
+\begin{figure}[htbp]
+	\centering
+		\includegraphics[width=1.00\textwidth]{figs/materiais_metodo/autovalores_com_ga/fluxo.png}
+	\caption{Fluxo algoritmo genético}
+	\label{fig:fluxo}
+\end{figure}
+
+
+	
+%========================================================
 \section{CUDA}
+%========================================================
 
 Metodologia: revisão bibliográfica e aplicação no ONEMAX.
 
 Material do ERAD.
 
+%========================================================
 \section{Framework/Programa Serial}
+%========================================================
 
 	Optou-se por desenvolver do zero todo o programa. Motivo: controle sobre todas as características do método.
 
