@@ -1,153 +1,85 @@
-\chapter{Álgebra Linear\label{cap:algebra}}
+\chapter{Quociente de Rayleigh ($\rho$)\label{cap:algebra}}
 
-%=============================================================================
-\section{Vetores}
-%=============================================================================
-Vetores são objetos matemáticos representados geometricamente por setas. Possuem direção, sentido e magnitude (módulo). Algebricamente, são representados no espaço $\mathbb{R}^n$ por $n-$uplas ordenadas $X = (c_1, c_2, ..., c_n)$. Por exemplo, a dupla $\vec{w} = (3,4)$ é um vetor do espaço $\mathbb{R}^2$. Porém, a única informação que o escalares (3,4) nos dá é que o módulo do vetor $\vec{w}$ é $\| \vec{w} \| = \sqrt{3^2 + 4^2} = 5$.
+O problema dos autovalores e autovetores pode ser definido brevemente da seguinte maneira: dada uma matriz $\mathsf{A}$ $n$ por $n$, o escalar $\lambda$ é chamado de \textbf{autovalor} de $\mathsf{A}$ se existe um vetor \textbf{\texttt{u}} não nulo tal que
 
-Para sabermos qual é a direção e o sentido de $\vec{w}$, é necessária a definição de uma base. No espaço $\mathbb{R}^2$ a base comumente utilizada é formada pelos vetores unitários $\hat{x}$ e $\hat{y}$ (ou $i$ e $j$). Agora, $\vec{w}$ é a soma de dois vetores proporcionais aos vetores da base,
-
-\begin{equation}\label{eq_vetorNaBase}
-	\vec{w} = (3,4) = 3\hat{x} + 4\hat{y},
+\begin{equation}\label{eq:autovalor}
+	\mathsf{A} \textbf{\texttt{u}} = \lambda \textbf{\texttt{u}}.
 \end{equation}
-tem direção de aproximadamente $53$ graus com o eixo $x$ e sentido do ponto $(0,0)$ para o ponto $(3,4)$.
 
-Um vetor $\vec{v}$ qualquer do $\mathbb{R}^3$ utiliza os eixos $x$, $y$ e $z$, e é escrito como a soma de três vetores proporcionais aos versores $\hat{x}$, $\hat{y}$ e $\hat{z}$:
+O vetor \textbf{\texttt{u}} é chamado de \textbf{autovetor} de $\mathsf{A}$ associado a $\lambda$. Reescrevendo a equação \ref{eq:autovalor} chegamos a 
 
 \begin{equation}
-	\vec{v} = (\alpha,\beta,\gamma) = \alpha\hat{x} + \beta \hat{y} + \gamma\hat{z},
+		\begin{array}{c}
+			\mathsf{A} \textbf{\texttt{u}} - \lambda \textbf{\texttt{u}} = 0 \\
+			(\mathsf{A} - \lambda \mathsf{I})\textbf{\texttt{u}} = 0,
+		\end{array}
 \end{equation}
-onde $\alpha$, $\beta$ e $\gamma$ são números reais.
+onde $\mathsf{I}$ é a matriz identidade. Pela teoria das equações lineares, a equação acima só tem soluções se
 
-Generalizando para $\mathbb{R}^n$, um vetor $\psi$ é dado por
-
-\begin{equation}
-	\psi = (c_1, c_2, ..., c_n) = c_1\hat{x}_1 + c_2\hat{x}_2, \mbox{ ... }, c_n\hat{x}_n.
+\begin{equation}\label{eq:det}
+	\mbox{det}(\mathsf{A} - \lambda \mathsf{I}) = 0.
 \end{equation}
 
-Utilizando o somatório,  
+A equação \ref{eq:det} leva a um \textbf{Polinômio Característico} de ordem $n$, portanto, $\mathsf{A}$ pode ter até $n$ autovalores.
 
-\begin{equation}\label{eq:vetor}
-	\psi = \sum_{p=1}^n c_p \hat{x}_p.
-\end{equation},
-onde o índice $p$ é tomado de $1$ até a dimensão $n$ do espaço vetorial.
+Seja $\mathsf{A}$, a partir de agora, uma matriz auto$-$adjunta. Todos os seus autovalores $\lambda_i$ são reais e, consequentemente, podem ser ordenados do menor para o maior:
 
+	\begin{equation}\label{eq:autovalores_ordenados}
+		\lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_n.
+	\end{equation}
 
-Veremos adiante que o método estudado nessa dissertação utiliza os coeficientes $c_i$ da equação \ref{eq:vetor} para representar um vetor no algoritmo genético.
+Para $\mathsf{A}$, que opera sobre os vetores \textbf{\texttt{u}} do espaço euclidiano $\varepsilon^n$, define-se o \textbf{Quociente de Rayleigh} $\rho (\textbf{\texttt{u}})$:
 
-%=============================================================================
-\section{Autovalores}
-%=============================================================================	
-	\begin{mydef}
-	
-		Seja $T: \mathbb{V} \rightarrow \mathbb{V}$ um operador linear. Um escalar $\lambda$ é chamado \textbf{autovalor} de $T$ se existe um vetor não nulo $\vec{v} \in \mathbb{V}$ tal que
-		
-		\begin{equation}\label{eqAA}
-			T(\vec{v}) = \lambda \vec{v}
-		\end{equation}
-		
-		Um vetor não nulo e que satisfaça a equação \ref{eqAA} acima é chamado de \textbf{autovetor} de T.
-		
-	\end{mydef}
-	
-	\vspace{1cm}
-	
-	O operador linear $T$	é representado, na prática, por uma matriz quadrada $H$, e aplicar $T$ em $\vec{v}$ significa multiplicar a matriz $H$ pelo vetor (coluna) $\vec{v}$:
-	
-	\begin{equation}
-		H\vec{v} = \lambda \vec{v}.
-	\end{equation}
-	
-	Reescrevendo a equação acima chegamos a 
-	
-	\begin{equation}\label{eqEqMatricial}
-		(H - \lambda I)\vec{v} = 0,
-	\end{equation}
-	onde $I$ é a matriz identidade.
-	
-	Para que a equação acima possua solução não trivial, é necessário que
-	
-	\begin{equation}\label{eqDeterminanteZeto}	
-		\mbox{det}(H - \lambda I) = 0.
-	\end{equation}
-	
-	O cálculo desse determinante resultará na busca das raízes (reais ou imaginárias) de um polinômio com o mesmo grau da ordem da matriz $H$; cada raiz será um autovalor de $H$, e cada autovalor utilizado na equação \ref{eqAA} levará ao autovetor correspondente.
-	
-	\textbf{Exemplo} \cite{Santos2010}: determinar os autovalores do operador $T: \mathbb{R}^3 \rightarrow \mathbb{R}^3$ definido por $T(\vec{v}) = H\vec{v}$, para todo $\vec{v} \in \mathbb{R}^3$, em que
-		
-		\begin{equation}
-			H=\left[\begin{array}{rrr}
-								2		&		0		&		1		\\
-								2		&		1		&		2		\\
-								1		&		0		&		2								
-							\end{array}\right]
-		\end{equation}
-		
-		Para este operador o polinômio característico é
-		
-		$$
-			p(\lambda) = \mbox{det}(H - \lambda I_3) = \mbox{det}\left[\begin{array}{rrr}
-						2	-\lambda	&		0						&		1		\\
-						2						&		1	-\lambda	&		2		\\
-						1						&		0						&		2	-\lambda							
-						\end{array}\right]
-		$$
-		
-		\begin{equation}\label{eqPolCarac}
-			p(\lambda) = (1 - \lambda)^2 (3 - \lambda)
-		\end{equation}
-	
-	Igualar a zero a equação \ref{eqPolCarac} acima
-	
-		\begin{equation}\label{eqIgualAZero}
-			p(\lambda) = (1 - \lambda)^2 (3 - \lambda) = 0
-		\end{equation}
-		leva às seguintes raízes:
-		
-		\begin{equation}\label{autovaloresExemplo}
-			\lambda_1 = 1, \lambda_2 = 1 \mbox{ e } \lambda_3 = 3.
-		\end{equation}
-		
-		Portanto, $\lambda_1 = 1, \lambda_2 = 1 \mbox{ e } \lambda_3 = 3$ são os autovalores de $H$.
-		
-		Obter os autovalores por meio do polinômino característico é prático para matrizes pequenas. Mas, para as de médio e grande porte, o custo computacional de lidar com grandes polinômios torna o cálculo inviável. Vários métodos numéricos mais eficientes $-$ e sofisticados $-$ foram desenvolvidos \cite{Wilkinson1965, Parlett1998}. E alguns utilizam propriedades de matrizes Hermitianas.
+\begin{equation}\label{eq:rho}
+	\rho (\textbf{\texttt{u}}) \equiv \rho(\textbf{\texttt{u}}; \mathsf{A}) \equiv \frac{\textbf{\texttt{u}}^\dag \mathsf{A}\textbf{\texttt{u}}}{\textbf{\texttt{u}}^\dag \textbf{\texttt{u}}},   \textbf{\texttt{u}} \neq 0,
+\end{equation}
+onde $\textbf{\texttt{u}}^\dag$ é o complexo conjugado de $\textbf{\texttt{u}}$. Todo vetor \textbf{\texttt{u}} possui um $\rho(\textbf{\texttt{u}})$.
 
-\section{Matrizes Hermitianas}
+	O Quociente de Rayleigh está diretamente relacionado aos autovalores e autovetores. Suponha que $\textbf{\texttt{w}}_i$ seja um dos $n$ autovetores de $\mathsf{A}$. A equação \ref{eq:rho} fica
+	
+	\begin{equation}\label{eq:rho_no_w}
+		\rho(\textbf{\texttt{w}}_i) = \frac{\textbf{\texttt{w}}_i^\dag \mathsf{A} \textbf{\texttt{w}}_i}{ \textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{\textbf{\texttt{w}}_i^\dag  \lambda_i \textbf{\texttt{w}}_i}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{ \lambda_i \textbf{\texttt{w}}_i^\dag  \textbf{\texttt{w}}_i}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \lambda_i,
+	\end{equation}
+	ou seja, o quociente de Rayleigh de um autovetor é o autovalor associado:
+	
+	\begin{equation}\label{eq:rho_no_w_eh_lambda}
+		\rho (\textbf{\texttt{w}}_i) = \lambda_i.
+	\end{equation}
+	
+	Portanto, se temos um autovetor de uma matriz auto$-$adjunta, não é necessário resolver o sistema linear \ref{eq:autovalor} para obter o autovalor, basta efetuar as multiplicações de \ref{eq:rho}.
+	
+	O vetor gradiente de $\rho$ é \cite{Wilkinson1965}
+	
+	\begin{equation}\label{eq:gradrho}
+		\nabla \rho (\textbf{\texttt{u}}) = \frac{2[\mathsf{A} - \rho(\textbf{\texttt{u}})] \textbf{\texttt{u}}}{\textbf{\texttt{u}}^\dag \textbf{\texttt{u}}}.
+	\end{equation}
 
-	---------------------------------------------
+	Ele é nulo se, e somente se, $\textbf{\texttt{u}}$ é um autovetor $\textbf{\texttt{w}}_i$  de $\mathsf{A}$:
 	
-\section{Matrizes Simétricas}
-	
-	---------------------------------------------
-	
-\section{Quociente de Rayleigh}\label{sec:quocienteRayleigh}
-	
-	
-	\begin{equation}\label{eq:rho}
-		\rho_i = \frac{X_i^\dagger A X_i}{X_i^\dagger X_i}
+	\begin{equation}\label{eq:grad_rho_no_w}
+		\nabla \rho (\textbf{\texttt{w}}_i) = \frac{2[\mathsf{A} - \rho(\textbf{\texttt{w}}_i)] \textbf{\texttt{w}}_i}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{2[\mathsf{A} - \lambda_i]\textbf{\texttt{w}}_i}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{2[\mathsf{A}\textbf{\texttt{w}}_i - \lambda_i\textbf{\texttt{w}}_i]}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{2[0]}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = 0,
 	\end{equation}
 	
-	
-	\begin{equation}\label{eq:grad_rho}
-		\rho_i = \frac{2[H - \rho_i]C_i}{C_i^\dagger C_i}
+	\begin{equation}\label{eq:grad_rho_nulo}
+		\nabla \rho (\textbf{\texttt{w}}_i) = 0.
 	\end{equation}
+
+Além disso, para todos os vetores \textbf{\texttt{u}} $n-$dimensionais diferentes de zero, $\rho(\textbf{\texttt{u}})$ é limitado no intervalo [$\lambda_1, \lambda_n$] entre o menor e o maior autovalor da matriz $\mathsf{A}$ \cite{Parlett1998}. Em seguida agrupo as três propriedades de $\rho(\textbf{\texttt{u}})$ citadas acima.
+
+\textbf{Algumas propriedades de $\rho(\textbf{\texttt{u}})$}
+
+\begin{enumerate}
+		
+	\item Se $\textbf{\texttt{w}}_i$ é um autovetor, $\rho(\textbf{\texttt{w}}_i) = \lambda_i$ .
 	
-	Página 12 do \cite{Parlett1998}:
+	\item \textbf{Fronteira}: $\rho(\textbf{\texttt{u}})$ é limitado no intervalo [$\lambda_1, \lambda_n$].
 	
-	\begin{equation}
-		\rho(u) \equiv \rho(u; A) \equiv \frac{u^* A u}{u^*y}, \mbox{    } u \neq 0.
-	\end{equation}
+	\item \textbf{Estacionaridade}: o gradiente de $\rho(\textbf{\texttt{u}})$ é nulo se $\textbf{\texttt{u}}$ é um autovetor.
 	
-	
-	Página 13 do \cite{Parlett1998}. Fato 1.8:
-	
-	O quociente de Rayleigh possui as seguintes propriedades básicas:
-	
-	\textbf{Homogeneidade}:
-	
-	\begin{equation}
-		\rho(\alpha u) = \rho(u), \mbox{   } \alpha \neq 0
-	\end{equation}
-	
-	
-	---------------------------------------------
+\end{enumerate}
+
+	A segunda e terceira propriedades podem ser utilizadas para tratar o problema dos autovalores como um problema de otimização matemática. A propriedade de fronteira, por exemplo, permite transformar o problema de encontrar o menor (ou maior) autovalor de uma matriz auto$-$adjunta em um problema de minimização (ou maximização) de $\rho(\textbf{\texttt{u}})$. A estacionaridade pode, inclusive, auxiliar na definição da função objetivo. Minimizar $\nabla \rho(\textbf{\texttt{u}})$ também leva a um autovetor, entretanto, note que, quando $\nabla \rho(\textbf{\texttt{u}}) = 0$, $\textbf{\texttt{u}}$ pode ser qualquer um dos $n$ autovetores ($\textbf{\texttt{w}}_1, \textbf{\texttt{w}}_2, \cdots, \textbf{\texttt{w}}_n$) de $\mathsf{A}$. Ou seja, não há garantia que o autovalor obtido é o menor ou maior.
+
+		A primeira propriedade permite que a obtenção dos autovalores seja transformada em um método de busca de autovetores. O espaço de busca é o conjunto de todos os vetores $\textbf{\texttt{u}}_i$, e o espaço de soluções é composto pelos $n$ autovetores ($\textbf{\texttt{w}}_1, \textbf{\texttt{w}}_2, \cdots, \textbf{\texttt{w}}_n$).
+		
+		Nesta dissertação estudei um método que cria um Algoritmo Genético para fazer essa busca. Ele faz uso das três propriedades.
