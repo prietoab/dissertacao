@@ -44,7 +44,7 @@
 		\rho_i = \frac{C_i^t H C_i}{C_i^t C_i} = E_i.
 	\end{equation}
 	
-	A fim de reproduzir os resultados, testei o método com matrizes de Coope\-Sabo (equação \ref{eq:MatrizCoope}) de ordem 10, 20, 30 e 40, utilizando os mesmos parâmetros encontrados em \cite{metodo2004}: probabilidade de \textit{crossover} $p_c = 75\%$, probabilidade de mutação $p_m = 50\%$ e intensidade de mutação $\Delta = 0,01$. Com um bom ajuste de $\lambda$, que será discutido em detalhes posteriormente, o \textit{fitness} comportou-se conforme o esperado em todos os casos. Um exemplo está na figura \ref{fig:compFitnessTipo1N10}, que apresenta o melhor fitness de cada geração para uma matriz de ordem N = 10. Na primeira geração o melhor \textit{fitness} é pequeno, aproximadamente 0,1, cresce rapidamente e a partir da décima geração está próximo de 1.
+	A fim de reproduzir os resultados, testei o método com matrizes de Coope$-$Sabo (equação \ref{eq:MatrizCoope}) de ordem 10, 20, 30 e 40, utilizando os mesmos parâmetros encontrados em \cite{metodo2004}: probabilidade de \textit{crossover} $p_c = 75\%$, probabilidade de mutação $p_m = 50\%$ e intensidade de mutação $\Delta = 0,01$. Com um bom ajuste de $\lambda$, que será discutido em detalhes posteriormente, o \textit{fitness} comportou-se conforme o esperado em todos os casos. Um exemplo está na figura \ref{fig:compFitnessTipo1N10}, que apresenta o melhor fitness de cada geração para uma matriz de ordem N = 10. Na primeira geração o melhor \textit{fitness} é pequeno, aproximadamente 0,1, cresce rapidamente e a partir da décima geração está próximo de 1.
 	
 	\begin{figure}[htbp]
 		\centering
@@ -507,7 +507,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 	\end{figure}
 	
 
-	Na tabela \ref{VariandoELPraPrimeiraExecucao} há os valores desses testes. Como nas tabelas anteriores, os valores médios de $\rho$ e do \emph{fitness} (<$\rho$> e <\emph{fitness}>) foram calculados na geração final, ou seja, na população que atingiu algum dos critérios de parada. O <$\rho$> foi comparado com $E_0 = 0,386075$ para calcular o erro relativo (coluna Erro do <$\rho$> (\%)).
+	Na tabela \ref{tab:VariandoELPraPrimeiraExecucao} há os valores desses testes. Como nas tabelas anteriores, os valores médios de $\rho$ e do \emph{fitness} (<$\rho$> e <\emph{fitness}>) foram calculados na geração final, ou seja, na população que atingiu algum dos critérios de parada. O <$\rho$> foi comparado com $E_0 = 0,386075$ para calcular o erro relativo (coluna Erro do <$\rho$> (\%)).
 
 
 %\begin{landscape}
@@ -534,6 +534,11 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 \end{table}
 \end{center}	
 %%\end{landscape}
+	
+	
+	-------------------
+	
+	Concluir. Ponto para o lâmbda.
 	
 \begin{landscape}
 \begin{center}	
