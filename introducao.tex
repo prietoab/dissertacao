@@ -3,37 +3,61 @@
 
 \setcounter{page}{12}
 
-	De onde vieram os autovalores? O que são? Por que são importantes? Muitos estudantes de ciências exatas e engenharia fazem essas três perguntas durante as disciplinas introdutórias de Álgebra Linear. Grandes nomes da matemática se debruçaram sobre essas questões, como D'Alembert, Lagrange, Laplace, Sturm e Cauchy, culminando no final do século $\mathsf{XIX}$ na Teoria Espectral das Matrizes \cite{Hawkins75}.
+	O problema dos autovalores e autovetores pode ser definido brevemente da seguinte maneira: dada uma matriz $\mathsf{A}$ $n$ por $n$, o escalar $\lambda$ é chamado de \textbf{autovalor} de $\mathsf{A}$ se existe um vetor \textbf{\texttt{u}} não nulo tal que
+
+\begin{equation}\label{eq:autovalor}
+	\mathsf{A} \textbf{\texttt{u}} = \lambda \textbf{\texttt{u}}.
+\end{equation}
+
+O vetor \textbf{\texttt{u}} é chamado de \textbf{autovetor} de $\mathsf{A}$ associado a $\lambda$. Reescrevendo a equação \ref{eq:autovalor} chegamos a 
+
+\begin{equation}
+		\begin{array}{c}
+			\mathsf{A} \textbf{\texttt{u}} - \lambda \textbf{\texttt{u}} = 0 \\
+			(\mathsf{A} - \lambda \mathsf{I})\textbf{\texttt{u}} = 0,
+		\end{array}
+\end{equation}
+onde $\mathsf{I}$ é a matriz identidade. Pela teoria das equações lineares, a equação acima só tem soluções se
+
+\begin{equation}\label{eq:det}
+	\mbox{det}(\mathsf{A} - \lambda \mathsf{I}) = 0.
+\end{equation}
+
+A equação \ref{eq:det} leva a um \textbf{Polinômio Característico} de ordem $n$, portanto, $\mathsf{A}$ pode ter até $n$ autovalores.
+
+	Mas, de onde vieram os autovalores? O que são? Por que são importantes? Muitos estudantes de ciências exatas e engenharia fazem essas três perguntas durante as disciplinas introdutórias de Álgebra Linear. Grandes nomes da matemática se debruçaram sobre essas questões, como D'Alembert, Lagrange, Laplace, Sturm e Cauchy, culminando no final do século $\mathsf{XIX}$ na Teoria Espectral das Matrizes \cite{Hawkins75}.
 	
 	O estudo dos autovalores foi importantíssimo na Física dos séculos $\mathsf{XVIII}$ e $\mathsf{XIX}$. A primeira aparição do que hoje é chamado de autovalor aconteceu em 1743. Estudando o problema de várias massas ligadas umas às outras por molas, D'Alembert chegou a um sistema de equações diferenciais. Ao fazer algumas transformações de variáveis ele foi capaz de reduzir o estudo a apenas uma equação:
 
 \begin{equation}\label{eq:EDO1}
 	\frac{d^2u}{dt^2} + \lambda u = 0,
 \end{equation}
-sendo $u$ uma soma envolvendo o produto das velocidades e posições de cada massa, e $\lambda$ um escalar. D'Alembert aplicou o novo método a sistemas com duas e três massas ($n = 2$ ou $n = 3$) e, com argumentos relacionados à Física do problema, afirmou que $\lambda$ só poderia ser real. Até hoje usa-se a letra grega $\lambda$ para designar os autovalores.
+sendo $u$ uma soma envolvendo o produto das velocidades e posições de cada massa, e $\lambda$ um escalar. D'Alembert aplicou o novo método a sistemas com duas e três massas ($n = 2$ ou $n = 3$) e, com argumentos relacionados à Física do problema, afirmou que $\lambda$ só poderia ser real. A partir de então, diversos matemáticos se dedicaram ao assunto.
 
-	A partir de então, diversos matemáticos
+	Na metade do século $\mathsf{XVIII}$, D'Alembert, aproveitando trabalho anterior de Euler, demonstrou que as soluções gerais da equação \ref{eq:EDO1} são da forma $g\mathsf{e}^{-\lambda t}$, $g$ sendo um escalar, e que $\lambda$ está associado com a estabilidade do sistema massa--mola. Lagrange estende a solução para $n$ massas e escreve a equação polinomial característica, mas naquele tempo nada se sabia sobre a natureza de suas raízes. Em 1775 ele aplica seu método para a rotação de corpos rígidos desenvolvida por Euler dez anos antes, e é a primeira vez que autovalores são utilizados fora do contexto massa--mola. Em seguida, em 1778, o mesmo Lagrange mostra que a mecânica celestial pode ser escrita como um sistema de equações diferenciais, e conclui que $\lambda$ está ligado à natureza das órbitas e à estabilidade do Sistema Solar.
 	
-	Paralela e independentemente, Euler, também em 1743, chegou à solução geral de equações com a forma da equação \ref{eq:EDO1}, mas D'Alembert não soube desse resultado. Foi por isso que apenas em 1750, quando tomou conhecimento dos resultados de Euler, ele retomou seu trabalho e verificou que as soluções para \ref{eq:EDO1}, aplicadas especificamente ao sistema massas--molas, eram do tipo
+	Entra em cena Laplace, descobrindo em 1784 que $\lambda$ depende \emph{apenas} dos coeficientes $A_{ij}$ envolvidos nos sistemas de equações diferenciais. Quatro anos depois mostra que um sistema discreto de massas próximo do equilíbrio pode ser escrito como 
+	
+	\begin{equation}
+		\mathsf{B}\mathsf{X} = \lambda \mathsf{A}\mathsf{X},
+	\end{equation}
+	com as matrizes $\mathsf{B}$ e $\mathsf{A}$ ligadas, respectivamente, à Energia Potencial e Energia Cinética do sistema. Embasado na Convervação da Energia, argumenta que os autovalores $\lambda$ são reais, positivos e distintos. Finalmente, em 1789, Laplace percebe as simetrias envolvidas para construir o primeiro teorema, completo e com demonstração, da natureza dos autovalores.
+	
+	A partir do século $\mathsf{XIX}$ o problema dos autovalores e autovetores começa a tomar a forma que conhecemos hoje. Cauchy desenvolve em 1815 a Teoria dos Determinantes e em 1829 prova, com argumentos puramente matemáticos, que os autovalores de uma matriz simétrica são reais. Nesse mesmo ano Sturn usa autovalores na Condução de Calor, levando as aplicações para além da Mecânica Clássica. Em 1839 Cauchy cunha o termo ``Equação Característica''. Em torno de 1855 os resultados obtidos por Cauchy tornam-se ``matemática básica'' entre os matemáticos da época, e se inicia a busca por autovalores em outros tipos de matrizes. 
+	
+	No século $\mathsf{XIX}$: métodos numéricos.
 
-\begin{equation}
-	u(t) = g\mathsf{e}^{-\lambda t},
-\end{equation}
-onde $g$ é um escalar e depende das condições iniciais do problema. Ou seja, a partir de agora $\lambda$ não é apenas um escalar utilizado como artifício matemático para simplificação de equações, mas está intimamente ligado à solução do problema físico em si. D'Alembert aplicou as soluções novamente para dois e três corpos. Oito anos depois, em 1758, ele descobre que $\lambda$ está relacionado à estabilidade do sistema.
-
-	Lagrange estende o trabalho de D'Alembert tratando de um problema um pouco mais geral, e encontra a solução para qualquer $n$. Seu modelo envolve novos coeficientes $A_{ik}$, e Lagrange demonstra que $A_{ik}$ e $A_{ki}$ são equivalentes. Em notação matricial moderna, diríamos que o problema não muda para a matriz simétrica $A = {A_{ik}}$ e sua transporta $A^\dag = {A_{ki}}$. Como $A$ era simples, Lagrange foi capaz de escrever a equação polinomial característica, mas naquele tempo nada se sabia sobre a natureza de suas raízes.
+	Autovalores continuam importantes no século $\mathsf{XXI}$. A busca pela palavra \emph{eigenvalue} em periódicos como \emph{Nature} e \emph{Science} leva a vários artigos em inúmeras áreas diferentes. Restringindo a pesquisa apenas ao ano de 2015, encontramos autovalores na descoberta de novos fármacos \cite{avMedicamento2015}, cultivo de cana de açúcar na China \cite{avCana2015}, física teórica \cite{avFisTeo2015} e ciência de materiais \cite{avCienciaMateriais2015}. No jornal PLOS ONE é possível navergar por artigos associados especificamente à palavra chave \emph{eigenvalue}\footnote{\href{http://www.plosone.org/browse/eigenvalues}{http://www.plosone.org/browse/eigenvalues}}.
+	
+	O algoritmo \emph{PageRank}, base do mecanisno de busca do Google, tem em seu núcleo uma formulação do problema de autovalores \cite{BrinPage98}, e isso dá a ordem de grandeza dos problemas atuais envolvendo autovalores.
 	
 	
-
-História.
-
-Importância no passado.
+	O tamanho dos problemas tornam difícil o tratamento... Especialmente fundamental é a relação entre autovalores e  são as aplicações de autovalores nos Grafos e Redes Complexas. Facebook. Busca
 
 Importãncia no presente.
 
-Entre eles estão 
 	
-	 e até no algoritmo \emph{PageRank}, base do mecanisno de busca do Google \cite{BrinPage98}. 
+	 
 	
 Nature, Science, Plos ONE.
 
