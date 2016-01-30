@@ -460,7 +460,7 @@ Os exemplos dessa seção utilizam representação binária. Mas pode-se utiliza
 		geracao\_auxiliar[0] = 001.
 	$$
 	
-	Na geração atual (\textit{Geração Final} na tabela \ref{tabRoletaManual}) o indivíduo com melhor \textit{fitness} é o $x = 2$, enquanto $x = 5$ possui a pior nota e $x = 3$ obteve uma avaliação intermediária. Por causa do caráter completamente aleatório do algoritmo, o melhor indivíduo não foi selecionado para gerar descendentes nessa reprodução. Poderíamos supor, num primeiro momento, que esse não tenha sido o melhor caminho. Entretando, o resultado do \textit{crossover} entre $x = 5$ e $x = 3$ gerou um indivíduo com o maior \textit{fitness} desde a geração inicial! Usando $x = 1$ na $y(x)$ chegamos a $f_c(1) = 35$, maior do que o $f(2) = 32$.
+	Na geração atual (\textit{Geração Final} na tabela \ref{tabRoletaManual}) o indivíduo com melhor \textit{fitness} é o $x = 2$, enquanto $x = 5$ possui a pior nota e $x = 3$ obteve uma avaliação intermediária. Por causa do caráter completamente aleatório do algoritmo, o melhor indivíduo não foi selecionado para gerar descendentes nessa reprodução. Poderíamos supor, num primeiro momento, que esse não tenha sido o melhor caminho. Entretando, o resultado do \textit{crossover} entre $x = 5$ e $x = 3$ gerou um indivíduo com o maior \textit{fitness} desde a geração inicial. Usando $x = 1$ na $y(x)$ chegamos a $f_c(1) = 35$, maior do que o $f(2) = 32$.
 	
 \begin{table}[htp]
 	\caption{\label{tabCrossoverManual}Geração antes e depois do \textit{Crossover}. O melhor indivíduo dos descendentes possui o melhor \textit{fitness} entre todas as gerações anteriores. Além disso, o \textit{fitness} médio ($<f>$) também aumentou.}

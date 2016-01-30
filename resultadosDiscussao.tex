@@ -18,8 +18,9 @@
 	\item Fórmula empírica. Por já conhecermos de antemão os autovalores das matrizes de Coope$-$Sabo, foi possível criar uma fórmula empírica para $\lambda$. Ela garante que na primeira população o \textsl{fitness} médio é baixo, previnindo o \textsl{underflow} do \textit{fitness} e a convergência prematura.
 	
 	\end{enumerate}
-	
+%=========================================================	
 \section{Problemas com o mínimo global}	
+%=========================================================
 	
 	No capítulo \ref{sec:metodo} mostrei que o \textit{fitness} utilizado no artigo \cite{metodo2004}  foi
 	
@@ -341,7 +342,9 @@ Resta a dúvida: afinal, como o autovalor mínimo foi obtido com o \textit{fitne
 	\label{fig:execucoes_N40}
 \end{figure}
 
+%=========================================================
 \section{Outro \textit{fitness} para encontrar o mínimo global}
+%=========================================================
 
 	O novo \emph{fitness}, apresentado em \cite{metodo2011}, é dado por
 	
@@ -768,49 +771,171 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 	\end{figure}
 	
 	
-	\section{Por que o $\lambda$ deve ser escolhido cuidadosamente?}
-	
-	Execuções para N=10 com diferentes $\lambda$'s. Com os gráficos, explicar o que o artigo de 2004 quis dizer com \textit{fitness overflow/underflow}.
-	
-	Gráficos com rho entre 0 e 250 (exemplo pra N=10), mas com cortes em diferentes rhos.
-
-	Explicar que uma boa escolha do $\lambda$ deve cobrir todos os autovalores. Citar as execuções anteriores (boas e ruins em função de cada $\lambda$).
-	
-	Gráfico com $\lambda$ fazendo o fitness cortar em um $\rho$ muito baixo. Discutir puxando as execuções anteriores.
-	
-	Outro gráfico, mas com $\lambda$ fazendo o fitness cortar em um $\rho$ muito alto. Discutir puxando as execuções anteriores.
-	
-	Gráfico com uma boa escolha de $\lambda$. Discutir puxando as execuções anteriores.
-	
-	Após estimativa, refinar a obtenção do $\lambda$. Alterar o $lambda$ (valores em torno da estimativa), executar o programa para verificar se o fitness médio da primeira população é baixo. (se a população inicial tem fitness muito grande, há convergência prematura).
-	
-	Tabela com alguns $lambdas$ encontrados dessa maneira (estimativa e refinamento).
-	
-	Infelizmente, para cada matriz, um $\lambda$ diferente.
-	
-	Ponte pra equação empírica do $\lambda$.
-
 %=========================================================
-	\section{Equação empírica para o $\lambda$}\label{sec:eq_lambda}
+	\section{Análise do \emph{fitness} e equação empírica para $\lambda$}\label{sec:eq_lambda}
 %=========================================================
 	
-	Delineamento da equação como feito na reunião de 29/09.
+	Nos artigos \cite{metodo2004} e \cite{metodo2011} os autores dizem que o $\lambda$ do \emph{fitness} deve ser escolhido cuidadosamente, mas não justificam com detalhes essa afirmação. Nessa sessão apresento uma análise do \emph{fitness} de \cite{metodo2011} e algumas justificativas para essa importância. Isso me permitiu definir uma equação empírica para o parâmetro $\lambda$. Seu uso é restrito à matrizes de Coope--Sabo e ao \emph{fitness} do \cite{metodo2011}. Porém, com um pequeno ajuste, ela mostrou-se adequada também para o uso no \emph{fitness} de \cite{metodo2004}.
 	
-	Isolar $\lambda$ a partir da $f=e^{-\lambda*(\rho - \rho_0)^2}$
+	A função de avaliação de \cite{metodo2011} é dada por
 	
-	Fazer $f = 0.00001 \approx 0$.
+	\begin{equation}\label{eq:f_empirica}
+		f_i = \mathsf{e}^{- \lambda (\rho_i - 	E_L) ^2}.
+	\end{equation}
 	
-	Substituir $(\rho - \rho_0)^2$ por $E_{central} - E_{mínimo}$. Justificar.
+	Na figura \ref{fig:f_simetrico} é possível verificar que $f$ é simétrica em torno de $E_L$, e possui máximo quando $\rho = E_L$. Alterar $E_L$ causa um deslocamento do máximo, mantendo a simetria (figura \ref{fig:f_deslocamento}). Essas propriedades são importantes, pois permitem que mudemos $E_L$, limite inferior para o menor autovalor, sem prejuízo do comportamento da função de avaliação.
 	
-	Regressão linear para $E_{central} - E_{mínimo}$ com função apenas da ordem da matriz (N).
+	\begin{figure}[h]
+		\centering
+			\includegraphics[width=0.60\textwidth]{figs/resultados/precisaoFitness/f_simetrico.pdf}
+		\caption{Simetria de $f_i = \mathsf{e}^{-\lambda(\rho - E_L)^2}$. Nesse caso $E_L = 0$.}
+		\label{fig:f_simetrico}
+	\end{figure}
 	
-	Inserir a Equação obtida na regressão na equação de $\lambda$.
+	\begin{figure}[h]
+		\centering
+			\includegraphics[width=0.60\textwidth]{figs/resultados/precisaoFitness/f_simetrico_outros.pdf}
+		\caption{Deslocamento do máximo de $f_i = \mathsf{e}^{-\lambda(\rho - E_L)^2}$}
+		\label{fig:f_deslocamento}
+	\end{figure}
 	
-	Fator $0.65$: obtido empiricamente de modo que o $\lambda$ seja semelhante aos encontrados pelo processo de estimativa e refinamento.
+	Na figura \ref{fig:f_efeito_lambda} \emph{f} é exibida, com $E_L = 0$, para cinco valores de $\lambda$. No eixo das abscissas (eixo ``x'') estão os valores de $\rho$, e nas ordenadas (eixo ``y'') os de $f$. Note que alterar $\lambda$ mantém o centro da função, mas muda seu formato. Isso causa impacto na Seleção em dois pontos.
 	
-	Exemplo de execução com $\lambda$ automático.
+	\begin{figure}[h]
+		\centering
+			\includegraphics[width=1.0\textwidth]{figs/resultados/precisaoFitness/f_varios_lambdas.pdf}
+		\caption{Efeito da mudança de $\lambda$ em $f_i = \mathsf{e}^{-\lambda(\rho - E_L)^2}$}
+		\label{fig:f_efeito_lambda}
+	\end{figure}
 	
-	Explicitar que essa equação é válida apenas para matrizes de Coope$-$Sabo. Apesar disso, foi importante para o estudo pois permitiu automação completa.
+	 O primeiro é como isso pode influenciar a comparação dos indivíduos quando $\rho$ se aproxima de $E_L$. Note que o máximo de $f$ é muito mais acentuado para $\lambda_f = 0,1 = 10^{-1}$ do que para $\lambda_a = 0,000001 = 10^{-6}$, fazendo com que o \emph{fitness} com $\lambda_a$ pareça uma horitontal $f \approx 1$ no intervalo $\rho = [-20,20]$. Isso significa que um indivíduo ruim, com $\rho$ distante de $E_L = 0$, digamos $\rho = 10$, terá praticamente a mesma nota de um cromossomo com $\rho = 0,01$, próximo de $E_L$ e, portanto, de boa qualidade. Assim, $\lambda$ deve ser escolhido para que a largura de $f$ seja pequena.
+	
+	Por outro lado, se a largura da função de avaliação for muito pequena, o mesmo tipo de problema acontecerá, mas para $f = 0$. Suponha que $\lambda_f$ tenha sido escolhido, e que na população inicial alguns indivíduos possuam $\rho$ em torno de $\rho \approx 10$. Veja na figura \ref{fig:f_efeito_lambda} que todos eles terão nota $f = 0$, e certamente seriam preteridos em qualquer tipo de Seleção. Lembre-se que mesmo os piores indivíduos podem conter informação genética valiosa e, por isso, não devem ser sempre descartados \cite{Mitchell98}. Então, a escolha de $\lambda$ deve garantir também que, desde a primeira geração, os piores indivíduos tenham \emph{fitness} maior que zero.
+
+	Para as matrizes de Coope utilizadas nesse trabalho, verifiquei uma regularidade na população inicial. Em geral o Quociente de Rayleigh médio $<\rho>$ ficava em torno dos autovalores centrais. Por exemplo, para matrizes com ordem N = 10, $<\rho>$ $\approx E_4 = 8,6285$ (veja tabela \ref{tab:autovalores10a40}). Talvez a causa dessa regularidade esteja relacionada com a maneira como a matriz de Coope é definida (equação \ref{eq:MatrizCoope}). Com essa informação, pude construir uma equação empírica para $\lambda$.
+
+	A estratégia foi escolher um $\lambda$ que faça o \emph{fitness} ser sempre muito pequeno, $f \approx 0 = 0,000001,$ na região dos autovalores centrais, e que dependesse apenas das características da matriz. No parâmetro $E_L$ usei $E_0$, assim, a função de avaliação fica limitada no intervalo (0,1]. Isolando $\lambda$ na equação \ref{eq:f_empirica} temos
+	
+	\begin{equation}
+				\lambda = - \frac{\ln f_i}{(\rho_i - E_L)^2},
+	\end{equation}
+	e incluindo os valores chegamos a
+	
+	\begin{equation}\label{eq:lambda_E-E0}
+				\lambda = - \frac{\ln(0,000001)}{(E_{central} - E_0)^2}.
+	\end{equation}
+	
+	\begin{figure}
+		\centering
+			\includegraphics[width=0.60\textwidth]{figs/resultados/precisaoFitness/E-central_eE0_funcao_N.pdf}
+		\caption{E central é linear}
+		\label{fig:E-central_eE0_funcao_N}
+	\end{figure}
+	
+	Os valores de $(E_{central} - E_0)$ foram calculados para matrizes de ordem N = 10 até N = 1400, e estão na tabela \ref{tab:ValoresDeECentralE02}. Observe na figura \ref{fig:E-central_eE0_funcao_N} que $E_{central} - E_0 = f(\mathsf{N})$ é claramente linear. A regressão nos dá
+	
+	\begin{equation}\label{eq:N_E-E0}
+			E_{central} - E_0 = 1,00001\mathsf{N} - 1,6507.
+	\end{equation}
+	
+	Utilizando a equação \ref{eq:N_E-E0} na \ref{eq:lambda_E-E0} cheguei finalmente a
+	
+	\begin{equation}\label{eq:lambda_N}
+		\lambda = - \frac{\ln(0,000001)}{(1,0001N - 1,6507)^2}.
+	\end{equation}
+		
+	
+	Inseri um termo 0,65 de ajuste para que a equação \ref{eq:lambda_N} também fosse adequada para o \emph{fitness} de \cite{metodo2004}:
+	
+	\begin{equation}\label{eq:lambda_N_ajustada}
+		\lambda = - 0,65 \frac{\ln(0,000001)}{(1,0001N - 1,6507)^2}
+	\end{equation}
+	
+	O uso da equação \ref{eq:lambda_N_ajustada} me permitiu automatizar completamente o testes para matrizes de Coope, além de facilitar a comparação entre os \emph{fitness} de \cite{metodo2004} e \cite{metodo2011}.
+	
+\begin{table}[htbp]
+	\centering
+	\caption{Valores de $(E_{central} - E_0)$.}
+	\label{tab:ValoresDeECentralE02}
+% Table generated by Excel2LaTeX from sheet 'dddd'
+\begin{tabular}{rrrr}
+\hline
+         \textbf{N} & \textbf{E$_{0}$} &   \textbf{E$_{CENTRAL}$} & \textbf{E$_{CENTRAL}$} - \textbf{E$_{0}$} \\
+\hline
+        10 &   0,386075 &   8,628524 &   8,242449 \\
+
+        20 &   0,341237 &  18,633845 &  18,292608 \\
+
+        30 &   0,319737 &  28,635603 &  28,315866 \\
+
+        40 &   0,306086 &  38,636479 &  38,330393 \\
+
+        50 &   0,296280 &  48,637004 &  48,340724 \\
+
+        60 &   0,288722 &  58,637353 &  58,348631 \\
+
+        70 &   0,282625 &  68,637602 &  68,354977 \\
+
+        80 &   0,277547 &  78,637789 &  78,360242 \\
+
+        90 &   0,273215 &  88,637934 &  88,364719 \\
+
+       100 &   0,269451 &  98,638050 &  98,368599 \\
+
+       150 &   0,255873 & 148,638398 & 148,382525 \\
+
+       200 &   0,247028 & 198,638572 & 198,391544 \\
+
+       250 &   0,240570 & 248,638676 & 248,398106 \\
+
+       300 &   0,235535 & 298,638746 & 298,403211 \\
+
+       350 &   0,231435 & 348,638795 & 348,407360 \\
+
+       400 &   0,227996 & 398,638833 & 398,410837 \\
+
+       450 &   0,225044 & 448,638862 & 448,413818 \\
+
+       500 &   0,222467 & 498,638885 & 498,416418 \\
+
+       550 &   0,220184 & 548,638904 & 548,418720 \\
+
+       600 &   0,218140 & 598,638919 & 598,420779 \\
+
+       650 &   0,216293 & 648,638933 & 648,422640 \\
+
+       700 &   0,214609 & 698,638944 & 698,424335 \\
+
+       750 &   0,213065 & 748,638954 & 748,425889 \\
+
+       800 &   0,211640 & 798,638963 & 798,427323 \\
+
+       850 &   0,210318 & 848,638970 & 848,428652 \\
+
+       900 &   0,209087 & 898,638977 & 898,429890 \\
+
+       950 &   0,207935 & 948,638983 & 948,431048 \\
+
+      1000 &   0,206853 & 998,638989 & 998,432136 \\
+
+      1050 &   0,205835 & 1048,638994 & 1048,433159 \\
+
+      1100 &   0,204873 & 1098,638998 & 1098,434125 \\
+
+      1150 &   0,203962 & 1148,639002 & 1148,435040 \\
+
+      1200 &   0,203098 & 1198,639006 & 1198,435908 \\
+
+      1250 &   0,202275 & 1248,639010 & 1248,436735 \\
+
+      1300 &   0,201491 & 1298,639013 & 1298,437522 \\
+
+      1350 &   0,200742 & 1348,639016 & 1348,438274 \\
+
+      1400 &   0,200025 & 1398,639019 & 1398,438994 \\
+\hline
+\end{tabular}  
+\end{table}
 		
 	\section{A mistura de $(\rho - \rho_0)^2$ com $\nabla\rho$ não leva a melhores resultados}
 	
