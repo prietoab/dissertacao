@@ -438,7 +438,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 		\label{fig:N-10_E-0_rho_comparacao}
 	\end{figure}	
 	
-	O limite inferior $E_L$ é o responsável pelo funcionamento do \emph{fitness} \ref{eq:fitnessRho0} pois o termo $(\rho_i - E_L)$ minimiza diretamente $\rho$. Se $(\rho_i - E_L)$ é grande, $f_i$ é pequeno, e isso significa que o vetor $C_i$ associado a $\rho_i$ está distante do autovetor fundamental $C_0$. Portanto, indivíduos com $(\rho_i - E_L)$ menores (e \emph{fitness} maiores) serão selecionados mais vezes. De acordo com a equação \ref{eq:autovalores_ordenados}, o processo fica estável quando é impossível diminuir $\rho_i$, ou seja, quando $<\rho> \rightarrow \lambda_1$. 
+	O limite inferior $E_L$ é o responsável pelo funcionamento do \emph{fitness} (equação \ref{eq:fitnessRho0}), pois o termo $(\rho_i - E_L)$ minimiza diretamente $\rho$. Se $(\rho_i - E_L)$ é grande, $f_i$ é pequeno, e isso significa que o vetor $C_i$ associado a $\rho_i$ está distante do autovetor fundamental $C_0$. Portanto, indivíduos com $(\rho_i - E_L)$ menores (e \emph{fitness} maiores) serão selecionados mais vezes. De acordo com a equação \ref{eq:autovalores_ordenados}, o processo fica estável quando é impossível diminuir $\rho_i$, ou seja, quando $<\rho> \rightarrow E_0$. 
 
 	À primeira vista, esse \emph{fitness} não parece ser útil. Os valores finais do \emph{fitness} só foram próximos de 1 porque escolhi $E_L$ próximo de $E_0$. Ou seja, eu já tinha conhecimento prévio do menor autovalor. Se o objetivo é encontrar $E_0$ e eu não tenho conhecimento sobre a região onde ele se encontra, como escolher apropriadamente $E_L$? Os autores de \cite{metodo2011} não falam nada a respeito.
 	
@@ -483,7 +483,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 	\label{fig:execucoesSemente_EL_umMuitoAcima}
 	\end{figure}
 		
-	O valor de $\lambda = 0,128788$, utilizado em todos os cenários anteriores, não é adequado para \textbf{Cenário 4}. Logo no início tanto o \emph{<fitness>} quanto o maior \emph{fitness} foram zero.  Nesse regime não há como, a princípio, distinguir os indivíduos, pois todos possuem avaliação muito próxima. Veja no segundo gráfico da figura \ref{fig:execucoesSemente_EL_umMuitoAbaixo500} que $<\rho>$ rapidamente fica estagnado um pouco abaixo de 6. Especificamente, na geração 500 $<\rho> = 5,651846$, que não corresponde a nenhum autovalor para uma matriz de Coope de ordem 10 (tabela \ref{tab:autovalores10a40}). Esse é um exemplo de \emph{underflow} do \emph{fitness}.
+	O valor de $\lambda = 0,128788$, utilizado em todos os cenários anteriores, não foi adequado para os parâmetros do \textbf{Cenário 4}. Logo no início tanto o \emph{<fitness>} quanto o maior \emph{fitness} foram praticamente zero.  Nesse regime não há como, a princípio, distinguir os indivíduos, pois todos possuem avaliação muito próxima. Veja no segundo gráfico da figura \ref{fig:execucoesSemente_EL_umMuitoAbaixo500} que $<\rho>$ rapidamente fica estagnado um pouco abaixo de 6. Especificamente, na geração 500 o Quociente de Rayleigh médio era $<\rho> = 5,651846$, que não corresponde a nenhum autovalor para uma matriz de Coope de ordem 10 (tabela \ref{tab:autovalores10a40}). Esse é um exemplo de \emph{underflow} do \emph{fitness}.
 	
 	\begin{figure}[htbp]
 	\centering
@@ -494,10 +494,10 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
   \caption{Execução para a semente 1445738835. $E_L$ muito abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$. Até geração 500.}
 	\label{fig:execucoesSemente_EL_umMuitoAbaixo500}
 	\end{figure}
+		
+	Entretanto, após várias gerações houve convergência para o autovalor mínimo (figura \ref{fig:execucoesSemente_EL_umMuitoAbaixo40000}). Um pouco antes da geração 32.000 aconteceu um salto no \emph{fitness} (gráfico da esquerda), consequência de uma queda brusca do $<\rho>$ (gráfico da direita), que só pode ter sido possível com um salto na variabilidade genética na população, descontinuidade característica da Mutação. Apesar do \emph{fitness} médio continuar pequeno após a mudança (<$f_i$>$< 0,025$), o \emph{crossover} foi capaz de atuar com a nova informação genética e criou variabilidade suficiente para chegar ao autovalor mínimo.
 	
-	Porém, algo inesperado aconteceu. A partir da geração 11 e até a 20.000, aproximadamente, há um decréscimo sistemático do $<\rho>$, com taxa muito pequena ($\partial <\rho> / \partial t < 0,001\%$). Na geração 31757 decréscimo de 24\%;.  pouco acima dahouve convergência genética precoce, estabilizando a média dos $\rho$ em aproximadamente 5.9 (verificar), que não é nenhum autovalor pra N = 10.
-	
-	Entretanto, após várias gerações houve convergência para o autovalor mínimo. Um pouco antes da geração 32.000 aconteceu um salto no \emph{fitness}, o que só pode ter sido possível com a criação de variabilidade genética na população. Se o \emph{fitness} estava estável desde a geração 500, Se, causado certamente por mutações, visto que os indivíduos eram semelhantes desde a geração 500. Apesar do \emph{fitness} médio ainda ser pequeno (<$f_i$>$< 0.025$), o \emph{crossover} foi capaz com a nova informação genética criada pela mutação, criou variabilidade suficiente para chegar ao autovalor mínimo.
+	Mesmo se não houvesse a descontinuidade, acredito que a queda de $<\rho>$ continuaria e haveria convergência para $<\rho> \approx E_0$. Veja no segundo gráfico da figura \ref{fig:execucoesSemente_EL_umMuitoAbaixo40000} que entre o intervalo $0 \leq <\rho> \leq 30.000$ há uma queda lenta, porém sistemática, de $<\rho>$. Ou seja, apesar de pequeno, muito próximo de zero, o \emph{fitness} de cada indivíduo foi suficiente para permitir distinção na Seleção e reprodução no \emph{Crossover}. Portanto, se não ocorresse a queda brusca do $<\rho>$ em torno de $<\rho> = 32.000$, a diminuição seguiria lenta e o algoritmo chegaria ao autovalor mínimo.
 	
 	\begin{figure}[htbp]
 	\centering
@@ -509,9 +509,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 	\label{fig:execucoesSemente_EL_umMuitoAbaixo40000}
 	\end{figure}
 	
-
 	Na tabela \ref{tab:VariandoELPraPrimeiraExecucao} há os valores desses testes. Como nas tabelas anteriores, os valores médios de $\rho$ e do \emph{fitness} (<$\rho$> e <\emph{fitness}>) foram calculados na geração final, ou seja, na população que atingiu algum dos critérios de parada. O <$\rho$> foi comparado com $E_0 = 0,386075$ para calcular o erro relativo (coluna Erro do <$\rho$> (\%)).
-
 
 %\begin{landscape}
 \begin{center}	
@@ -538,10 +536,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 \end{center}	
 %%\end{landscape}
 	
-	
-	-------------------
-	
-	Concluir. Ponto para o lâmbda.
+Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \cite{metodo2011}. O objetivo foi verificar como a variação dos parâmetros $\lambda$ e $E_L$ alteram a forma de $f = \mathsf{e}^{-\lambda(\rho - E_L)^2}$, e quais as consequências para o algoritmo genético. 
 	
 \begin{landscape}
 \begin{center}	
@@ -851,7 +846,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 		\lambda = - 0,65 \frac{\ln(0,000001)}{(1,0001N - 1,6507)^2}
 	\end{equation}
 	
-	O uso da equação \ref{eq:lambda_N_ajustada} me permitiu automatizar completamente o testes para matrizes de Coope, além de facilitar a comparação entre os \emph{fitness} de \cite{metodo2004} e \cite{metodo2011}.
+	O uso dessa equação permitiu automatizar completamente o testes para matrizes de Coope, além de facilitar a comparação entre os \emph{fitness} de \cite{metodo2004} e \cite{metodo2011}. Todas as execuções apresentadas nessa dissertação utilizaram a equação \ref{eq:lambda_N_ajustada}.
 	
 \begin{table}[htbp]
 	\centering
