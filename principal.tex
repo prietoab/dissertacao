@@ -89,6 +89,7 @@
 \newpage
 % --- --- ---
 %\includepdf[pagecommand={\thispagestyle{plain}}]{./figs/folha-assinaturas.pdf}	
+\clearpage
 \cleardoublepage
 
 % 5. Dedicatória ---
@@ -97,38 +98,38 @@
 		\vspace*{\fill}
     \centering
     \noindent
-    \textit{Dedico esta tese à todo mundo.}
+    \textit{À minha mãe, Sandra, e ao meu filho, Heitor.}
     \vspace*{\fill}
 \end{dedicatoria}
 % ---
 
 % 6. Agradecimentos ---
-\begin{agradecimentos}
-    \thispagestyle{empty}
-    Agradecimentos aqui.
-\end{agradecimentos}
+%\begin{agradecimentos}
+%    \thispagestyle{empty}
+%    Agradecimentos aqui.
+%\end{agradecimentos}
 
 % ---
 
 % --- Epígrafe  ---
-\begin{epigrafe}
-	\thispagestyle{empty}
-    \vspace*{\fill}
-	\begin{flushright}
-		\textit{``Escreva aqui a sua epígrafe''\\
-		(Citação)}
-	\end{flushright}
-\end{epigrafe}
+%\begin{epigrafe}
+%	\thispagestyle{empty}
+%    \vspace*{\fill}
+%	\begin{flushright}
+%		\textit{``Escreva aqui a sua epígrafe''\\
+%		(Citação)}
+%	\end{flushright}
+%\end{epigrafe}
 
 
 \thispagestyle{empty}
 \begin{resumo}
-			% 7. RESUMO em português
-     Colocar o resumos aqui.
+			% 7. RESUMO em português			
+Um programa foi desenvolvido em Linguagem C para estudar um método que transforma a obtenção de alguns autovalores de Matrizes Simétricas em um problema de Otimização por meio de Algoritmos Genéticos (GAs). A análise das Funções de Avaliação (\emph{fitness}), que utilizam o Quociente de Rayleigh, mostrou em quais condições o autovalor mínimo é encontrado, e deu base para questionar um dos artigos. Os experimentos, executados com matrizes de Coope--Sabo, confirmaram as hipóteses. 
      
     \vspace{\onelineskip}
 
-    \noindent\textbf{Palavras-chaves}: palavra-chave 1; palavra-chave 2; palavra-chave 3.
+    \noindent\textbf{Palavras-chaves}: Autovalores; Quociente de Rayleigh; Algoritmos Genéticos; Otimização Matemática; Linguagem C.
 
     \vspace{\onelineskip}
     \vspace{\onelineskip}
@@ -137,10 +138,11 @@
     \begin{otherlanguage*}{english}
     \begin{center}{\ABNTEXchapterfont\huge Abstract}\end{center}
     
-    Put abstract here.
+    A program was developed in C language to study a method that transforms the calculation of eigenvalues of Symmetric Matrices in an Optimization problem by means of Genetic Algorithms (GAs). The analysis of Evaluation Functions (fitness), which uses the Rayleigh Quotient, showed in which conditions the minimum eigenvalue can be found, and provided the basis for disagree with one of the articles. The experiments, performed with Coope-Sabo matrices, confirmed the hypothesis.
+		
     \vspace{\onelineskip}
 
-    \noindent\textbf{Keywords}: keyword 1; keyword 2; keyword 3.
+    \noindent\textbf{Keywords}: Eigenvalues; Rayleigh Quotient; Genetic Algorithms; Mathematical Optimization; C Language.
 
     \end{otherlanguage*}
 		
@@ -161,6 +163,7 @@
 \pdfbookmark[0]{\listfigurename}{lof}
 \listoffigures*
 \thispagestyle{empty}
+\clearpage
 \cleardoublepage
 % ---
 
@@ -168,15 +171,16 @@
 \pdfbookmark[0]{\listtablename}{lot}
 \listoftables*
 \thispagestyle{empty}
+\clearpage
 \cleardoublepage
 % ---
 
 % 12. Lista de Abreviaturas e Siglas (opcional);
-\renewcommand{\nomname}{Lista de Acrônimos e Abreviações}
-\pdfbookmark[0]{\nomname}{las}
-\printnomenclature
-\thispagestyle{empty}
-\cleardoublepage
+%\renewcommand{\nomname}{Lista de Acrônimos e Abreviações}
+%\pdfbookmark[0]{\nomname}{las}
+%\printnomenclature
+%\thispagestyle{empty}
+%\cleardoublepage
 % ---
 
 % 13. Lista de Símbolos (opcional);
@@ -187,6 +191,7 @@
 \pdfbookmark[0]{\contentsname}{toc}
 \tableofcontents*
 \thispagestyle{empty}
+\clearpage
 \cleardoublepage
 % ---
 
@@ -200,6 +205,7 @@
 \include{autovaloresPorGA}
 \include{metodologia}
 \include{resultadosDiscussao}
+\include{conclusao}
 
 % --- Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz ---
 \bookmarksetup{startatroot}%

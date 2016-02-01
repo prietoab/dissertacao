@@ -30,6 +30,7 @@
 \usepackage{lastpage}			% Usado pela Ficha catalográfica
 \usepackage{indentfirst}		% Indenta o primeiro parágrafo de cada seção.
 \usepackage{color}				% Controle das cores
+%\usepackage{xcolor}
 \usepackage[pdftex]{graphicx}	% Inclusão de gráficos
 \usepackage{epstopdf}           % Pacote que converte as figuras em eps para pdf
 \usepackage{lscape} % páginas na horizontal.
@@ -56,6 +57,32 @@
 % ---
 %\usepackage[brazilian,hyperpageref]{backref}	 % Paginas com as citações na bibl
 \usepackage[alf,abnt-etal-cite=2,abnt-etal-list=0,abnt-etal-text=emph]{abntex2cite}	% Citações padrão ABNT
+
+
+% ---
+% Pacote para exibir código fonte
+% ---
+
+% Pacote
+\usepackage{listings}
+% Configuração do estilo.
+\lstset{
+  language=C++,
+  basicstyle=\ttfamily\small, 
+  keywordstyle=\color{blue}, 
+  stringstyle=\color{green}, 
+  commentstyle=\color{red}, 
+  extendedchars=true, 
+  showspaces=false, 
+  showstringspaces=false, 
+  numbers=left,
+  numberstyle=\tiny,
+  breaklines=true, 
+  %backgroundcolor=\color{green!10},
+  breakautoindent=true, 
+  captionpos=b,
+  xleftmargin=0pt,
+}
 
 % ---
 % Pacote de customização - Unicamp

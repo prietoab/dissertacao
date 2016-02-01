@@ -1,28 +1,6 @@
 \chapter{Quociente de Rayleigh ($\rho$)\label{cap:algebra}}
 
-O problema dos autovalores e autovetores pode ser definido brevemente da seguinte maneira: dada uma matriz $\mathsf{A}$ $n$ por $n$, o escalar $\lambda$ é chamado de \textbf{autovalor} de $\mathsf{A}$ se existe um vetor \textbf{\texttt{u}} não nulo tal que
-
-\begin{equation}\label{eq:autovalor}
-	\mathsf{A} \textbf{\texttt{u}} = \lambda \textbf{\texttt{u}}.
-\end{equation}
-
-O vetor \textbf{\texttt{u}} é chamado de \textbf{autovetor} de $\mathsf{A}$ associado a $\lambda$. Reescrevendo a equação \ref{eq:autovalor} chegamos a 
-
-\begin{equation}
-		\begin{array}{c}
-			\mathsf{A} \textbf{\texttt{u}} - \lambda \textbf{\texttt{u}} = 0 \\
-			(\mathsf{A} - \lambda \mathsf{I})\textbf{\texttt{u}} = 0,
-		\end{array}
-\end{equation}
-onde $\mathsf{I}$ é a matriz identidade. Pela teoria das equações lineares, a equação acima só tem soluções se
-
-\begin{equation}\label{eq:det}
-	\mbox{det}(\mathsf{A} - \lambda \mathsf{I}) = 0.
-\end{equation}
-
-A equação \ref{eq:det} leva a um \textbf{Polinômio Característico} de ordem $n$, portanto, $\mathsf{A}$ pode ter até $n$ autovalores.
-
-Seja $\mathsf{A}$, a partir de agora, uma matriz auto$-$adjunta. Todos os seus autovalores $\lambda_i$ são reais e, consequentemente, podem ser ordenados do menor para o maior:
+Com referência à equação \ref{eq:detIntro} da Introdução, seja $\mathsf{A}$, a partir de agora, uma matriz auto$-$adjunta ($A^{\dag} = A$). Todos os seus autovalores $\lambda_i$ são reais e, consequentemente, podem ser ordenados do menor para o maior:
 
 	\begin{equation}\label{eq:autovalores_ordenados}
 		\lambda_1 \leq \lambda_2 \leq \cdots \leq \lambda_n.
@@ -31,9 +9,9 @@ Seja $\mathsf{A}$, a partir de agora, uma matriz auto$-$adjunta. Todos os seus a
 Para $\mathsf{A}$, que opera sobre os vetores \textbf{\texttt{u}} do espaço euclidiano $\varepsilon^n$, define-se o \textbf{Quociente de Rayleigh} $\rho (\textbf{\texttt{u}})$:
 
 \begin{equation}\label{eq:rho}
-	\rho (\textbf{\texttt{u}}) \equiv \rho(\textbf{\texttt{u}}; \mathsf{A}) \equiv \frac{\textbf{\texttt{u}}^\dag \mathsf{A}\textbf{\texttt{u}}}{\textbf{\texttt{u}}^\dag \textbf{\texttt{u}}},   \textbf{\texttt{u}} \neq 0,
+	\rho (\textbf{\texttt{u}}) \equiv \rho(\textbf{\texttt{u}}; \mathsf{A}) \equiv \frac{\textbf{\texttt{u}}^\dag \mathsf{A}\textbf{\texttt{u}}}{\textbf{\texttt{u}}^\dag \textbf{\texttt{u}}}, 
 \end{equation}
-onde $\textbf{\texttt{u}}^\dag$ é o complexo conjugado de $\textbf{\texttt{u}}$. Todo vetor \textbf{\texttt{u}} possui um $\rho(\textbf{\texttt{u}})$.
+onde $\textbf{\texttt{u}}^\dag$ é o complexo conjugado de $\textbf{\texttt{u}}$, que por sua vez deve ser sempre diferente de zero ($\textbf{\texttt{u}} \neq 0$). Todo vetor \textbf{\texttt{u}} possui um $\rho(\textbf{\texttt{u}})$.
 
 	O Quociente de Rayleigh está diretamente relacionado aos autovalores e autovetores. Suponha que $\textbf{\texttt{w}}_i$ seja um dos $n$ autovetores de $\mathsf{A}$. A equação \ref{eq:rho} fica
 	
@@ -46,7 +24,7 @@ onde $\textbf{\texttt{u}}^\dag$ é o complexo conjugado de $\textbf{\texttt{u}}$
 		\rho (\textbf{\texttt{w}}_i) = \lambda_i.
 	\end{equation}
 	
-	Portanto, se temos um autovetor de uma matriz auto$-$adjunta, não é necessário resolver o sistema linear \ref{eq:autovalor} para obter o autovalor, basta efetuar as multiplicações de \ref{eq:rho}.
+	Portanto, se temos um autovetor de uma matriz auto$-$adjunta, não é necessário resolver o sistema linear \ref{eq:detIntro} para obter o autovalor, basta efetuar as multiplicações de \ref{eq:rho}.
 	
 	O vetor gradiente de $\rho$ é \cite{Wilkinson1965}
 	
