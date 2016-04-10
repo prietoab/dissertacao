@@ -237,7 +237,7 @@ Os exemplos desta seção utilizam representação binária. Mas pode-se utiliza
 		
 		Vários métodos foram criados para executar a Seleção de maneira coerente, ou seja, privilegiando os indivíduos com alta função de avaliação, mas não desprezando totalmente os de menor nota. Dois deles serão apresentados: o método da Roleta e a Seleção por Torneio.
 	
-	\subsection{O método da Roleta (\textit{Roulette Wheel})}
+	\subsection{O método da Roleta}
 	
 	A ideia do método é simular uma roleta parecida com as utilizadas em cassinos. Entretando, há duas diferenças. Enquanto na roleta tradicional temos o mesmo tamanho de fatia para cada número, na roleta para os algoritmos genéticos a fatia que cada indivíduo ganha é proporcional a sua avaliação.
 	
@@ -386,7 +386,7 @@ Os exemplos desta seção utilizam representação binária. Mas pode-se utiliza
 	
 	Esse processo deve ser repetido até que o número de indivíduos desejado seja atingido. Nas figuras \ref{figCodLoopCrossOver} e \ref{figCodCrossOver} há um exemplo de código.
 	
-	\subsubsection{Exemplo: crossover para $y(x) = -x^2 + 36$}
+	\subsubsection{Exemplo: \emph{crossover} para $y(x) = -x^2 + 36$}
 	
 	Para que o funcionamento do operador \textit{crossover} fique claro, faremos uma execução manual do código contido na figura \ref{figCodLoopCrossOver}. Os indivíduos que utilizaremos serão aqueles selecionados pela Roleta, presentes na tabela \ref{tabRoletaManual}. Ao final teremos quatro indivíduos provenientes de oito pares de cromossomos.
 	

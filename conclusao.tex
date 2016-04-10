@@ -1,0 +1,10 @@
+\chapter{Conclusões}
+\label{cap:conclusao}
+
+	O método apresentado nos artigos \cite{metodo2004} e \cite{metodo2011} é eficaz para obter autovalores de matrizes simétricas pequenas ($n \leq 40$). Seus resultados estão de acordo com a construção das funções objetivo.
+	
+	As hipóteses levantadas na Introdução estão confirmadas. Como é possível encontrar o autovalor mínimo com o \emph{fitness} de \cite{metodo2011}, a segunda hipótese é verdadeira, portanto, não há problemas fundamentais no método. Consequentemente, a primeira hipótese também é correta, e concluo que é impossível usar o \emph{fitness} de \cite{metodo2004} para obter o autovalor mínimo. Há base para contradizer, parcialmente, \cite{metodo2004}.
+	
+	As duas funções de avaliação podem ser utilizadas em conjunto. A de \cite{metodo2011} encontra o autovalor mínimo, porém, é necessário conhecimento prévio sobre a região onde ele se encontra. O \emph{fitness} de \cite{metodo2004} é adequado para identificar autovalores intermediários, e essa informação pode ser útil para auxiliar na definição daquela região.
+	
+	A configuração do parâmetro $\lambda$ merece cuidado. Ele deve ser escolhido de modo que a função de avaliação seja estreita, mas garantindo que os piores indivíduos da população inicial tenham \emph{fitness} maior do que zero.
