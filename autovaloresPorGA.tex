@@ -2,7 +2,7 @@
 
 	Os métodos que estudei para esta dissertação estão contidos em uma série de artigos \cite{metodo2002, metodo2004, metodo2006, metodo2008, metodo2009, metodo2011}. O objetivo é encontrar, sequencialmente, do menor para o maior, os autovalores de uma matriz simétrica. Essa matriz é o Hamiltoniano presente na formulação matricial da equação de Schrödinger independente do tempo\footnote{Ela é importante para a física moderna pois está associada à quantização da energia na Mecânica Quântica.}. A estratégia é transformar o problema do autovalor em um problema de otimização, buscando um escalar $a_i$ e um vetor $X_i$ de modo que a equaçaõ $HX_i = a_iX_i$ seja satisfeita.
 	
-	Os algoritmos apresentados em \cite{metodo2004} e \cite{metodo2011} são mais simples. Por exemplo, em \cite{metodo2002} o Hamiltoniano é alterado por rotações de Jacobi e, só então, o \emph{fitness} é calculado. Nos artigos \cite{metodo2006}, \cite{metodo2008} e \cite{metodo2009} o espaço vetorial é dividido em duas partes de dimensões diferentes, levando a um Hamiltoniano que contém alguns autovalores de interesse\footnote{\emph{Partitioned matrix eigenvalue problem.}}. Isso não ocorre com os GAs das publicações de 2004 e 2011. Nelas o Hamiltoniano original é sempre mantido.
+	Os algoritmos apresentados em \cite{metodo2004} e \cite{metodo2011} são mais simples. Por exemplo, em \cite{metodo2002} o Hamiltoniano é alterado por algumas trasformações ortogonais e, só então, o \emph{fitness} é calculado. Nos artigos \cite{metodo2006}, \cite{metodo2008} e \cite{metodo2009} o espaço vetorial é dividido em duas partes de dimensões diferentes, levando a um Hamiltoniano que contém alguns autovalores de interesse\footnote{\emph{Partitioned matrix eigenvalue problem.}}. Isso não ocorre com os GAs das publicações de 2004 e 2011. Nelas o Hamiltoniano original é sempre mantido.
 	
 	Pode-se dizer que \cite{metodo2011} é a continuação de \cite{metodo2004}. A representação cromossomial e os operadores de seleção, \emph{crossover} e mutação são os mesmos. No entanto, ele adiciona dois operadores genéticos. O primeiro é complementar à mutação, e atua para criar mais diversidade na população. O segundo acentua a pressão seletiva via Elitismo. Não há justificativa para os novos operadores. Acredito que o intuito tenha sido melhorar a qualidade dos resultados, mas, infelizmente, não há comparação com os obtidos em 2004. E, de fato, isso seria impossível, pois em 2011 há uma mudança drástica: a função de avaliação foi alterada. Além disso, \cite{metodo2011} paraleliza o GA e compara os desempenhos.
 	
@@ -12,7 +12,7 @@
 %\section{Descrição do Algoritmo}
 %========================================================	
 
-	Há casos em que não há solução exata para a equação de Schrödinger independente do tempo. Quando isso acontece, é preciso introduzir uma base ortonormal finita {$\phi$} e expandir o estado estacionário $\psi$ em termos dos vetores geradores dessa base
+	É possível expandir as soluções $\psi$ da Equação de Schrödinger independente do tempo em termos dos vetores geradores $\phi_k$ de uma base ortonormal finita $\phi$:
 	
 	\begin{equation}
 		\psi = \sum_k c_k \phi_k.
@@ -85,19 +85,19 @@
 	\end{equation}
 		
 	O \emph{fitness} é então definido como \footnote{
-		No artigo \cite{metodo2004} a equação originalmente apresentada é $f_i = e^{-\lambda (\nabla \rho_i)^{\nabla \rho_i}}$. Acredito que tenha sido um erro de digitação por dois motivos. O primeiro é que tal definição não leva, necessariamente, ao comportamento esperado: $f_i \rightarrow 1$ quando $\nabla \rho_i \rightarrow 0$. Em segundo lugar, nos artigos \cite{metodo2006},  \cite{metodo2008} e \cite{metodo2009}, que seguem o mesmo método, a função de avaliação é definida como $f_i = e^{-\lambda (\nabla \rho_i)^{\dagger} (\nabla \rho_i)}$. Portanto, segui com a definição de $f_i$ da equação \ref{eq:fitness_extenso}.}
+		No artigo \cite{metodo2004} a equação originalmente apresentada é $f_i = e^{-\beta (\nabla \rho_i)^{\nabla \rho_i}}$. Acredito que tenha sido um erro de digitação por dois motivos. O primeiro é que tal definição não leva, necessariamente, ao comportamento esperado: $f_i \rightarrow 1$ quando $\nabla \rho_i \rightarrow \textbf{0}$. Em segundo lugar, nos artigos \cite{metodo2006},  \cite{metodo2008} e \cite{metodo2009}, que seguem o mesmo método, a função de avaliação é definida como $f_i = e^{-\beta (\nabla \rho_i)^{\dagger} (\nabla \rho_i)}$. Portanto, segui com a definição de $f_i$ da equação \ref{eq:fitness_extenso}.}
 	
 	\begin{equation}\label{eq:fitness_extenso}
-		f_i = e^{-\lambda (\nabla \rho_i)^\dagger (\nabla \rho_i)}.
+		f_i = e^{-\beta (\nabla \rho_i)^\dagger (\nabla \rho_i)}.
 	\end{equation}
 	
 	Lembrando que o módulo de um vetor $V$ é dado por $|V| = \sqrt{V^{\dagger} V}$, a equação \ref{eq:fitness_extenso} fica
 	
 	\begin{equation}\label{eq:fitness_grad}
-		f_i(\nabla \rho_i) = e^{-\lambda |\nabla \rho_i|^2}.
+		f_i(\nabla \rho_i) = e^{-\beta |\nabla \rho_i|^2}.
 	\end{equation}
 			 
-	A função de avaliação $f_i$ está limitada entre zero e um, $f_i$ = (0,1]. Se $|\nabla \rho|^2 \gg 0$, $f_i \rightarrow 0$, indicando que $C_i$ possui baixa qualidade, está longe da solução. Por outro lado, se $\nabla \rho_i \rightarrow 0 $, $f_i \rightarrow 1$, e $C_i$ é uma boa aproximação para um autovetor. O parâmetro $\lambda$ é escolhido para não haver \emph{over flow} ou \emph{under flow} da função exponencial.
+	A função de avaliação $f_i$ está limitada entre zero e um, $f_i$ = (0,1]. Se $|\nabla \rho_i|^2 \gg 1$, $f_i \rightarrow 0$, indicando que $C_i$ possui baixa qualidade, está longe da solução. Por outro lado, se $\nabla \rho_i \rightarrow \textbf{0} $, $f_i \rightarrow 1$, e $C_i$ é uma boa aproximação para um autovetor. O parâmetro $\beta$ é escolhido para não haver \emph{over flow} ou \emph{under flow} da função exponencial.
 	
 	De acordo com os autores, a equação \ref{eq:fitness_grad} leva ao autovalor mínimo. Se algum $C_i$, em algum momento, é o autovetor fundamental $C_0$, o $\nabla \rho$ é nulo. Eles afirmam que ``\textit{Claramente, $f_i \rightarrow 1$ quando $\nabla \rho_i \rightarrow 0$, sinalizando que a evolução atingiu o verdadeiro autovetor fundamental de $H$ em $C_i$}''\footnote{Tradução livre de ``\textit{Clearly, $f_i \rightarrow 1$, as $\nabla \rho_i \rightarrow 0$, signalling that the evolution has hit the true ground state eigenvector of $H$ in the vector $C_i$}''.}. 
 	
@@ -112,11 +112,11 @@
 	Como já dito anteriormente, a função de avaliação foi alterada em \cite{metodo2011}, e é dada por 
 	
 	\begin{equation}\label{eq:fitness_EL_metodo}
-		f_i(\rho_i) = e^{-\lambda(\rho_i - E_L)^2},
+		f_i(\rho_i) = e^{-\beta(\rho_i - E_L)^2},
 	\end{equation}
 	onde $E_L$ é um limite inferior para o autovalor mínimo procurado.
 	
-	Ela compartilha algumas propriedades com a equação \ref{eq:fitness_grad}. Está limitada no conjunto $f_i(\rho) = (0,1]$ e, quanto maior seu valor, melhor a qualidade do indivíduo. O parâmetro $\lambda$ tem exatamente a mesma função. A busca utilizando $f_i(\rho)$ também termina quando $f_i \rightarrow 1$. ``\emph{Se $\rho_i \rightarrow E_L$ durante a busca, $f_i \rightarrow 1$ e $C_i$ se aproxima do autovetor fundamental de $H$}''\footnote{Tradução livre de ``If $\rho_i \rightarrow E_L$ during the search, $f_i \rightarrow 1$ and $C_i$ approaches the ground eigenvector of $H$''.}. Novamente, como já temos $C_0$, o autovalor $E_0$ é simplesmente o $\rho_i$ já calculado.	O cálculo de $f_i(\rho)$ executa os passos \ref{item:passo1} e \ref{item:passo3} de $f_i(\nabla\rho)$.
+	Ela compartilha algumas propriedades com a equação \ref{eq:fitness_grad}. Está limitada no conjunto $f_i(\rho) = (0,1]$ e, quanto maior seu valor, melhor a qualidade do indivíduo. O parâmetro $\beta$ tem exatamente a mesma função. A busca utilizando $f_i(\rho)$ também termina quando $f_i \rightarrow 1$. ``\emph{Se $\rho_i \rightarrow E_L$ durante a busca, $f_i \rightarrow 1$ e $C_i$ se aproxima do autovetor fundamental de $H$}''\footnote{Tradução livre de ``If $\rho_i \rightarrow E_L$ during the search, $f_i \rightarrow 1$ and $C_i$ approaches the ground eigenvector of $H$''.}. Novamente, como já temos $C_0$, o autovalor $E_0$ é simplesmente o $\rho_i$ já calculado.	O cálculo de $f_i(\rho)$ executa os passos \ref{item:passo1} e \ref{item:passo3} de $f_i(\nabla\rho)$.
 				
 		A não ser por acidente, a condição $f_i \rightarrow 1$ não é satisfeita logo na primeira população. É necessário evoluir os indivíduos por meio dos operadores genéticos de seleção, reprodução e mutação. Eles serão apresentados nas seções seguintes.
 
@@ -480,7 +480,7 @@ Na figura \ref{fig:cross2004_tabelaDepois} há os dois novos indivíduos.
 
 \begin{figure}[htbp]
 	\centering
-		\includegraphics[width=1.00\textwidth]{figs/materiais_metodo/autovalores_com_ga/fluxo.png}
+		\includegraphics[width=0.90\textwidth]{figs/materiais_metodo/autovalores_com_ga/fluxo.png}
 	\caption{Fluxo algoritmo genético}
 	\label{fig:fluxo}
 \end{figure}

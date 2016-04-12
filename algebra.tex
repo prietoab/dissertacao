@@ -35,11 +35,11 @@ onde $\textbf{\texttt{u}}^\dag$ é o complexo conjugado de $\textbf{\texttt{u}}$
 	Ele é nulo se, e somente se, $\textbf{\texttt{u}}$ é um autovetor $\textbf{\texttt{w}}_i$  de $\mathsf{A}$:
 	
 	\begin{equation}\label{eq:grad_rho_no_w}
-		\nabla \rho (\textbf{\texttt{w}}_i) = \frac{2[\mathsf{A} - \rho(\textbf{\texttt{w}}_i)] \textbf{\texttt{w}}_i}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{2[\mathsf{A} - \lambda_i]\textbf{\texttt{w}}_i}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{2[\mathsf{A}\textbf{\texttt{w}}_i - \lambda_i\textbf{\texttt{w}}_i]}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{2[0]}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = 0,
+		\nabla \rho (\textbf{\texttt{w}}_i) = \frac{2[\mathsf{A} - \rho(\textbf{\texttt{w}}_i)] \textbf{\texttt{w}}_i}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{2[\mathsf{A} - \lambda_i]\textbf{\texttt{w}}_i}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{2[\mathsf{A}\textbf{\texttt{w}}_i - \lambda_i\textbf{\texttt{w}}_i]}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \frac{2[0]}{\textbf{\texttt{w}}_i^\dag \textbf{\texttt{w}}_i} = \textbf{0},
 	\end{equation}
 	
 	\begin{equation}\label{eq:grad_rho_nulo}
-		\nabla \rho (\textbf{\texttt{w}}_i) = 0.
+		\nabla \rho (\textbf{\texttt{w}}_i) = \textbf{0}.
 	\end{equation}
 
 Além disso, para todos os vetores \textbf{\texttt{u}} $n-$dimensionais diferentes de zero, $\rho(\textbf{\texttt{u}})$ é limitado no intervalo [$\lambda_1, \lambda_n$] entre o menor e o maior autovalor da matriz $\mathsf{A}$ \cite{Parlett1998}. Em seguida agrupo as três propriedades de $\rho(\textbf{\texttt{u}})$ citadas acima.
@@ -56,7 +56,7 @@ Além disso, para todos os vetores \textbf{\texttt{u}} $n-$dimensionais diferent
 	
 \end{enumerate}
 
-	A segunda e terceira propriedades podem ser utilizadas para tratar o problema dos autovalores como um problema de otimização matemática. A propriedade de fronteira, por exemplo, permite transformar o problema de encontrar o menor (ou maior) autovalor de uma matriz auto$-$adjunta em um problema de minimização (ou maximização) de $\rho(\textbf{\texttt{u}})$. A estacionaridade pode, inclusive, auxiliar na definição da função objetivo. Minimizar $\nabla \rho(\textbf{\texttt{u}})$ também leva a um autovetor, entretanto, note que, quando $\nabla \rho(\textbf{\texttt{u}}) = 0$, $\textbf{\texttt{u}}$ pode ser qualquer um dos $n$ autovetores ($\textbf{\texttt{w}}_1, \textbf{\texttt{w}}_2, \cdots, \textbf{\texttt{w}}_n$) de $\mathsf{A}$. Ou seja, não há garantia que o autovalor obtido é o menor ou maior.
+	A segunda e terceira propriedades podem ser utilizadas para tratar o problema dos autovalores como um problema de otimização matemática. A propriedade de fronteira, por exemplo, permite transformar o problema de encontrar o menor (ou maior) autovalor de uma matriz auto$-$adjunta em um problema de minimização (ou maximização) de $\rho(\textbf{\texttt{u}})$. A estacionaridade pode, inclusive, auxiliar na definição da função objetivo. Minimizar $\nabla \rho(\textbf{\texttt{u}})$ também leva a um autovetor, entretanto, note que, quando $\nabla \rho(\textbf{\texttt{u}}) = \textbf{0}$, $\textbf{\texttt{u}}$ pode ser qualquer um dos $n$ autovetores ($\textbf{\texttt{w}}_1, \textbf{\texttt{w}}_2, \cdots, \textbf{\texttt{w}}_n$) de $\mathsf{A}$. Ou seja, não há garantia que o autovalor obtido é o menor ou maior.
 
 		A primeira propriedade permite que a obtenção dos autovalores seja transformada em um método de busca de autovetores. O espaço de busca é o conjunto de todos os vetores $\textbf{\texttt{u}}_i$, e o espaço de soluções é composto pelos $n$ autovetores ($\textbf{\texttt{w}}_1, \textbf{\texttt{w}}_2, \cdots, \textbf{\texttt{w}}_n$).
 		

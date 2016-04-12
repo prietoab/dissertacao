@@ -6,9 +6,9 @@
 \section{Algoritmos Genéticos}\label{seq:medologia_ga}
 %========================================================
 	
-	Iniciei os estudos em Algoritmos Genéticos pelos livros \cite{Mitchell98} e \cite{Linden2008} e, antes de partir para o trabalho da dissertação em si, ataquei três problemas completamente distintos.
+	Iniciei os estudos em Algoritmos Genéticos pelos livros \cite{Mitchell98} e \cite{Linden2008} e, antes de partir para o trabalho da dissertação em si, trabalhei com três problemas completamente distintos.
 	
-	O primeiro foi o ONEMAX \cite{onemaxNaGPU}, desenvolvido ``do zero'', em Linguagem C. Considerado o \emph{hello world} do GA, tem representação cromossomial binária, o \emph{fitness} é a soma dos \emph{bits} de cada indivíduo e o objetivo é obter um indivíduo com o maior número de '1' possível. Com ele pude estudar os parâmetros de um GA simples, como número de indivíduos e a probabilidade de \emph{crossover}, e verificar a influência de cada um na qualidade da solução, convergência, desempenho, evolução do \emph{fitness} etc. Uma versão paralelizada em CUDA foi apresentada em evento de computação de alto desempenho \cite{ERAD12} e é discutida na seção \ref{sec:oneMaxNaGPU}.
+	O primeiro foi o ONEMAX \cite{onemaxNaGPU}, desenvolvido ``do zero'', em Linguagem C. Considerado o \emph{hello world} do GA, tem representação cromossomial binária, o \emph{fitness} é a soma dos \emph{bits} de cada indivíduo e o objetivo é obter um indivíduo com o maior número de '1' possível. Com ele pude estudar os parâmetros de um GA simples, como número de indivíduos e a probabilidade de \emph{crossover}, e verificar a influência de cada um na qualidade da solução, convergência, desempenho, evolução do \emph{fitness} etc. Uma versão paralelizada em CUDA foi apresentada em evento de computação de alto desempenho \cite{ERAD12} e encontra-se no apêndice \ref{apdx:oneMaxNaGPU}.
 	
 	\begin{figure}[htbp]
 		\centering
@@ -54,7 +54,7 @@
 \subsection{Como utilizar o programa}
 %---------------------------------------------------	
 	
-	Para utilizar o \emph{software} basta baixar o código e compilar o arquivo \texttt{Serial\_novo.c} (será necessário alterar o diretório no \emph{include} das bibliotecas que desenvolvi). O código está disponível na internet para qualquer um utilizar, testar e, inclusive, melhorar\footnote{\texttt{https://github.com/prietoab/msc\_code}}. Caso isso aconteça, peço apenas que cite esta dissertação.
+	Para utilizar o \emph{software} basta compilar o arquivo \texttt{Serial\_novo.c} (será necessário alterar o diretório no \emph{include} das bibliotecas que desenvolvi). O código está disponível na internet para qualquer um utilizar, testar e, inclusive, melhorar\footnote{\texttt{https://github.com/prietoab/msc\_code}}. Caso isso aconteça, peço apenas que cite esta dissertação.
 	
 		A execução dá-se via linha de comando passando os parâmetros necessários. Porém, como são muitos parâmetros, é aconselhável a utilização de um arquivo de \emph{script}. Assim é possível criar processos de varredura para variar os parâmetros desejados ou repetir várias execuções. Fiz isso para automatizar o estudo e ter dados suficientes para análise. Na figura \ref{fig:script_windows} há um exemplo de \emph{script} Windows para fazer execuções variando o número de genes.
 			
@@ -65,7 +65,7 @@
 			\label{fig:script_windows}
 		\end{figure}
 
-	Não é necessário ter uma matriz para execução. Por meio do parâmetro \emph{Tamanho do cromossomo} (seção \ref{sec:listaParametros}) o programa gera automaticamente uma matriz de Coope \cite{Coope1977}, definida na equação \ref{eq:MatrizCoope}. Essa matriz foi utilizada nos testes de \cite{metodo2011}.
+	Não é necessário ter uma matriz para execução. Por meio do parâmetro \emph{Tamanho do cromossomo} (seção \ref{sec:listaParametros}) o programa gera automaticamente uma matriz de Coope \cite{Coope1977}, definida na equação \ref{eq:MatrizCoope}. Essa matriz, que não possui significado físico, foi escolhida pois também é utilizada nos testes de \cite{metodo2011}.
 	
 	\begin{equation}\label{eq:MatrizCoope}
 		\begin{array}{ccl}
@@ -81,7 +81,7 @@
 \subsection{Informações de saída}
 %---------------------------------------------------	
 		
-Há cinco grupos de informações na saída do programa. Usados em conjunto dão um panorama do algoritmo genético. Para apenas um deles (Estatística) um arquivo texto é gerado automaticamente. Os outros são exibidos na tela. Para alterar a saída padrão para um arquivo texto, é necessário utilizar o caractere de redirecionamento da saída padrão. No Windows, Linux e Unix esse caractere é o ``>''. No Linux, por exemplo, o comando ``\texttt{ls > dirs.txt}'' lista o conteúdo do diretório atual e armazena no arquivo \texttt{dirs.txt}.
+Há cinco grupos de informações na saída do programa. Usados em conjunto dão um panorama do algoritmo genético. Para apenas um deles (Estatística) um arquivo texto é gerado automaticamente. Os outros são exibidos na tela. Para alterar a saída padrão para um arquivo texto, é necessário utilizar o caractere de redirecionamento da saída padrão\footnote{No Windows, Linux e Unix esse caractere é o ``>''. No Linux, por exemplo, o comando ``\texttt{ls > dirs.txt}'' lista o conteúdo do diretório atual e armazena no arquivo \texttt{dirs.txt}.}.
 
 \begin{enumerate}
 
@@ -130,7 +130,7 @@ Há cinco grupos de informações na saída do programa. Usados em conjunto dão
 		
 		\item \textbf{Estruturas.h}
 		
-		Contém as estruturas de dados e uma função que retorna automaticamente o parâmetro $\lambda$ do \emph{fitness} (seção \ref{sec:eq_lambda}).
+		Contém as estruturas de dados e uma função que retorna automaticamente o parâmetro $\beta$ do \emph{fitness} (seção \ref{sec:eq_lambda}).
 		
 		\item \textbf{Algebra\_Linear\_serial.h}
 		
@@ -183,31 +183,31 @@ Há cinco grupos de informações na saída do programa. Usados em conjunto dão
 				\item Tipo 0 \cite{metodo2011}:
 				
 					\begin{equation}
-					f = e^{-\lambda(\rho - E_L)^2}
+					f = e^{-\beta(\rho - E_L)^2}
 					\end{equation}
 				
 				\item Tipo 1 \cite{metodo2004}:
 				
 					\begin{equation}
-					f = e^{-\lambda |\nabla \rho|^2}
+					f = e^{-\beta |\nabla \rho|^2}
 					\end{equation}
 					
 				\item Tipo 2:
 				
 					\begin{equation}
-					f = e^{-\lambda [(\rho - E_L)^2 + |\nabla \rho|^2]}
+					f = e^{-\beta [(\rho - E_L)^2 + |\nabla \rho|^2]}
 					\end{equation}
 					
 				\item Tipo 3:
 				
 					\begin{equation}
-					f = e^{-\lambda |\nabla \rho|}
+					f = e^{-\beta |\nabla \rho|}
 					\end{equation}
 		
 			\item Tipo 4:
 				
 					\begin{equation}
-					f = e^{-\lambda [(\rho - E_L)^2 + |\nabla \rho|]}
+					f = e^{-\beta [(\rho - E_L)^2 + |\nabla \rho|]}
 					\end{equation}
 			\end{itemize}
 			
@@ -235,9 +235,9 @@ Há cinco grupos de informações na saída do programa. Usados em conjunto dão
 		
 			Número real. Define o parâmetro $\Delta$ utilizado no \emph{crossover}. É dividido por dez. Exemplo: $1.2$ no parâmetro $\rightarrow 0,12$ no $\Delta$.
 		
-		\item \textbf{Valor para $\lambda$}.
+		\item \textbf{Valor para $\beta$}.
 		
-		Número real. Define o valor do parâmetro $\lambda$ do \emph{fitness}. Se for configurado como $-1$, um valor adequado para $\lambda$ é gerado automaticamente.
+		Número real. Define o valor do parâmetro $\beta$ do \emph{fitness}. Se for configurado como $-1$, um valor adequado para $\beta$ é gerado automaticamente.
 		
 		\item \textbf{Valor para $E_L$}.
 		
@@ -356,7 +356,7 @@ struct parametrosPrograma {
 \subsubsection{parametros\_Metodo}
 %----
 
-	Armazena os parâmetros do \emph{fitness}, $\lambda$ e $E_0$.
+	Armazena os parâmetros do \emph{fitness}, $\beta$ e $E_0$.
 
 
 \vspace{1 cm}	
@@ -569,11 +569,11 @@ for (iIndividuo = 0; iIndividuo < parametrosGA->numIndividuos; iIndividuo++) {
 		Dependendo do tipo escolhido.
 		
 		\begin{itemize}
-			\item Tipo 0, $f = e^{-\lambda(\rho - E_L)^2}$: linha 71
-			\item Tipo 1, $f = e^{-\lambda |\nabla \rho|^2}$: linha 75
-			\item Tipo 2, $f = e^{-\lambda [(\rho - E_L)^2 + |\nabla \rho|^2]}$: linha 79
-			\item Tipo 3, $f = e^{-\lambda |\nabla \rho|}$: linha 83
-			\item Tipo 4, $f = e^{-\lambda [(\rho - E_L)^2 + |\nabla \rho|]}$: linha 87
+			\item Tipo 0, $f = e^{-\beta(\rho - E_L)^2}$: linha 71
+			\item Tipo 1, $f = e^{-\beta |\nabla \rho|^2}$: linha 75
+			\item Tipo 2, $f = e^{-\beta [(\rho - E_L)^2 + |\nabla \rho|^2]}$: linha 79
+			\item Tipo 3, $f = e^{-\beta |\nabla \rho|}$: linha 83
+			\item Tipo 4, $f = e^{-\beta [(\rho - E_L)^2 + |\nabla \rho|]}$: linha 87
 			\item Se nenhum dos tipos acima foi escolhido, define o \emph{fitness} como -1 na linha 91.
 		\end{itemize}
 		

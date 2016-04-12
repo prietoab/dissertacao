@@ -27,43 +27,28 @@ A equação \ref{eq:detIntro} é chamada de \textbf{Equação Característica} d
 
 	Mas, de onde vieram os autovalores? O que são? Por que são importantes? Muitos estudantes de ciências exatas e engenharia fazem essas três perguntas durante as disciplinas introdutórias de Álgebra Linear. Uma descrição mais detalhada da importância histórica dos autovalores, além dos métodos numéricos clássicos, pode ser encontrada no Apêndice \ref{apdx:historia}.
 	
-	A primeira aparição dos autovalores aconteceu no século $\mathsf{XVII}$. A partir de então grandes nomes da matemática se debruçaram sobre o estudo da sua natureza, como D'Alembert, Lagrange, Laplace, Sturm e Cauchy, culminando no final do século $\mathsf{XIX}$ na Teoria Espectral das Matrizes. No início do século $\mathsf{XX}$ os autovalores foram fundamentais dentro da Mecânica Quântica, uma das grandes revoluções científicas e culturais da nossa era. Com o advento do computador eletrônico por volta de 1950, a criação de métodos numéricos tornou-se muito ativa \cite{Hawkins75}.
+	A primeira aparição dos autovalores aconteceu no século $\mathsf{XVIII}$. A partir de então grandes nomes da matemática se debruçaram sobre o estudo da sua natureza, como D'Alembert, Lagrange, Laplace, Sturm e Cauchy, culminando no final do século $\mathsf{XIX}$ na Teoria Espectral das Matrizes. No início do século $\mathsf{XX}$ os autovalores foram fundamentais dentro da Mecânica Quântica, uma das grandes revoluções científicas da nossa era. Com o advento do computador eletrônico por volta de 1950, a criação de métodos numéricos tornou-se muito ativa \cite{Hawkins75}.
 	
 	No século $\mathsf{XXI}$ a relevância continua. A busca pela palavra \emph{eigenvalue} em periódicos como \emph{Nature} e \emph{Science} revela que os autovalores continuam muito utilizados. Google, Facebook e Twitter, por exemplo, estão fortemente relacionados aos autovalores. Dado o número de usuários desses sistemas, no mínimo da ordem de centenas de milhões \cite{twitter2010}, passou-se a buscar métodos com alto potencial para uso de algoritmos paralelos e computação de alto desempenho.
 	
 	Apresento nesta dissertação o estudo de um método com esse potencial. Em uma série de artigos, com \cite{metodo2004} sendo o primeiro, é proposta uma maneira de encontrar o autovalor mínimo de uma matriz simétrica. Para isso fazem uso de Algoritmos Genéticos (GAs) \cite{Mitchell98}, que são intrinsecamente paralelos \cite{Linden2008} e, dependendo do problema modelado e da arquitetura de computação paralela escolhida, altamente escaláveis. Essas características já foram exploradas de maneira sistemática em arquiteturas tradicionais \cite{Cantu-Paz2000}, e mais recentemente bons desempenhos foram atingidos com GAs simples executados em placas de vídeo (GPUs) com arquitetura NVIDIA CUDA. Em \cite{onemaxNaGPU} o GA paralelizado na GPU chegou a ser até trinta vezes mais rápido.
-
-	Assim, inicialmente os principais objetivos para o projeto foram:
 	
-	\begin{enumerate}
-		\item Desenvolver um programa serial que implementasse o método apresentado em \cite{metodo2004};
-		
-		\item Reproduzir os resultados de \cite{metodo2004};
-		
-		\item Desenvolver uma versão paralela do programa na arquitetura NVIDIA CUDA;
-		
-		\item Comparar o desempenho do programa Serial com o programa Paralelo.
-	\end{enumerate}
-	
-	A \textbf{hipótese} era que o programa paralelo seria mais rápido, e o objetivo era quantificar esse ganho. Porém, a pesquisa tomou outro rumo.
-	
-	Encontrei uma falha em \cite{metodo2004}. O artigo afirma que o método obtém sempre o autovalor mínimo de matrizes simétricas. Com base em resultados experimentais próprios, em conhecidas propriedades do Quociente de Rayleigh e em um erro, argumento que não há garantias de se encontrar o menor autovalor. É possível que os autores tenham omitido algum procedimento específico.
+	No entanto, encontrei uma falha em \cite{metodo2004}. O artigo afirma que o método obtém sempre o autovalor mínimo de matrizes simétricas. Com base em resultados experimentais próprios, em conhecidas propriedades do Quociente de Rayleigh e em um erro lógico no artigo, argumento que não há garantias de se encontrar o menor autovalor. É possível que os autores tenham omitido algum procedimento específico.
 	
 	Dos cinco artigos que utilizam o método, o último \cite{metodo2011} possui uma diferença significativa: a Função de Avaliação (\emph{fitness}) do Algoritmo Genético foi alterada. Essa função tem papel fundamental em todo algoritmo genético, pois é a maneira utilizada pelos GAs para determinar a qualidade de um indivíduo como solução do problema \cite{Linden2008}. Isso me motivou a estudar \cite{metodo2011} em detalhes e identifiquei que, justamente por causa do novo \emph{fitness}, o erro lógico dos trabalhos anteriores não foi cometido.
 	
-	Dado o contexto, surgiram duas novas hipóteses:
+	Dado o contexto, formulei as seguintes hipóteses:
 	
 	\textbf{Hipótese 1}: a impossibilidade de se obter o menor autovalor com \cite{metodo2004} não reside em uma falha do método, mas apenas na má definição da Função de Avaliação.
 	
 	\textbf{Hipótese 2}: se a Hipótese 1 é verdadeira, é possível encontrar o menor autovalor com a Função de Avaliação de \cite{metodo2011}.
 		
-	A fim de verificar essas hipóteses, implementei um GA contendo os principais elementos comuns entre \cite{metodo2004} e \cite{metodo2011}. A ideia foi, mantendo uma única estrutura, comparar apenas o efeito da mudança do \emph{fitness}.
+	A fim de verificá--las, implementei um GA contendo os principais elementos comuns entre \cite{metodo2004} e \cite{metodo2011}. A ideia foi, mantendo uma única estrutura, comparar apenas o efeito da mudança do \emph{fitness}.
 	
 	Os resultados obtidos foram satisfatórios, e trouxeram as seguintes novidades:
 	
 	\begin{enumerate}
 		\item As duas hipóteses foram confirmadas;
 		\item Há base para contradizer \cite{metodo2004};
-		\item Restrita a um caso específico, encontrei uma equação para um parâmetro de \cite{metodo2011};
-		\item Uma versão paralelizada em GPU de um GA simples foi apresentada na III Escola Regional de Alto Desempenho de São Paulo (ERAD).
+		\item Restrita a um caso específico, encontrei uma equação para um importante parâmetro do \emph{fitness} de \cite{metodo2011};
 	\end{enumerate}

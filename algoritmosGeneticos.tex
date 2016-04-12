@@ -1,7 +1,5 @@
 \chapter{Algoritmos Genéticos\label{cap:ga}}
 
-O objetivo deste capítulo é dar uma breve introdução aos Algoritmos Genéticos. Apesar dos GAs terem como base uma teoria matemática formal, o foco está nos aspectos práticos. Espero que o leitor que nunca teve contato com GA possa ter uma boa ideia de seu funcionamento utilizando pouco tempo. Os mais experientes em GA ou outras técnicas de Computação Evolutiva podem pular o capítulo sem prejuízo.
-
 \section{Aspectos históricos}
 
 Dá-se o nome \emph{Algoritmos Genéticos} a uma técnica de busca baseada numa metáfora da Evolução. Na Natureza muitos animais competem entre si por recursos limitados, e os vencedores de uma dada população têm mais change de procriação. Seu êxito vem das catacterísticas que os tornam melhor adaptados para os desafios apresentados pelo ambiente onde vivem. Seus filhos levarão essas características adiante. 
@@ -119,7 +117,7 @@ Os exemplos desta seção utilizam representação binária. Mas pode-se utiliza
 	Outro número importante é o \textit{fitness} médio ($<f>$), ou seja, a razão entre a soma das notas de todos os indivíduos e o número de indivídios na geração ($N$):
 	
 	\begin{equation}\label{fitness_medio}
-		<f> = \frac{\sum_{i = 1}^{N} f_i}{N}
+		<f> = \frac{\displaystyle\sum_{i = 1}^{N} f_i}{N}
 	\end{equation}
 	
 	
@@ -210,7 +208,7 @@ Os exemplos desta seção utilizam representação binária. Mas pode-se utiliza
 	
 	\begin{figure}[htp]
 		\begin{center}
-			\includegraphics[width=13cm]{figs/ga/Parabola.png}
+			\includegraphics[width=13cm]{figs/ga/Parabola.pdf}
 		\end{center}
 		\caption{\label{figParabola}Gráfico da função $y(x) = -x^2 + 36$ para $x = [-1,1]$.}
 	\end{figure}

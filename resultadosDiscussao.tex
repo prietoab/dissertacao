@@ -9,9 +9,9 @@
 	
 	\begin{equation}
 		\label{eq:fitnessGrad2}
-		f_i = e^{-\lambda |\nabla \rho_i|^2},
+		f_i = e^{-\beta |\nabla \rho_i|^2},
 	\end{equation}
-	onde $f_i$ é o \textit{fitness} do $i$-ésimo indivíduo da população, $\lambda$ é um parâmetro para evitar o estouro do \textit{fitness} e $| \nabla \rho_i|^2$ é o módulo ao quadrado do vetor gradiente de $\rho$, dado por
+	onde $f_i$ é o \textit{fitness} do $i$-ésimo indivíduo da população, $\beta$ é um parâmetro para evitar o estouro do \textit{fitness} e $| \nabla \rho_i|^2$ é o módulo ao quadrado do vetor gradiente de $\rho$, dado por
 		
 				\begin{equation}
 					\nabla \rho_i = \frac{2[H - \rho_i]C_i}{C_i^t C_i},
@@ -28,16 +28,16 @@
 		\rho_i = \frac{C_i^t H C_i}{C_i^t C_i} = E_i.
 	\end{equation}
 	
-	A fim de reproduzir os resultados, testei o método com matrizes de Coope$-$Sabo (equação \ref{eq:MatrizCoope}) de ordem 10, 20, 30 e 40, utilizando os mesmos parâmetros encontrados em \cite{metodo2004}: probabilidade de \textit{crossover} $p_c = 75\%$, probabilidade de mutação $p_m = 50\%$ e intensidade de mutação $\Delta = 0,01$. Com um bom ajuste de $\lambda$, que será discutido em detalhes posteriormente, o \textit{fitness} comportou-se conforme o esperado em todos os casos. Um exemplo está na figura \ref{fig:compFitnessTipo1N10}, que apresenta o melhor fitness de cada geração para uma matriz de ordem N = 10. Na primeira geração o melhor \textit{fitness} é pequeno, aproximadamente 0,1, cresce rapidamente e a partir da décima geração está próximo de 1.
+	A fim de reproduzir os resultados, testei o método com matrizes de Coope$-$Sabo (equação \ref{eq:MatrizCoope}) de ordem 10, 20, 30 e 40, utilizando os mesmos parâmetros encontrados em \cite{metodo2004}: probabilidade de \textit{crossover} $p_c = 75\%$, probabilidade de mutação $p_m = 50\%$ e intensidade de mutação $\Delta = 0,01$. Com um bom ajuste de $\beta$, que será discutido em detalhes posteriormente, o \textit{fitness} comportou-se conforme o esperado em todos os casos. Um exemplo está na figura \ref{fig:compFitnessTipo1N10}, que apresenta o melhor fitness de cada geração para uma matriz de ordem N = 10. Na primeira geração o melhor \textit{fitness} é pequeno, aproximadamente 0,1, cresce rapidamente e a partir da décima geração está próximo de 1.
 	
 	\begin{figure}[htbp]
 		\centering
 			\includegraphics{figs/resultados/fitnessGrad/N10_00_fitness.pdf}
-			\caption{Comportamento do \textsl{fitness} $f_i = e^{-\lambda |\nabla \rho_i|^2}$ para N = 10. Na primeira geração o melhor \textit{fitness} é pequeno, aproximadamente 0,1, cresce rapidamente e a partir da décima geração está próximo de 1.}
+			\caption{Comportamento do \textsl{fitness} $f_i = e^{-\beta |\nabla \rho_i|^2}$ para N = 10. Na primeira geração o melhor \textit{fitness} é pequeno, aproximadamente 0,1, cresce rapidamente e a partir da décima geração está próximo de 1.}
 		\label{fig:compFitnessTipo1N10}
 	\end{figure}
 	
-	O passo seguinte foi verificar o comportamento de $\rho$, o Quociente de Rayleigh, e, especificamente, sua convergência para o menor autovalor $E_0$. Ainda conforme \cite{metodo2004}, obteríamos uma curva semelhante à da figura \ref{fig:compFitnessTipo1N10}, mas invertida, ou seja, os primeiros valores de $\rho$ seriam grandes e, rapidamente, diminuiriam até haver convergência para o autovalor mínimo. Na figura \ref{fig:rho_N10} há um exemplo.	Os gráficos exibem os valores de $\rho$ para a mesma execução apresentada na figura \ref{fig:compFitnessTipo1N10}. Note no primeiro gráfico que até a geração 20 o quociente $\rho$ teve caráter oscilatório e, então, aparentemente estabilizou-se entre 6 e 8, valores muito superiores ao autovalor mínimo para essa matriz, $E_0 = 0,38675$. Entretanto, ainda no primeiro gráfico, observa-se que há uma tendência de queda do $\rho$ entre as gerações 40 e 50 e, portanto, existiria a possibilidade de o algoritmo convergir para $E_0$. Porém, para esse exemplo especificamente, isso não aconteceu, como pode ser visto no segundo gráfico da figura \ref{fig:rho_N10}. Para garantir a estabilidade, o programa foi executado até a geração 400.000, e o valor médio obtido foi $<\rho> = 6,572898$. Para minha surpresa, além do valor obtido de $<\rho>$ não ser o mínimo, ele não é um valor qualquer, mas corresponde, com erro menor que $0,00002\%$, ao quarto autovalor da matriz, $E_3 = 6,572897$. Um gráfico expandido dessa execução está na figura \ref{fig:rho_N10_completa} da página \pageref{fig:rho_N10_completa}. Imaginei, então, que poderia haver algo de errado com o programa. 
+	O passo seguinte foi verificar o comportamento de $\rho$, o Quociente de Rayleigh, e, especificamente, sua convergência para o menor autovalor $E_0$. Ainda conforme \cite{metodo2004}, obteríamos uma curva semelhante à da figura \ref{fig:compFitnessTipo1N10}, mas invertida, ou seja, os primeiros valores de $\rho$ seriam grandes e, rapidamente, diminuiriam até haver convergência para o autovalor mínimo. Na figura \ref{fig:rho_N10} há um exemplo.	Os gráficos exibem os valores de $\rho$ para a mesma execução apresentada na figura \ref{fig:compFitnessTipo1N10}. Note no primeiro gráfico que até a geração 20 o quociente $\rho$ teve caráter oscilatório e, então, aparentemente estabilizou-se entre 6 e 8, valores muito superiores ao autovalor mínimo para essa matriz, $E_0 = 0,38675$. Entretanto, ainda no primeiro gráfico, observa-se que há uma tendência de queda do $\rho$ entre as gerações 40 e 50 e, portanto, existiria a possibilidade de o algoritmo convergir para $E_0$. Porém, para esse exemplo especificamente, isso não aconteceu, como pode ser visto no segundo gráfico da figura \ref{fig:rho_N10}. Para garantir a estabilidade, o programa foi executado até a geração 400.000, e o valor médio obtido foi $<\rho> = 6,572898$. Para minha surpresa, além do valor obtido de $<\rho>$ não ser o mínimo, ele não é um valor qualquer, mas corresponde, com erro menor que $0,00002\%$, ao quarto autovalor da matriz, $E_3 = 6,572897$. Imaginei, então, que poderia haver algo de errado com o programa. 
 	
 	\begin{figure}[htbp]
 		\centering
@@ -48,16 +48,7 @@
 	\end{figure}
 	
 	\newpage
-	\begin{landscape}
-	\begin{figure}[p]
-		\centering
-			\includegraphics[width=1.3\textwidth]{figs/resultados/rho_N10.png}
-		\caption{Comportamento de $\rho$ (Quociente de Rayleigh) para uma matriz de Coope$-$Sabo de ordem 10.}
-		\label{fig:rho_N10_completa}
-	\end{figure}
-	\end{landscape}
-	\newpage
-			
+	
 	Após esses resultados preliminares executei uma validação cuidadosa do programa, testando cada uma de suas quase 2500 linhas e comparando os resultados das operações e cálculos com o Microsoft Excel e SciLab. A hipótese era a de que erros numéricos, principalmente nas funções de álgebra linear e nos operadores genéticos, pudessem ter levado ao comportamento incorreto da não convergência para o menor autovalor. Nenhum erro significativo foi encontrado.
 	
 	Os testes com a versão corrigida do programa estão nas figuras \ref{fig:execucoes_N10}, \ref{fig:execucoes_N20}, \ref{fig:execucoes_N30} e \ref{fig:execucoes_N40}. Visando brevidade, apresentarei dados para matrizes de Coope$-$Sabo de ordem 10, 20, 30 e 40 apenas, sem perda de generalidade. Foram cinco execuções para cada matriz, até a geração 400.000, gerando sempre dois gráficos, um do \textit{fitness} médio (<\textit{fitness}>) e outro do Quociente de Rayleigh médio (<$\rho$>), ambos em função do número de gerações, e dando ênfase às primeiras 100 gerações. Essas escolhas, número máximo da geração e uso de médias sobre cada população, visaram garantir, respectivamente, a convergência genética e boa precisão. A exibição de apenas as primeiras 100 gerações tem como objetivo olhar em detalhe (com \textit{zoom}) o período em que o \textit{crossover} tem mais peso, ou seja, onde há geralmente os saltos no espaço de soluções de um Algoritmo Genético. Em todos os gráficos de $<\rho>$ há indicado nas legendas o autovalor mínimo $E_0$ e o autovalor obtido após as 400.000 gerações ($E_{obtido}$). Na tabela \ref{tab:autovalores10a40} há a lista de todos os autovalores. Por exemplo, para uma matriz de ordem $N = 10$, o menor autovalor é $E_0 = $0,386075, e o quinto autovalor para $N = 30$ é $E_4$ = 8,450274.
@@ -157,11 +148,11 @@
 	
 	Há características comuns encontradas em todas as execuções. Em qualquer gráfico do \textit{fitness} observa-se estabilidade do comportamento conforme esperado pelo método: no início seu valor é baixo, próximo de zero, cresce rapidamente nas primeiras gerações e fica estável próximo de $<fitness> = 1$. Com relação ao $\rho$, há sempre oscilações, sejam pequenas variações em torno de uma clara linha de tendência, como na execução 02 para N = 10, ou grandes saltos, como nas execuções 05 de N = 20 e 05 de N = 30. Novamente, o menor autovalor não foi obtido em nenhuma execução, contradizendo os resultados de \cite{metodo2004}, mas, por outro lado, o algoritmo sempre encontrou algum autovalor.
 	
-	De fato, verificando os dados da tabela \ref{tab:execucoes10a40}, concluí que tais valores não devem ser coincidência. Para todas as execuções o \textit{fitness} médio chegou ao valor máximo \mbox{($<f> = 1,000000$)}. As médias de $\rho$ sobre todos os indivíduos da última população possuem baixo desvio padrão ($\sigma$ < 0,0001), indicando que eles são muito parecidos entre si e que o algoritmo convergiu. Ou seja, não há variabilidade genética suficiente na população para alterar o rumo da busca de modo a atingir o menor autovalor, ou o mínimo global. Portanto, o algoritmo chegou em um mínimo local, corroborado pelos baixos erros relativos de $<\rho>$ quando comparado com o autovalor mais próximo. Por exemplo, para N = 30, execução 4,  $<\rho>$ = 40,772447, correspondendo, com erro relativo absoluto menor que $0,001\%$, ao vigésimo primeiro autovalor, $E_{20} = 40,772850$. Apesar das evidências descritas acima, até esse ponto ainda há dúvidas sobre a validade do programa e, obviamente, dos resultados produzidos. Então, busquei embasamento mais rigoroso.
+	De fato, verificando os dados da tabela \ref{tab:execucoes10a40}, concluí que tais valores não devem ser coincidência. Para todas as execuções o \textit{fitness} médio chegou ao valor máximo \mbox{($<f> = 1,000000$)}. As médias de $\rho$ sobre todos os indivíduos da última população possuem baixo desvio padrão ($\sigma$ < 0,0001), indicando que eles são muito parecidos entre si e que o algoritmo convergiu. Ou seja, não há variabilidade genética suficiente na população para alterar o rumo da busca de modo a atingir o menor autovalor, ou o mínimo global. Portanto, o algoritmo chegou em um mínimo local, corroborado pelos baixos erros relativos de $<\rho>$ quando comparado com o autovalor mais próximo. Por exemplo, para N = 30, execução 4,  $<\rho>$ = 40,772447, correspondendo, com erro relativo absoluto menor que $0,001\%$, ao vigésimo primeiro autovalor, $E_{20} = 40,772850$. Apesar das evidências descritas acima, até esse ponto ainda havia dúvidas sobre a validade do programa e, obviamente, dos resultados produzidos. Então, busquei embasamento mais rigoroso.
 
 De acordo com \cite{metodo2004}, se algum $C_i$, em algum momento, é o autovetor fundamental (associado ao menor autovalor), o $\nabla \rho$ é nulo. Com o \textit{fitness} da equação \eqref{eq:fitnessGrad2} os autores afirmam que ``\textit{Claramente, $f_i \rightarrow 1$ quando $\nabla \rho_i \rightarrow 0$, sinalizando que a evolução atingiu o verdadeiro autovetor fundamental de $H$ em $C_i$}''\footnote{Tradução livre de ``\textit{Clearly, $f_i \rightarrow 1$, as $\nabla \rho_i \rightarrow 0$, signalling that the evolution has hit the true ground state eigenvector of $H$ in the vector $C_i$}''.}. Há duas relações distintas de causalidade nessa frase, e acredito que nelas residam a explicação dos resultados obtidos até agora.
 
-A primeira relação de causalidade refere-se à afirmação ``\textit{$f_i \rightarrow 1$ quando $\nabla \rho_i \rightarrow 0$}'', que está absolutamente correta. Retomando a seção \ref{sec:fitness_metodo}, o \textit{fitness} definido pela equação \ref{eq:fitnessGrad2} é limitado ao intervalo (0,1] e, como $\lambda > 0$, só chega ao seu valor máximo quando $\nabla \rho_i = 0$. Em outras palavras, $\nabla \rho_i \rightarrow 0$ implica $f_i \rightarrow 1$.
+A primeira relação de causalidade refere-se à afirmação ``\textit{$f_i \rightarrow 1$ quando $\nabla \rho_i \rightarrow \textbf{0}$}'', que está absolutamente correta. Retomando a seção \ref{sec:fitness_metodo}, o \textit{fitness} definido pela equação \ref{eq:fitnessGrad2} é limitado ao intervalo (0,1] e, como $\beta > 0$, só chega ao seu valor máximo quando $\nabla \rho_i = \textbf{0}$. Em outras palavras, $\nabla \rho_i \rightarrow \textbf{0}$ implica $f_i \rightarrow 1$.
 
 Na afirmação ``(...) \textit{sinalizando que a evolução atingiu o verdadeiro autovetor fundamental de $H$ em $C_i$}'' reside a segunda relação de causalidade:
 
@@ -175,17 +166,17 @@ Ou seja, sempre que algum indivíduo $C_i$, de qualquer população, possuir \te
 	f_i(C_i) = 1 \rightarrow C_i = C_0 \rightarrow E_0(C_0).
 \end{equation}
 
-As relações de causa e efeito da equação acima estão erradas. Em sua obra clássica sobre o problema de autovalores em matrizes simétricas, \cite{Parlett1998} abre o capítulo introdutório frisando que ``\textit{em muitos lugares no livro, é feita referência a fatos mais ou menos bem conhecidos sobre a teoria de matrizes}''\footnote{Tradução livre de ``\textit{At many places in the book, reference is made to more or less well known facts from matrix theory}''.}. Conforme já dito no capítulo \ref{cap:algebra}, um desses fatos diz que $\rho(\mbox{\textit{u}})$ é estacionário, ou seja, $\nabla \rho(\mbox{\textit{u}}) = 0$, apenas se o vetor \textit{u} é um autovetor $w$ de $HC = EC$. Consequentemente, o encadeamento correto se apresenta como:
+As relações de causa e efeito da equação acima estão erradas. Em sua obra clássica sobre o problema de autovalores em matrizes simétricas, \cite{Parlett1998} abre o capítulo introdutório frisando que ``\textit{em muitos lugares no livro, é feita referência a fatos mais ou menos bem conhecidos sobre a teoria de matrizes}''. Conforme já dito no capítulo \ref{cap:algebra}, um desses fatos diz que $\rho(\mbox{\textit{u}})$ é estacionário, ou seja, $\nabla \rho(\mbox{\textit{u}}) = \textbf{0}$, apenas se o vetor \textit{u} é um autovetor $w$ de $HC = EC$. Consequentemente, o encadeamento correto se apresenta como:
 
 \begin{equation}\label{eq:causalidadeCorreta}
-	C_i \mbox{ é um autovetor} \rightarrow \nabla \rho(C_i) = 0 \rightarrow f_i = 1.
+	C_i \mbox{ é um autovetor} \rightarrow \nabla \rho(C_i) = \textbf{0} \rightarrow f_i = 1.
 \end{equation}
 	
 Então, se $f_i = 1$, o máximo que podemos concluir é que $C_i$ é \textit{algum} autovetor, e não necessariamente \textit{o} autovetor fundamental.
 
 Acredito que o programa não contém erros. Ao final de todos os testes o \textit{fitness} médio foi <\textit{f}> = 1, a população final era composta por autovetores e foi possível, com boa precisão, obter os autovalores relacionados (não necessariamente o autovalor mínimo). Os dados, portanto, confirmaram a matemática.
 
-Apesar de não chegar ao mínimo, o método pode ser utilizado de maneira exploratória com relativa facilidade, bastando extrair $\rho$ sempre que $f_i \rightarrow 1$ e $\nabla \rho \rightarrow 0$. 
+Apesar de não chegar ao mínimo, o método pode ser utilizado de maneira exploratória com relativa facilidade, bastando extrair $\rho$ sempre que $f_i \rightarrow 1$ e $\nabla \rho \rightarrow \textbf{0}$. 
 
 Resta a dúvida: afinal, como o autovalor mínimo foi obtido com o \textit{fitness} definido pela equação \ref{eq:fitnessGrad2}? Não sei. Esse \textit{fitness} foi utilizado não só em \cite{metodo2004}, mas também em \cite{metodo2006}, \cite{metodo2008} e \cite{metodo2009}, seguindo exatamente o argumento resumido pela equação \ref{eq:causalidadeErrada}. Não identifiquei nada nesses quatro artigos que pudesse levar à resposta. Segui o estudo com uma nova definição do \textit{fitness} encontrada em \cite{metodo2011}.
 
@@ -279,7 +270,7 @@ Resta a dúvida: afinal, como o autovalor mínimo foi obtido com o \textit{fitne
 % Table generated by Excel2LaTeX from sheet 'Plan1 (2)'
 \begin{tabular}{cccccccccc}
 \hline \hline
-   \textbf{N} & \textbf{Execução} & \textbf{Semente} & \textbf{$\lambda$} & \textbf{<\textit{Fitness}>} & \textbf{<$\rho$>} & \textbf{$\sigma$} & \textbf{\# autovalor} & \textbf{Autovalor} & \textbf{Erro relativo} \\
+   \textbf{N} & \textbf{Execução} & \textbf{Semente} & \textbf{$\beta$} & \textbf{<\textit{Fitness}>} & \textbf{<$\rho$>} & \textbf{$\sigma$} & \textbf{\# autovalor} & \textbf{Autovalor} & \textbf{Erro relativo} \\
 \hline \hline
         10 &          0 & 1445738835 &   0,128788 &   1,000000 &   2,461122 &   0,000023 &          1 &   2,461056 &    0,003\% \\
 \hline
@@ -336,11 +327,11 @@ Resta a dúvida: afinal, como o autovalor mínimo foi obtido com o \textit{fitne
 	O novo \emph{fitness}, apresentado em \cite{metodo2011}, é dado por
 	
 	\begin{equation}\label{eq:fitnessRho0}
-		f_i = e^{-\lambda(\rho_i - E_L)^2},
+		f_i = e^{-\beta(\rho_i - E_L)^2},
 	\end{equation}
-e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há uso de uma exponencial, o parâmetro $\lambda$ foi mantido e possui exatamente o mesmo papel, $f_i$ depende apenas de $\rho$ e, como $(\rho_i - E_L)^2$ é claramente positivo, o \textit{fitness} continua limitado ao conjunto (0,1]. As diferenças estão na ausência do $\nabla \rho$ e na inclusão do parâmetro $E_L$, que representa um limite inferior para o \textit{menor} autovalor\footnote{L de \textit{lower}.}. Por exemplo, se soubermos de antemão que o autovalor \textit{mínimo} é maior que zero, poderíamos definir $E_L = 0$. 
+e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há uso de uma exponencial, o parâmetro $\beta$ foi mantido e possui exatamente o mesmo papel, $f_i$ depende apenas de $\rho$ e, como $(\rho_i - E_L)^2$ é claramente positivo, o \textit{fitness} continua limitado ao conjunto (0,1]. As diferenças estão na ausência do $\nabla \rho$ e na inclusão do parâmetro $E_L$, que representa um limite inferior para o \textit{menor} autovalor\footnote{L de \textit{lower}.}. Por exemplo, se soubermos de antemão que o autovalor \textit{mínimo} é maior que zero, poderíamos definir $E_L = 0$. 
 
-	 A justificativa para o funcionamento do método em \cite{metodo2011} segue a mesma estrutura de \cite{metodo2004}: ``\textit{Se $\rho_i \rightarrow E_L$ durante a busca, $f_i \rightarrow 1$ e $C_i$ está próximo do autovetor fundamental de $H$}''\footnote{Tradução livre de ``\textit{If $\rho_i \rightarrow E_L$ during the search, $f_i \rightarrow 1$ and $C_i$ approaches the ground eigenvector of $H$}''.}. Parece que, novamente, não há garantia de que, se $f_i \rightarrow 1$, $\rho$ tende, necessariamente, ao autovalor fundamental. E aqui há um agravante: nada na equação \ref{eq:fitnessRho0} está diretamente associado aos autovalores de $H$. Lembre que o \textit{fitness} anterior (equação \ref{eq:fitnessGrad2}) contém $\nabla \rho$, que possui relação direta com os autovalores de $H$ quando $\nabla \rho = 0$.
+	 A justificativa para o funcionamento do método em \cite{metodo2011} segue a mesma estrutura de \cite{metodo2004}: ``\textit{Se $\rho_i \rightarrow E_L$ durante a busca, $f_i \rightarrow 1$ e $C_i$ está próximo do autovetor fundamental de $H$}''\footnote{Tradução livre de ``\textit{If $\rho_i \rightarrow E_L$ during the search, $f_i \rightarrow 1$ and $C_i$ approaches the ground eigenvector of $H$}''.}. Parece que, novamente, não há garantia de que, se $f_i \rightarrow 1$, $\rho$ tende, necessariamente, ao autovalor fundamental. E aqui há um agravante: nada na equação \ref{eq:fitnessRho0} está diretamente associado aos autovalores de $H$. Lembre que o \textit{fitness} anterior (equação \ref{eq:fitnessGrad2}) contém $\nabla \rho$, que possui relação direta com os autovalores de $H$ quando $\nabla \rho = \textbf{0}$.
 	
 	O autovalor mínimo foi encontrado, mas a qualidade foi inferior. Repeti as execuções da tabela \ref{tab:execucoes10a40} alterando apenas o \textit{fitness} e configurando o parâmetro $E_L$ para $E_L = 0$, um pouco abaixo dos autovalores mínimos. Os resultados estão na página \pageref{tab:execucoesNovoFitness}, e os gráficos da evolução do \textit{fitness} e do quociente de Rayleigh estão nas páginas \pageref{fig:execucoes_N10_EL}, \pageref{fig:execucoes_N20_EL}, \pageref{fig:execucoes_N30_EL} e \pageref{fig:execucoes_N40_EL}. Surpreendentemente, apesar do que foi dito no parágrafo anterior, o programa encontrou o menor autovalor em \textbf{todos} os casos. Assim como nas primeiras execuções, o desvio padrão ($\sigma$) de $<\rho>$ na última geração (400.000) foi pequeno, indicando convergência genética. Entretanto, essa foi a única semelhança. Os próprios valores de $\sigma$ são uma ordem de grandeza menores, sugerindo que os indivíduos são mais semelhantes entre si. O \textit{fitness} médio só atingiu seu valor máximo para a matriz de ordem $N = 40$. Aliás, especificamente para $E_L$ fixado em $E_L = 0$, o <\textit{fitness}> final diminui com $N$, pois $E_L$ está mais distante de $E_0$ na matriz de ordem 10 do que na de ordem 40. Os erros relativos não ultrapassaram $1\%$, mas foram substancialmente maiores comparados aos obtidos com o primeiro \textit{fitness}. Enquanto nos testes anteriores seus valores permaneceram estáveis, agora os erros relativos apresentaram tendência de crescimento com N.
 	
@@ -352,7 +343,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 	% Table generated by Excel2LaTeX from sheet 'Tabela LaTex'
 \begin{tabular}{cccccccccc}
 \hline \hline
-   \textbf{N} & \textbf{Execução} & \textbf{Semente} & \textbf{$\lambda$} & \textbf{<Fitness>} & \textbf{<$\rho$>} & \textbf{$\sigma$} & \textbf{\# autovalor} & \textbf{Autovalor} & \textbf{Erro relativo (\%)} \\
+   \textbf{N} & \textbf{Execução} & \textbf{Semente} & \textbf{$\beta$} & \textbf{<Fitness>} & \textbf{<$\rho$>} & \textbf{$\sigma$} & \textbf{\# autovalor} & \textbf{Autovalor} & \textbf{Erro relativo (\%)} \\
 \hline \hline
         10 &          0 & 1445738835 &   0,128788 &   0,999044 &   0,386176 &    0,00005 &          0 &  0,3860745 &     0,03\% \\
 \hline
@@ -402,26 +393,26 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 \end{center}
 \end{landscape}
 	
-	Apesar das diferenças dos valores finais, o comportamento do \textit{fitness} e do $\rho$ ao longo da busca não foi alterado significativamente. Na figura \ref{fig:N-10_E-0_fitness} estão os gráficos referentes à execução zero para o Hamiltoniano de ordem 10, semente 1445738835. A primeira usa o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$, que chega ao autovalor mínimo, enquanto a segunda utiliza o $f_i = e^{-\lambda | \nabla \rho_i |^2}$. Ambos iniciam com valores muito baixos e convergem para 1, entretanto, o da esquerda é muito ruidoso e, aparentemente, essa é a causa da convergência mais lenta. Quando a curva da direita já está estável em $\textit{<f>} \approx 1$ em torno da geração de número 15, a da esquerda ainda não ultrapassou o $\textit{<f>} = 0,1$. A princípio, não podemos comparar os dois comportamentos diretamente, visto que cada um chegou a um autovalor diferente. A execução da direita, lembre-se, obteve apenas um mínimo local ($E_1 = 2,461056$, tabela \ref{tab:execucoes10a40}).
+	Apesar das diferenças dos valores finais, o comportamento do \textit{fitness} e do $\rho$ ao longo da busca não foi alterado significativamente. Na figura \ref{fig:N-10_E-0_fitness} estão os gráficos referentes à execução zero para o Hamiltoniano de ordem 10, semente 1445738835. A primeira usa o \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$, que chega ao autovalor mínimo, enquanto a segunda utiliza o $f_i = e^{-\beta | \nabla \rho_i |^2}$. Ambos iniciam com valores muito baixos e convergem para 1, entretanto, o da esquerda é muito ruidoso e, aparentemente, essa é a causa da convergência mais lenta. Quando a curva da direita já está estável em $\textit{<f>} \approx 1$ em torno da geração de número 15, a da esquerda ainda não ultrapassou o $\textit{<f>} = 0,1$. A princípio, não podemos comparar os dois comportamentos diretamente, visto que cada um chegou a um autovalor diferente. A execução da direita, lembre-se, obteve apenas um mínimo local ($E_1 = 2,461056$, tabela \ref{tab:execucoes10a40}).
 	
 	\begin{figure}[htbp]
 		\centering
 			\includegraphics[width=0.48\textwidth]{figs/resultados/fitnessEL/N-10_E-0_fitness.pdf}
 			\includegraphics[width=0.48\textwidth]{figs/resultados/fitnessGrad/N10_00_fitness.pdf}
-		\caption{Comportamento do \textit{fitness} para as execuções zero do Hamiltoniano de ordem 10, semente 1445738835. A primeira usa o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$, que chega ao autovalor mínimo, enquanto a segunda utiliza o $f_i = e^{-\lambda \| \nabla \rho_i \|^2}$.}
+		\caption{Comportamento do \textit{fitness} para as execuções zero do Hamiltoniano de ordem 10, semente 1445738835. A primeira usa o \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$, que chega ao autovalor mínimo, enquanto a segunda utiliza o $f_i = e^{-\beta \| \nabla \rho_i \|^2}$.}
 		\label{fig:N-10_E-0_fitness}
 	\end{figure}
 	
-	De todo modo, as duas execuções estão conectadas pois, como partiram da mesma semente de números pseudoaleatórios, a população inicial foi a mesma. Inclusive, na primeira geração, em ambas as execuções, os valores para $<\rho>$ e para o melhor $\rho$ foram, respectivamente, $9,876075$ e $9,557892$, igualmente distantes do autovalor mínimo $E_0 = 0,386075$. Os gráficos da figura \ref{fig:N-10_E-0_rho_comparacao} permitem comparar a evolução do $<\rho>$ nos dois casos. Assim como na figura anterior, a imagem da esquerda refere-se ao uso do \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.
+	De todo modo, as duas execuções estão conectadas pois, como partiram da mesma semente de números pseudoaleatórios, a população inicial foi a mesma. Inclusive, na primeira geração, em ambas as execuções, os valores para $<\rho>$ e para o melhor $\rho$ foram, respectivamente, $9,876075$ e $9,557892$, igualmente distantes do autovalor mínimo $E_0 = 0,386075$. Os gráficos da figura \ref{fig:N-10_E-0_rho_comparacao} permitem comparar a evolução do $<\rho>$ nos dois casos. Assim como na figura anterior, a imagem da esquerda refere-se ao uso do \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$.
 	
-	Alguém poderia afirmar que a causa de uma execução ter sido mais lenta do que a outra foi porque percorreu um caminho mais longo ao sair de $<\rho> = 9,876075$, passar por $E_1 = 2,461056$ e continuar até encontrar $E_0 = 0,386075$, enquanto a mais rápida saiu do mesmo $<\rho>$ e parou logo que encontrou $E_1$. Infelizmente essa conclusão estaria incorreta. A maneira como os Algoritmos Genéticos viajam no espaço de soluções tem base estocástica e, portanto, qualquer comparação linear é extremamente arriscada, quiçá impossível. Objetivamente, posso apenas concluir que os valores finais encontrados por cada \textit{fitness} condizem com a construção de cada função objetivo: $\nabla \rho_i$ leva a qualquer autovalor; $\rho_i - E_L$, com $E_L$ configurado apropriadamente, encontra o autovalor mínimo.
+	Alguém poderia afirmar que a causa de uma execução ter sido mais lenta do que a outra foi porque percorreu um caminho mais longo ao sair de $<\rho> = 9,876075$, passar por $E_1 = 2,461056$ e continuar até encontrar $E_0 = 0,386075$, enquanto a mais rápida saiu do mesmo $<\rho>$ e parou logo que encontrou $E_1$. Infelizmente essa conclusão estaria incorreta. A maneira como os Algoritmos Genéticos percorrem o espaço de soluções tem base estocástica e, portanto, qualquer comparação linear é extremamente arriscada, quiçá impossível. Objetivamente, posso apenas concluir que os valores finais encontrados por cada \textit{fitness} condizem com a construção de cada função objetivo: $\nabla \rho_i$ leva a qualquer autovalor; $\rho_i - E_L$, com $E_L$ configurado apropriadamente, encontra o autovalor mínimo.
 	
 	
 	\begin{figure}[htbp]
 		\centering
 			\includegraphics[width=0.48\textwidth]{figs/resultados/fitnessEL/N-10_E-0_rho.pdf}
 			\includegraphics[width=0.48\textwidth]{figs/resultados/fitnessGrad/N10_00_rho.pdf}
-		\caption{Comportamento do $\rho$ para as execuções zero do Hamiltoniano de ordem 10, semente 1445738835. A primeira usa o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$, que chega ao autovalor mínimo, enquanto a segunda utiliza o $f_i = e^{-\lambda \| \nabla \rho_i \|^2}$.}
+		\caption{Comportamento do $\rho$ para as execuções zero do Hamiltoniano de ordem 10, semente 1445738835. A primeira usa o \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$, que chega ao autovalor mínimo, enquanto a segunda utiliza o $f_i = e^{-\beta \| \nabla \rho_i \|^2}$.}
 		\label{fig:N-10_E-0_rho_comparacao}
 	\end{figure}	
 	
@@ -429,7 +420,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 
 	À primeira vista, esse \emph{fitness} não parece útil. Os valores finais do \emph{fitness} só foram próximos de 1 porque escolhi $E_L$ próximo de $E_0$. Ou seja, eu tinha conhecimento prévio do menor autovalor. Se o objetivo é encontrar $E_0$ e eu não tenho conhecimento sobre a região onde ele se encontra, como escolher apropriadamente $E_L$? Os autores de \cite{metodo2011} não falam nada a respeito.
 	
-	Então, para a mesma semente 1445738835, $\lambda = 0,128788$ e $N = 10$, cujo $E_0 = 0,386075$, testei quatro cenários. O objetivo foi verificar em quais condições o autovalor mínimo é encontrado. O resumo dos resultados está na tabela \ref{tab:VariandoELPraPrimeiraExecucao}.
+	Então, para a mesma semente 1445738835, $\beta = 0,128788$ e $N = 10$, cujo $E_0 = 0,386075$, testei quatro cenários. O objetivo foi verificar em quais condições o autovalor mínimo é encontrado. O resumo dos resultados está na tabela \ref{tab:VariandoELPraPrimeiraExecucao}.
 	
 	\begin{itemize}
 	
@@ -454,7 +445,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 		\includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T1_S-1445738835_fitness.pdf} &
     \includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T1_S-1445738835_rho.pdf}
   \end{tabular}
-  \caption{Cenário 1. Execução para a semente 1445738835. $E_L$ um pouco acima de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
+  \caption{Cenário 1. Execução para a semente 1445738835. $E_L$ um pouco acima de $E_0$ no \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$.}
 	\label{fig:execucoesSemente_EL_umPoucoAcima}
 	\end{figure}
 	
@@ -466,11 +457,11 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 		\includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T3_S-1445738835_fitness.pdf} &
     \includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T3_S-1445738835_rho.pdf}
   \end{tabular}
-  \caption{Execução para a semente 1445738835. $E_L$ muito acima de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
+  \caption{Execução para a semente 1445738835. $E_L$ muito acima de $E_0$ no \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$.}
 	\label{fig:execucoesSemente_EL_umMuitoAcima}
 	\end{figure}
 		
-	O valor de $\lambda = 0,128788$, utilizado em todos os cenários anteriores, não foi adequado para os parâmetros do \textbf{Cenário 4}. Logo no início, tanto o \emph{<fitness>} quanto o maior \emph{fitness} foram praticamente zero.  Nesse regime não há como, a princípio, distinguir os indivíduos, pois todos possuem avaliação muito próxima. Veja no segundo gráfico da figura \ref{fig:execucoesSemente_EL_umMuitoAbaixo500} que $<\rho>$ rapidamente fica estagnado um pouco abaixo de 6. Especificamente, na geração 500, o Quociente de Rayleigh médio era $<\rho> = 5,651846$, que não corresponde a nenhum autovalor para uma matriz de Coope de ordem 10 (tabela \ref{tab:autovalores10a40}). Esse é um exemplo de \emph{underflow} do \emph{fitness}.
+	O valor de $\beta = 0,128788$, utilizado em todos os cenários anteriores, não foi adequado para os parâmetros do \textbf{Cenário 4}. Logo no início, tanto o \emph{<fitness>} quanto o maior \emph{fitness} foram praticamente zero.  Nesse regime não há como, a princípio, distinguir os indivíduos, pois todos possuem avaliação muito próxima. Veja no segundo gráfico da figura \ref{fig:execucoesSemente_EL_umMuitoAbaixo500} que $<\rho>$ rapidamente fica estagnado um pouco abaixo de 6. Especificamente, na geração 500, o Quociente de Rayleigh médio era $<\rho> = 5,651846$, que não corresponde a nenhum autovalor para uma matriz de Coope de ordem 10 (tabela \ref{tab:autovalores10a40}). Esse é um exemplo de \emph{underflow} do \emph{fitness}.
 	
 	\begin{figure}[htbp]
 	\centering
@@ -478,7 +469,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 		\includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T4_S-1445738835_fitness.pdf} &
     \includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T4_S-1445738835_rho.pdf}
   \end{tabular}
-  \caption{Execução para a semente 1445738835. $E_L$ muito abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$. Até geração 500.}
+  \caption{Execução para a semente 1445738835. $E_L$ muito abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$. Até geração 500.}
 	\label{fig:execucoesSemente_EL_umMuitoAbaixo500}
 	\end{figure}
 		
@@ -492,7 +483,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 		\includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T4_S-1445738835_fitness-extendido.pdf} &
     \includegraphics[width=.45\textwidth]{figs/resultados/variandoELSemente/T4_S-1445738835_rho_extendido.pdf}
   \end{tabular}
-  \caption{Execução para a semente 1445738835. $E_L$ muito abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$. Geração entre 30.000 e 40.000.}
+  \caption{Execução para a semente 1445738835. $E_L$ muito abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$. Geração entre 30.000 e 40.000.}
 	\label{fig:execucoesSemente_EL_umMuitoAbaixo40000}
 	\end{figure}
 	
@@ -523,7 +514,7 @@ e contém semelhanças com o definido pela equação \ref{eq:fitnessGrad2}. Há 
 \end{center}	
 %%\end{landscape}
 	
-Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \cite{metodo2011}. O objetivo foi verificar como a variação dos parâmetros $\lambda$ e $E_L$ alteram a forma de $f = \mathsf{e}^{-\lambda(\rho - E_L)^2}$, e quais as consequências para o algoritmo genético. 
+Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \cite{metodo2011}. O objetivo foi verificar como a variação dos parâmetros $\beta$ e $E_L$ alteram a forma de $f = \mathsf{e}^{-\beta(\rho - E_L)^2}$, e quais as consequências para o algoritmo genético. 
 	
 \begin{figure}[p]
 	\centering
@@ -541,7 +532,7 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
 		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-5_fitness-extendido.pdf} &
     \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-10_E-5_rho_extendido.pdf}
   \end{tabular}
-  \caption{Execuções para N = 10 com o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
+  \caption{Execuções para N = 10 com o \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$.}
 	\label{fig:execucoes_N10_EL}
 	\end{figure}
 		
@@ -559,7 +550,7 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
 		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-5_fitness-extendido.pdf} &
     \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-20_E-5_rho_extendido.pdf}
   \end{tabular}
-  \caption{Execuções para N = 20 com o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
+  \caption{Execuções para N = 20 com o \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$.}
 	\label{fig:execucoes_N20_EL}
 	\end{figure}
 	
@@ -577,7 +568,7 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
 		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-5_fitness-extendido.pdf} &
     \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-30_E-5_rho_extendido.pdf}
   \end{tabular}
-  \caption{Execuções para N = 30 com o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
+  \caption{Execuções para N = 30 com o \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$.}
 	\label{fig:execucoes_N30_EL}
 	\end{figure}
 	
@@ -595,7 +586,7 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
 		\includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-5_fitness-extendido.pdf} &
     \includegraphics[width=.40\textwidth]{figs/resultados/fitnessEL/N-40_E-5_rho_extendido.pdf}
   \end{tabular}
-  \caption{Execuções para N = 40 com o \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
+  \caption{Execuções para N = 40 com o \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$.}
 	\label{fig:execucoes_N40_EL}
 	\end{figure}
 	
@@ -620,7 +611,7 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
 		\includegraphics[width=.40\textwidth]{figs/resultados/variandoEL/T1E5_fitness.pdf} &
     \includegraphics[width=.40\textwidth]{figs/resultados/variandoEL/T1E5_rho.pdf}		
   \end{tabular}
-  \caption{Cenário 1. Várias execuções com o $E_L$ um pouco acima de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$. Semente 1445738835, N = 10.}
+  \caption{Cenário 1. Várias execuções com o $E_L$ um pouco acima de $E_0$ no \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$. Semente 1445738835, N = 10.}
 	\label{fig:variando_EL_pouco_acima}
 	\end{figure}
 	
@@ -644,7 +635,7 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
     \includegraphics[width=.40\textwidth]{figs/resultados/variandoEL/T2E5_rho.pdf}
 
   \end{tabular}
-  \caption{Execuções com o $E_L$ um pouco abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$. Semente 1445738835, N = 10.}
+  \caption{Execuções com o $E_L$ um pouco abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$. Semente 1445738835, N = 10.}
 	\label{fig:variando_EL_pouco_abaixo}
 	\end{figure}
 
@@ -668,7 +659,7 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
     \includegraphics[width=.40\textwidth]{figs/resultados/variandoEL/T3E5_rho.pdf}
 		
   \end{tabular}
-  \caption{Execuções com o $E_L$ muito acima de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$. Semente 1445738835, N = 10.}
+  \caption{Execuções com o $E_L$ muito acima de $E_0$ no \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$. Semente 1445738835, N = 10.}
 	\label{fig:variando_EL_muito_acima}
 	\end{figure}
 
@@ -692,14 +683,14 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
     \includegraphics[width=.40\textwidth]{figs/resultados/variandoEL/T4E5_rho_extendido.pdf}
 		
   \end{tabular}
-  \caption{Execuções com o $E_L$ muito abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\lambda(\rho_i - E_L)^2}$. Semente 1445738835, N = 10.}
+  \caption{Execuções com o $E_L$ muito abaixo de $E_0$ no \textit{fitness} $f_i = e^{-\beta(\rho_i - E_L)^2}$. Semente 1445738835, N = 10.}
 	\label{fig:variando_EL_muito_abaixo}
 	\end{figure}
 	
 	\begin{landscape}
 \begin{center}	
 \begin{table}[htbp]
-\caption{Cinco execuções para cada tipo de teste de variação de $E_L$ em torno de $E_0$ no fitness $f_i = e^{-\lambda(\rho_i - E_L)^2}$.}
+\caption{Cinco execuções para cada tipo de teste de variação de $E_L$ em torno de $E_0$ no fitness $f_i = e^{-\beta(\rho_i - E_L)^2}$.}
 \label{tab:VariandoELCincoExecucoes}
 \centering
 % Table generated by Excel2LaTeX from sheet 'Plan2'
@@ -753,15 +744,15 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
 \end{landscape}
 
 %=========================================================
-	\section{Análise do \emph{fitness} e equação empírica para $\lambda$}\label{sec:eq_lambda}
+	\section{Análise do \emph{fitness} e equação empírica para $\beta$}\label{sec:eq_lambda}
 %=========================================================
 	
-	Nos artigos \cite{metodo2004} e \cite{metodo2011} os autores dizem que o $\lambda$ do \emph{fitness} deve ser escolhido cuidadosamente, mas não justificam com detalhes essa afirmação. Nesta sessão apresento uma análise do \emph{fitness} de \cite{metodo2011} e algumas justificativas para essa importância. Isso me permitiu definir uma equação empírica para o parâmetro $\lambda$. Seu uso é restrito a matrizes de Coope--Sabo e ao \emph{fitness} do \cite{metodo2011}. Porém, com um pequeno ajuste, ela mostrou-se adequada também para o uso no \emph{fitness} de \cite{metodo2004}.
+	Nos artigos \cite{metodo2004} e \cite{metodo2011} os autores dizem que o $\beta$ do \emph{fitness} deve ser escolhido cuidadosamente, mas não justificam com detalhes essa afirmação. Nesta sessão apresento uma análise do \emph{fitness} de \cite{metodo2011} e algumas justificativas para essa importância. Isso me permitiu definir uma equação empírica para o parâmetro $\beta$. Seu uso é restrito a matrizes de Coope--Sabo e ao \emph{fitness} do \cite{metodo2011}. Porém, com um pequeno ajuste, ela mostrou-se adequada também para o uso no \emph{fitness} de \cite{metodo2004}.
 	
 	A função de avaliação de \cite{metodo2011} é dada por
 	
 	\begin{equation}\label{eq:f_empirica}
-		f_i = \mathsf{e}^{- \lambda (\rho_i - 	E_L) ^2}.
+		f_i = \mathsf{e}^{- \beta (\rho_i - 	E_L) ^2}.
 	\end{equation}
 	
 	Na figura \ref{fig:f_simetrico} é possível verificar que $f$ é simétrica em torno de $E_L$, e possui máximo quando $\rho = E_L$. Alterar $E_L$ causa um deslocamento do máximo, mantendo a simetria (figura \ref{fig:f_deslocamento}). Essas propriedades são importantes, pois permitem que mudemos $E_L$, limite inferior para o menor autovalor, sem prejuízo do comportamento da função de avaliação.
@@ -769,41 +760,41 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
 	\begin{figure}[h]
 		\centering
 			\includegraphics[width=0.60\textwidth]{figs/resultados/precisaoFitness/f_simetrico.pdf}
-		\caption{Simetria de $f_i = \mathsf{e}^{-\lambda(\rho - E_L)^2}$. Nesse caso $E_L = 0$.}
+		\caption{Simetria de $f_i = \mathsf{e}^{-\beta(\rho - E_L)^2}$. Nesse caso $E_L = 0$.}
 		\label{fig:f_simetrico}
 	\end{figure}
 	
 	\begin{figure}[h]
 		\centering
 			\includegraphics[width=0.60\textwidth]{figs/resultados/precisaoFitness/f_simetrico_outros.pdf}
-		\caption{Deslocamento do máximo de $f_i = \mathsf{e}^{-\lambda(\rho - E_L)^2}$}
+		\caption{Deslocamento do máximo de $f_i = \mathsf{e}^{-\beta(\rho - E_L)^2}$}
 		\label{fig:f_deslocamento}
 	\end{figure}
 	
-	Na figura \ref{fig:f_efeito_lambda} \emph{f} é exibida, com $E_L = 0$, para cinco valores de $\lambda$. No eixo das abscissas estão os valores de $\rho$, e nas ordenadas, os de $f$. Note que alterar $\lambda$ mantém o centro da função, mas muda seu formato. Isso causa impacto na Seleção em dois pontos.
+	Na figura \ref{fig:f_efeito_lambda} \emph{f} é exibida, com $E_L = 0$, para cinco valores de $\beta$. No eixo das abscissas estão os valores de $\rho$, e nas ordenadas, os de $f$. Note que alterar $\beta$ mantém o centro da função, mas muda seu formato. Isso causa impacto na Seleção em dois pontos.
 	
 	\begin{figure}[h]
 		\centering
 			\includegraphics[width=1.0\textwidth]{figs/resultados/precisaoFitness/f_varios_lambdas.pdf}
-		\caption{Efeito da mudança de $\lambda$ em $f_i = \mathsf{e}^{-\lambda(\rho - E_L)^2}$}
+		\caption{Efeito da mudança de $\beta$ em $f_i = \mathsf{e}^{-\beta(\rho - E_L)^2}$}
 		\label{fig:f_efeito_lambda}
 	\end{figure}
 	
-	 O primeiro é como isso pode influenciar a comparação dos indivíduos quando $\rho$ se aproxima de $E_L$. Note que o máximo de $f$ é muito mais acentuado para $\lambda_f = 0,1 = 10^{-1}$ que para $\lambda_a = 0,000001 = 10^{-6}$, fazendo com que o \emph{fitness} com $\lambda_a$ pareça uma horizontal $f \approx 1$ no intervalo $\rho = [-20,20]$. Isso significa que um indivíduo ruim, com $\rho$ distante de $E_L = 0$, digamos $\rho = 10$, terá praticamente a mesma nota de um cromossomo com $\rho = 0,01$, próximo de $E_L$ e, portanto, de boa qualidade. Assim, $\lambda$ deve ser escolhido para que a largura de $f$ seja pequena.
+	 O primeiro é como isso pode influenciar a comparação dos indivíduos quando $\rho$ se aproxima de $E_L$. Note que o máximo de $f$ é muito mais acentuado para $\beta_f = 0,1 = 10^{-1}$ que para $\beta_a = 0,000001 = 10^{-6}$, fazendo com que o \emph{fitness} com $\beta_a$ pareça uma horizontal $f \approx 1$ no intervalo $\rho = [-20,20]$. Isso significa que um indivíduo ruim, com $\rho$ distante de $E_L = 0$, digamos $\rho = 10$, terá praticamente a mesma nota de um cromossomo com $\rho = 0,01$, próximo de $E_L$ e, portanto, de boa qualidade. Assim, $\beta$ deve ser escolhido para que a largura de $f$ seja pequena.
 	
-	Por outro lado, se a largura da função de avaliação for muito pequena, o mesmo tipo de problema acontecerá, mas para $f = 0$. Suponha que $\lambda_f$ tenha sido escolhido, e que na população inicial alguns indivíduos possuam $\rho$ em torno de $\rho \approx 10$. Veja na figura \ref{fig:f_efeito_lambda} que todos eles terão nota $f = 0$, e certamente seriam preteridos em qualquer tipo de Seleção. Lembre-se que mesmo os piores indivíduos podem conter informação genética valiosa e, por isso, não devem ser sempre descartados \cite{Mitchell98}. Então, a escolha de $\lambda$ deve garantir também que, desde a primeira geração, os piores indivíduos tenham \emph{fitness} maior que zero.
+	Por outro lado, se a largura da função de avaliação for muito pequena, o mesmo tipo de problema acontecerá, mas para $f = 0$. Suponha que $\beta_f$ tenha sido escolhido, e que na população inicial alguns indivíduos possuam $\rho$ em torno de $\rho \approx 10$. Veja na figura \ref{fig:f_efeito_lambda} que todos eles terão nota $f = 0$, e certamente seriam preteridos em qualquer tipo de Seleção. Lembre-se que mesmo os piores indivíduos podem conter informação genética valiosa e, por isso, não devem ser sempre descartados \cite{Mitchell98}. Então, a escolha de $\beta$ deve garantir também que, desde a primeira geração, os piores indivíduos tenham \emph{fitness} maior que zero.
 
-	Para as matrizes de Coope utilizadas neste trabalho, verifiquei uma regularidade na população inicial. Em geral o Quociente de Rayleigh médio $<\rho>$ ficava em torno dos autovalores centrais. Por exemplo, para matrizes com ordem N = 10, \mbox{$<\rho>$ $\approx E_4 = 8,6285$} (veja tabela \ref{tab:autovalores10a40}). Talvez a causa dessa regularidade esteja relacionada com a maneira como a matriz de Coope é definida (equação \ref{eq:MatrizCoope}). Com essa informação, pude construir uma equação empírica para $\lambda$.
+	Para as matrizes de Coope utilizadas neste trabalho, verifiquei uma regularidade na população inicial. Em geral o Quociente de Rayleigh médio $<\rho>$ ficava em torno dos autovalores centrais. Por exemplo, para matrizes com ordem N = 10, \mbox{$<\rho>$ $\approx E_4 = 8,6285$} (veja tabela \ref{tab:autovalores10a40}). Talvez a causa dessa regularidade esteja relacionada com a maneira como a matriz de Coope é definida (equação \ref{eq:MatrizCoope}). Com essa informação, pude construir uma equação empírica para $\beta$.
 
-	A estratégia foi escolher um $\lambda$ que faça o \emph{fitness} ser sempre muito pequeno, $f \approx 0 = 0,000001,$ na região dos autovalores centrais, e que dependesse apenas das características da matriz. No parâmetro $E_L$ usei $E_0$, assim, a função de avaliação fica limitada ao intervalo (0,1]. Isolando $\lambda$ na equação \ref{eq:f_empirica} temos
+	A estratégia foi escolher um $\beta$ que faça o \emph{fitness} ser sempre muito pequeno, $f \approx 0 = 0,000001,$ na região dos autovalores centrais, e que dependesse apenas das características da matriz. No parâmetro $E_L$ usei $E_0$, assim, a função de avaliação fica limitada ao intervalo (0,1]. Isolando $\beta$ na equação \ref{eq:f_empirica} temos
 	
 	\begin{equation}
-				\lambda = - \frac{\ln f_i}{(\rho_i - E_L)^2},
+				\beta = - \frac{\ln f_i}{(\rho_i - E_L)^2},
 	\end{equation}
 	e incluindo os valores chega-se a
 	
 	\begin{equation}\label{eq:lambda_E-E0}
-				\lambda = - \frac{\ln(0,000001)}{(E_{central} - E_0)^2}.
+				\beta = - \frac{\ln(0,000001)}{(E_{central} - E_0)^2}.
 	\end{equation}
 	
 	\begin{figure}
@@ -822,14 +813,14 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
 	Utilizando a equação \ref{eq:N_E-E0} na \ref{eq:lambda_E-E0} cheguei finalmente a
 	
 	\begin{equation}\label{eq:lambda_N}
-		\lambda = - \frac{\ln(0,000001)}{(1,0001N - 1,6507)^2}.
+		\beta = - \frac{\ln(0,000001)}{(1,0001N - 1,6507)^2}.
 	\end{equation}
 		
 	
 	Inseri um termo 0,65 de ajuste para que a equação \ref{eq:lambda_N} também fosse adequada para o \emph{fitness} de \cite{metodo2004}:
 	
 	\begin{equation}\label{eq:lambda_N_ajustada}
-		\lambda = - 0,65 \frac{\ln(0,000001)}{(1,0001N - 1,6507)^2}
+		\beta = - 0,65 \frac{\ln(0,000001)}{(1,0001N - 1,6507)^2}
 	\end{equation}
 	
 	O uso dessa equação permitiu automatizar completamente os testes para matrizes de Coope, além de facilitar a comparação entre os \emph{fitness} de \cite{metodo2004} e \cite{metodo2011}. Todas as execuções apresentadas nesta dissertação utilizaram a equação \ref{eq:lambda_N_ajustada}.
@@ -917,65 +908,3 @@ Em função dos resultados obtidos no cenário 4, analisei o \emph{fitness} de \
 \hline
 \end{tabular}  
 \end{table}
-
-
-%------------------------------------------------------------
-\newpage		
-\section{Resultados preliminares na GPU}\label{sec:oneMaxNaGPU}
-%------------------------------------------------------------	
-	
-		O GA aqui desenvolvido buscou a solução do problema ONEMAX, cujo objetivo é encontrar uma sequência de $N$ bits com a maior quantidade possível de “1” a partir de uma sequência aleatória de “1” e “0”. O ONEMAX é especialmente indicado para o início dos estudos em GA. Além de permitir simples implementação, possui representação cromossomial binária que, junto com o crossover de ponto único, forma a base da teoria original de Holland \cite{Linden2008}.
-
-	O programa paralelizado foi uma tradução literal do seu equivalente serial para a sintaxe do CUDA C. Ou seja, não houve nenhuma mudança estrutural no código, seja nas variáveis e estruturas de dados, seja na ordem de execução das funções e procedimentos. Apenas o preenchimento aleatório da população inicial é executado na CPU, de forma que o núcleo do programa é executado inteiramente na GPU \cite{onemaxNaGPU}. 
-
-	A população do GA era constituída por indivíduos formados por cromossomos com \textit{\texttt{numGenes}} elementos do tipo \texttt{char}. Cada elemento do vetor (gene) podia ter um valor  “1” ou “0”. Dentro do problema ONEMAX, os melhores indivíduos foram os que apresentaram maior número de genes iguais a “1”.
-		
-	\begin{figure}[htbp]
-		\centering
-			\includegraphics[width=0.50\textwidth]{figs/resultados/onemax/onemax_objetivo.png}
-		\caption{ONEMAX, um problema clássico nos Algoritmos Genéticos.}
-		\label{fig:onemax_objetivo}
-	\end{figure}
-		
-	Implementei um \emph{kernel} (função que tem sua execução feita pela GPU) para cada um dos quatro passos do GA: cálculo da função avaliadora (\emph{fitness}), seleção, \emph{crossover} e mutação. Eles são chamados um após o outro até que um número máximo de gerações seja atingido. Isso é feito dentro do \emph{loop} principal (realizado na CPU), mas sem troca de informação entre CPU e GPU.
-	
-	No início do programa duas gerações são alocadas na memória global da GPU, as quais são usadas alternadamente como \emph{input} e \emph{output} dos kernels. Apenas as chamadas dos kernels acontecem na CPU, enquanto o restante (execução + dados) está na GPU. Todos os \emph{kernels} tinham como \emph{input} e \emph{output} uma estrutura do tipo Geração. Ou seja, as funções operaram sobre toda a população do GA, levando-nos a adotar como estratégia o paralelismo no nível dos indivíduos.
-	
-	\begin{figure}[htbp]
-		\centering
-			\includegraphics[width=1.00\textwidth]{figs/resultados/onemax/onemax_execucao.png}
-		\caption{Execução do ONEMAX paralelo. Apenas as chamadas dos kernels acontecem na CPU, enquanto o restante (execução + dados) está na GPU.}
-		\label{fig:onemax_execucao}
-	\end{figure}
-		
-	No cálculo do \emph{fitness}, o \emph{input} foi uma população com \textit{\texttt{numIndividuos}} e o \emph{output} uma população com os mesmos \textit{\texttt{numIndividuos}} e suas respectivas notas. O cálculo do \emph{fitness} de cada indivíduo foi realizado por meio da soma dos valores de seus genes. Por exemplo, para um indivíduo formado por um cromossomo de 6 genes \mbox{(\textit{\texttt{numGenes}} = 6)} com a configuração “010101”, o valor do fitness é 3 e a solução ótima para este caso seria “111111” (figura \ref{fig:onemax_objetivo}). No código serial a programação é simples e envolve apenas um laço \texttt{\textbf{\textit{for}}} que percorre o cromossomo e soma os bytes. Porém, note que toda informação necessária para esse cálculo está contida no próprio cromossomo, ou seja, a obtenção do \emph{fitness} de um dado indivíduo não depende do restante da população. Assim, a paralelização do cálculo do \emph{fitness} deu-se por meio da associação de uma \emph{thread} para cada indivíduo.
-	
-	Para o operador de seleção, optei pela seleção via torneio com o tamanho do torneio fixo e igual a dois. Novamente, o \emph{input} e o \emph{output} são populações. Na entrada há \textit{\texttt{numIndividuos}} e suas notas. Os mais aptos (maiores \emph{fitness}) têm maiores chances de serem selecionados, e compõem os \textit{\texttt{numIndividuos}} da população na saída. Assim como no cálculo do \emph{fitness}, o paralelismo acontece no nível dos indivíduos. Para cada indivíduo na população de saída há uma \emph{thread}, que seleciona aleatoriamente dois cromossomos na população da entrada (memória global) e fica com o de maior \emph{fitness}.
-
-O \emph{input} do \emph{crossover} é a população resultante da seleção. Utilizei o \emph{crossover} de dois pontos, independentemente da quantidade de genes do cromossomo, com probabilidade $p_C = 90\%$. Na implementação serial, apenas um indivíduo é gerado ao término do \emph{crossover}. Isso garantiu que, na versão paralela, a chamada da função de \emph{crossover} fosse configurada com exatamente o mesmo número de \emph{threads} dos operadores anteriores (avaliação e seleção): uma \emph{thread} para cada indivíduo na população de saída, que recebe um cromossomo resultante do \emph{crossover}.
-
-Após o \emph{crossover} todos os indivíduos passam por uma mutação simples, onde cada gene do cromossomo tem baixa probabilidade (0,01\%) de ser invertido (0 $\rightarrow$ 1 ou 1 $\rightarrow$ 0). Logo, semelhante ao cálculo do \emph{fitness}, a mutação em um dado indivíduo é independente do restante da população. Mais uma vez, uma \emph{thread} foi associada a cada \textit{\texttt{iIndividuo}} cromossomo na saída, que recebe os genes modificados do \textit{\texttt{iIndividuo}} na entrada. 
-
-	Os experimentos foram executados em um laptop equipado com uma CPU Intel Core 2 Duo T6600 - 2,2 GHz. A placa de vídeo utilizada foi uma GeForce G 130M, com quatro multiprocessadores a 1,5 GHz e memória global total de 466 MB. A versão da API CUDA foi a 4.0, programada com o Microsoft Visual C++ Express 2008.
-	
-	A placa G 130M possui capacidade de computação 1.1 (que indica a versão do hardware de computação presente na GPU). Comparada com a primeira versão (arquitetura original da G80), ela adiciona suporte à operações na memória global que permitem que múltiplas \emph{threads} executem, sem conflito, operações ler-modificar-escrever na memória. Como o suporte às operações de ponto flutuante com precisão dupla só foi disponibilizado na versão 1.3, tanto o programa serial quanto o paralelo utilizaram precisão simples.
-	
-	As medidas de desempenho foram feitas com o objetivo de observar a influência de dois parâmetros do GA: i) número de indivíduos na população e ii) tamanho do cromossomo. O ganho na velocidade foi calculado como a razão entre o tempo de execução do programa serial e o tempo de execução do programa paralelo.
-
-Verifiquei que o ganho de desempenho da versão paralela do GA cresce com o aumento do número de indivíduos (figura \ref{fig:ganhoNumInd}). O programa serial é mais rápido (ganho < 1) para populações pequenas (< 50). Porém, a partir de uma população de 50 indivíduos, o programa paralelo apresenta desempenho superior. Com 600 indivíduos, a versão paralela é oito vezes mais rápida para um cromossomo de tamanho 10, e dez vezes para um cromossomo de tamanho 300. 
-
-\begin{figure}[htbp]
-	\centering
-		\includegraphics[width=0.70\textwidth]{figs/resultados/onemax/ganhoNumInd.png}
-	\caption{ONEMAX paralelo. Ganho de velocidade em função do número de indivíduos da população.}
-	\label{fig:ganhoNumInd}
-\end{figure}
-
-	Ao analisar a influência do tamanho do cromossomo, verifiquei um comportamento aproximadamente constante do ganho (figura \ref{fig:ganhoTamCromo}). Isso era esperado, pois a paralelização ocorreu no nível dos indivíduos e não no nível dos cromossomos. Com 600 indivíduos o ganho fica em torno de nove vezes para qualquer tamanho de cromossomo. O comportamento repete-se com uma população de 10 indivíduos, mas, nesse caso, o programa serial sempre é mais rápido, mesmo para cromossomos muito pequenos (ganho sempre \mbox{< 1}). 
-		
-	\begin{figure}[htbp]
-		\centering
-			\includegraphics[width=0.70\textwidth]{figs/resultados/onemax/ganhoTamCromo.png}
-		\caption{ONEMAX paralelo. Ganho de velocidade em função do tamanho do cromossomo.}
-		\label{fig:ganhoTamCromo}
-	\end{figure}
