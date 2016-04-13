@@ -1,6 +1,7 @@
 \chapter{Metodologia\label{cap:metodologia}}
-
-	A metodologia possuiu dois pilares: sólida base em Algoritmos Genéticos e desenvolvimento de um \emph{software} confiável para execução do modelo. Ambos são apresentados nas seções seguintes.
+	
+	A metodologia foi baseada em estudo aprofundado de Algoritmos Genéticos e no desenvolvimento de um \emph{software} confiável para execução do modelo. Ambos são apresentados
+nas seções seguintes.
 
 %========================================================
 \section{Algoritmos Genéticos}\label{seq:medologia_ga}
@@ -46,7 +47,7 @@
 \section{\emph{Software}}
 %========================================================
 
-	O \emph{software} utilizado foi totalmente desenvolvido por mim, e há razões metodológicas que justificam essa escolha. Obtive bons resultados criando os próprios programas nos estudos iniciais de GA. Eles foram fundamentais para que eu soubesse exatamente o que estava acontecendo durante a execução. Quis ter esse controle total também sobre o programa que executaria o GA proposto para esta dissertação. Ele foi escrito em Linguagem C, utilizando apenas quatro bibliotecas padrão: \texttt{stdio.h}, \texttt{stdlib.h}, \texttt{time.h} e \texttt{math.h}. Portanto, é totalmente portável para os sistemas operacionais que possuem um compilador C$++$. Além disso, C é a linguagem nativa da arquitetura CUDA, o que facilitará sua paralelização.
+	O \emph{software} utilizado foi totalmente desenvolvido por mim, e há razões metodológicas que justificam essa escolha. Obtive bons resultados criando os próprios programas nos estudos iniciais de GA. Eles foram fundamentais para que eu soubesse exatamente o que estava acontecendo durante a execução. Quis ter esse controle total também sobre o programa que executaria o GA proposto para esta dissertação. Ele foi escrito em Linguagem C, utilizando apenas quatro bibliotecas padrão: \texttt{stdio.h}, \texttt{stdlib.h}, \texttt{time.h} e \texttt{math.h}. Portanto, é totalmente portável para os sistemas operacionais que possuem um compilador C$++$. Além disso, C é a linguagem nativa da arquitetura CUDA, o que facilitará sua paralelização. O código está disponível na internet para qualquer um utilizar, testar e, inclusive, melhorar\footnote{\texttt{https://github.com/prietoab/msc\_code}}. Caso isso aconteça, peço apenas que cite esta dissertação.
 	
 	Tive muito cuidado com a confiabilidade dos resultados. Quando opta-se por não gerá-la automaticamente, a \emph{semente} dos números pseudo-aleatórios é um dos parâmetros de entrada. Duas execuções com os mesmos parâmetros, incluindo a semente, levam a exatamente os mesmos resultados. Por isso nas tabelas e gráficos deixei explícito seu valor. Os gráficos encontrados em \cite{metodo2004} e \cite{metodo2011} referem-se ao maior \emph{fitness} (e $\rho$ associado) de cada geração. O programa gera essa informação, mas também exibe as médias dessas variáveis. De acordo com \cite{Mitchell98}, uma teoria geral para entender e prever o comportamento dos GAs seria análoga à Mecânica Estatística na Física. Ao contrário de lidar com grande número de componentes do sistema, como a composição genética exata de cada população, tal abordagem trabalha com uma estatística mais ``macroscópica'', como o \emph{fitness} médio da população. Portanto, tanto os critérios de parada do programa quanto a minha análise foram baseadas em médias.
 	
@@ -54,7 +55,7 @@
 \subsection{Como utilizar o programa}
 %---------------------------------------------------	
 	
-	Para utilizar o \emph{software} basta compilar o arquivo \texttt{Serial\_novo.c} (será necessário alterar o diretório no \emph{include} das bibliotecas que desenvolvi). O código está disponível na internet para qualquer um utilizar, testar e, inclusive, melhorar\footnote{\texttt{https://github.com/prietoab/msc\_code}}. Caso isso aconteça, peço apenas que cite esta dissertação.
+	Para utilizar o \emph{software} basta compilar o arquivo \texttt{Serial\_novo.c} (será necessário alterar o diretório no \emph{include} das bibliotecas que desenvolvi).
 	
 		A execução dá-se via linha de comando passando os parâmetros necessários. Porém, como são muitos parâmetros, é aconselhável a utilização de um arquivo de \emph{script}. Assim é possível criar processos de varredura para variar os parâmetros desejados ou repetir várias execuções. Fiz isso para automatizar o estudo e ter dados suficientes para análise. Na figura \ref{fig:script_windows} há um exemplo de \emph{script} Windows para fazer execuções variando o número de genes.
 			
