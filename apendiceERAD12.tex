@@ -1,5 +1,9 @@
 \chapter{Resultados preliminares na GPU}\label{apdx:oneMaxNaGPU}
 	
+	\textbf{Resumo}\footnote{Esses resultados foram apresentados na III Escola Regional de Alto Desempenho São Paulo (ERAD-SP 2012).}: Apresento uma implementação paralela dos operadores do algoritmo genético utilizando a arquitetura CUDA, em que cada indivíduo foi associado a uma única \emph{thread}. Ao aplicá-la ao problema ONEMAX, observei ganhos de desempenho promissores (>10x). Os pontos fracos e possíveis estratégias de melhoria são discutidos.
+	
+	---
+	
 		O GA aqui desenvolvido buscou a solução do problema ONEMAX, cujo objetivo é encontrar uma sequência de $N$ bits com a maior quantidade possível de “1” a partir de uma sequência aleatória de “1” e “0”. O ONEMAX é especialmente indicado para o início dos estudos em GA. Além de permitir simples implementação, possui representação cromossomial binária que, junto com o crossover de ponto único, forma a base da teoria original de Holland \cite{Linden2008}.
 
 	O programa paralelizado foi uma tradução literal do seu equivalente serial para a sintaxe do CUDA C. Ou seja, não houve nenhuma mudança estrutural no código, seja nas variáveis e estruturas de dados, seja na ordem de execução das funções e procedimentos. Apenas o preenchimento aleatório da população inicial é executado na CPU, de forma que o núcleo do programa é executado inteiramente na GPU \cite{onemaxNaGPU}. 
